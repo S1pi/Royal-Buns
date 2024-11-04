@@ -10,6 +10,8 @@ export default {
         background: {
           light: 'rgb(255, 255, 255)',
           dark: 'rgb(15, 23, 42)',
+          darkBrown: '#88745C',
+          containerBG: '#F3E9D2'
         },
 
         red: {
