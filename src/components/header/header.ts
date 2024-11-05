@@ -1,16 +1,23 @@
-const header = (element: HTMLElement) => {
+const header = () => {
   const body = document.querySelector('body') as HTMLBodyElement;
   const header = document.createElement('header');
 
   // Annetaan tailwind css luokkia
-  header.classList.add('bg-secondary', 'h-16');
-  header.classList.add('flex');
+  header.classList.add('bg-secondary', 'h-16', 'flex', 'justify-between');
 
   const nav = document.createElement('nav');
-  nav.classList.add('bg-primary');
+  nav.classList.add('flex', 'mr-10');
 
   const headerLinks = document.createElement('ul');
-  headerLinks.classList.add('flex', 'gap-8', 'h-full', 'items-center', 'px-4');
+  headerLinks.classList.add(
+    'flex',
+    'gap-12',
+    'h-full',
+    'items-center',
+    'px-4',
+    'text-h2',
+    'text-primary'
+  );
 
   // Created all items for navbar
   const links = [
@@ -23,6 +30,7 @@ const header = (element: HTMLElement) => {
   ];
 
   // Iterating throuh list and adding them to dom
+  // Note to self: Muuta mahdollisesti käyttämään (a) elementtejä sekä href liikkumista varten
   links.forEach((item) => {
     const listItem = document.createElement('li') as HTMLLIElement;
     const btn = document.createElement('button');
@@ -32,8 +40,6 @@ const header = (element: HTMLElement) => {
     listItem.appendChild(btn);
     headerLinks.appendChild(listItem);
   });
-
-  nav.appendChild(headerLinks);
 
   // Navbar Royal-buns logo creation and vertical separator for navbar and link logos
   const rbLogo = document.createElement('div');
@@ -48,24 +54,24 @@ const header = (element: HTMLElement) => {
     'w-1',
     'h-5/6',
     'self-center',
-    'mx-6'
+    'mx-3'
   );
 
-  // List of logos and their attributes
+  // List of logos and their attributes (Logos comes from fontawesome)
   const logos = [
     {
       logoName: 'Facebook',
-      logoSrc: '/img/placeholder.png',
+      fontAwesomeClass: 'fa-brands fa-facebook-f',
       href: 'https://www.facebook.com',
     },
     {
       logoName: 'instagram',
-      logoSrc: '/img/placeholder.png',
+      fontAwesomeClass: 'fa-brands fa-instagram',
       href: 'https://www.instagram.com',
     },
     {
       logoName: 'logIn',
-      logoSrc: '/img/placeholder.png',
+      fontAwesomeClass: 'fa-solid fa-right-to-bracket',
       href: '/login',
     },
   ];
@@ -76,11 +82,11 @@ const header = (element: HTMLElement) => {
   logos.forEach((item) => {
     const link = document.createElement('a');
     link.href = item.href;
-    link.className = 'flex mx-4';
-    const img = document.createElement('img');
-    img.src = item.logoSrc;
-    img.alt = item.logoName;
-    link.appendChild(img);
+    link.className = 'flex p-4 items-center';
+    const icon = document.createElement('i');
+    icon.className = item.fontAwesomeClass as string;
+    icon.classList.add('text-2xl', 'text-primary');
+    link.appendChild(icon);
     logoContainer.appendChild(link);
   });
 
@@ -91,6 +97,7 @@ const header = (element: HTMLElement) => {
     'flex-col',
     'justify-center',
     'gap-1',
+    'ml-4',
     'text-primary'
   );
 
@@ -101,9 +108,11 @@ const header = (element: HTMLElement) => {
 
   languageContainer.append(fin, en);
 
-  // Adding all elements created to the header and appending that to DOM
-  header.append(rbLogo, nav, divSeperator, logoContainer, languageContainer);
-  body.appendChild(header);
+  // Adding all elements created to the header
+  nav.append(headerLinks, divSeperator, logoContainer, languageContainer);
+  header.append(rbLogo, nav);
+  // Adding header as first element of body
+  body.prepend(header);
 };
 
 const navigation = (page: string) => {
