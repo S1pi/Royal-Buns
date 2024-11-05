@@ -4,8 +4,7 @@ import {header} from '../header/header';
 
 const resp = () => {
   // First create header for page
-  const body = document.querySelector('body') as HTMLElement;
-  header(body);
+  header();
   const app = document.getElementById('app') as HTMLElement;
   // app.classList
 
