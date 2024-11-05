@@ -2,7 +2,7 @@ const header = (element: HTMLElement) => {
   // const body = document.querySelector('body');
   const header = document.createElement('header');
   // Annetaan tailwind css luokkia
-  header.classList.add('bg-red-75', 'h-16');
+  header.classList.add('bg-secondary', 'h-24');
 
   const nav = document.createElement('nav');
   const headerText = document.createElement('h1');
@@ -12,7 +12,7 @@ const header = (element: HTMLElement) => {
 
   header.appendChild(nav);
   // body?.appendChild(header);
-  element.appendChild(header);
+  element.prepend(header);
 };
 
 const navigation = (page: string) => {
