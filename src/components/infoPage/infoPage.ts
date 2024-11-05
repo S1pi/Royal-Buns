@@ -2,14 +2,14 @@ import {header} from '../header/header';
 
 const infoPage = () => {
   const appDiv = document.querySelector('#app') as HTMLElement;
-  header(appDiv);
+  appDiv.classList.add('bg-background-light', 'p-10');
+  header();
 
   const infoMainContainer = document.createElement('div');
   infoMainContainer.classList.add(
     'container',
     'mx-auto',
-    'mt-10',
-    'bg-background-containerBG', // Use the Tailwind CSS class for the custom background color
+    'bg-primary', // Use the Tailwind CSS class for the custom background color
     'p-5'
   );
 
@@ -18,11 +18,18 @@ const infoPage = () => {
   infoMainContainer.appendChild(infoContentWrapper);
 
   const infoLeftContent = document.createElement('div');
-  infoLeftContent.classList.add('flex', 'flex-col', 'w-full', 'md:w-1/2', 'p-2');
+  infoLeftContent.classList.add(
+    'flex',
+    'flex-col',
+    'w-full',
+    'md:w-1/2',
+    'p-2'
+  );
   infoContentWrapper.appendChild(infoLeftContent);
 
   const infoLeftContentTitle = document.createElement('h1');
-  const leftTitleText =  'Welcome to Royal Buns – Where Every Bite is Fit for a King!';
+  const leftTitleText =
+    'Welcome to Royal Buns – Where Every Bite is Fit for a King!';
   infoLeftContentTitle.textContent = leftTitleText;
   infoLeftContentTitle.classList.add(
     'text-2xl',
@@ -33,7 +40,8 @@ const infoPage = () => {
   infoLeftContent.appendChild(infoLeftContentTitle);
 
   const infoLeftContentText = document.createElement('p');
-  const leftContentText = 'At Royal Buns, we believe in creating burgers that are nothing short of royalty. Our premium ingredients are sourced from the finest local farms, ensuring that each bite bursts with flavor. Whether you´re craving a classic cheeseburger or one of our signature creations, each burger is handcrafted to perfection.';
+  const leftContentText =
+    'At Royal Buns, we believe in creating burgers that are nothing short of royalty. Our premium ingredients are sourced from the finest local farms, ensuring that each bite bursts with flavor. Whether you´re craving a classic cheeseburger or one of our signature creations, each burger is handcrafted to perfection.';
   infoLeftContentText.textContent = leftContentText;
   infoLeftContentText.classList.add(
     'text-base',
@@ -50,17 +58,26 @@ const infoPage = () => {
   infoLeftContent.appendChild(infoLeftContentImage);
 
   const infoRightContent = document.createElement('div');
-  infoRightContent.classList.add('flex', 'flex-col', 'w-full', 'md:w-1/2', 'p-2', 'bg-background-containerBG');
+  infoRightContent.classList.add(
+    'flex',
+    'flex-col',
+    'w-full',
+    'md:w-1/2',
+    'p-2',
+    'bg-primary'
+  );
   infoContentWrapper.appendChild(infoRightContent);
 
   const infoRightContentImage = document.createElement('img');
   infoRightContentImage.classList.add('w-3/4', 'mx-auto', 'p-2');
-  infoRightContentImage.src = './src/components/infoPage/info-img/burger-holding-tray.webp';
+  infoRightContentImage.src =
+    './src/components/infoPage/info-img/burger-holding-tray.webp';
   infoRightContentImage.alt = 'Chef holding a tray of burgers';
   infoRightContent.appendChild(infoRightContentImage);
 
   const infoRightContentText = document.createElement('p');
-  const rightContentText = 'Our brioche buns are baked fresh daily, while our patties are made from 100% organic beef, seasoned with our secret blend of herbs and spices. For those with a more adventurous palate, we offer a selection of gourmet toppings, from truffle aioli to caramelized onions and smoked cheddar. Vegetarian or vegan? No problem! We have a range of plant-based options that are equally regal. At Royal Buns, it’s not just about burgers; it’s about an experience. Our modern yet cozy atmosphere makes it the perfect spot for a quick lunch or a relaxed dinner with friends. Pair your burger with our handcrafted fries or indulge in our artisanal milkshakes – a treat worthy of royalty. Come by Royal Buns and taste the difference – because at Royal Buns, we believe every meal should be a royal feast!';
+  const rightContentText =
+    'Our brioche buns are baked fresh daily, while our patties are made from 100% organic beef, seasoned with our secret blend of herbs and spices. For those with a more adventurous palate, we offer a selection of gourmet toppings, from truffle aioli to caramelized onions and smoked cheddar. Vegetarian or vegan? No problem! We have a range of plant-based options that are equally regal. At Royal Buns, it’s not just about burgers; it’s about an experience. Our modern yet cozy atmosphere makes it the perfect spot for a quick lunch or a relaxed dinner with friends. Pair your burger with our handcrafted fries or indulge in our artisanal milkshakes – a treat worthy of royalty. Come by Royal Buns and taste the difference – because at Royal Buns, we believe every meal should be a royal feast!';
   infoRightContentText.textContent = rightContentText;
   infoRightContentText.classList.add(
     'text-base',
