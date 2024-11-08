@@ -1,7 +1,7 @@
 import {infoPage} from './components/infoPage/infoPage';
 import {mainPage} from './components/mainPage/mainPage';
+import {reservation} from './components/reservation/reservation';
 
-mainPage();
 document.addEventListener('DOMContentLoaded', () => {
-  infoPage();
+  reservation();
 });
