@@ -1,7 +1,10 @@
 import {header} from '../header/header';
 
 const reservation = () => {
-  header(document.querySelector('body') as HTMLElement);
+  const bodyElement = document.querySelector('body') as HTMLElement;
+  header(bodyElement);
+  }
+
 
   const reservationTitleContainer = document.createElement('h1');
   reservationTitleContainer.textContent = 'Varaa pöytä';
@@ -11,6 +14,8 @@ const reservation = () => {
     'font-bold',
     'text-center'
   );
+
+  document.body.appendChild(reservationTitleContainer);
 };
 
 export {reservation};
