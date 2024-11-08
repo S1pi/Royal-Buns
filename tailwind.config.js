@@ -16,10 +16,10 @@ export default {
         },
       },
       fontSize: {
-        p: '1rem',
-        h5: '2rem',
-        h2: '4rem',
-        h1: '10rem',
+        p: '1rem', // 16px
+        h5: '1.25rem', // 20px
+        h2: '2rem', // 32px
+        h1: '3rem', // 48px
       },
     },
     plugins: [],
