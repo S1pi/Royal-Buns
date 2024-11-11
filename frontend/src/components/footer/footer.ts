@@ -11,9 +11,7 @@ const footer = () => {
     'justify-center',
     'bg-red',
     'h-80',
-    'w-full',
-    'absolute',
-    'bottom-0'
+    'w-full'
   );
 
   // LOGO to footer
