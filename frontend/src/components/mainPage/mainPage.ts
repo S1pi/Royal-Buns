@@ -5,6 +5,8 @@ const mainPage = () => {
   // First create header for page
   header();
   footer();
+
+  // TURHA KOMMENTTI
 };
 
 export {mainPage};
