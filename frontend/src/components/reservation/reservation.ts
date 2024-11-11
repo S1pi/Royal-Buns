@@ -6,20 +6,27 @@ const reservation = () => {
   appDiv.classList.add(
     'bg-background-light',
     'p-5',
-    'min-h-screen',
+    'h-screen',
     'flex',
-    'flex-col'
+    'flex-col',
+    'justify-center'
   );
-  header(); // Ensure header is placed inside appDiv
-
+  const language = (lang: string) => {
+    if (lang === 'fi') {
+      return true;
+    } else {
+      return false;
+    }
+  };
+    header(); // Ensure header is placed inside appDiv
+    
   // Creates the reservation container and styles it
   const reservationContainer = document.createElement('div');
   reservationContainer.classList.add(
-    'container', // Tailwind class for setting the container size
     'mx-auto', // Center the container horizontally
-    'mt-10', // Margin top for spacing
+    'm-10', // Margin top for spacing
     'bg-primary',
-    'min-h-screen', // Minimum height of the container
+    'h-3/4',
     'w-3/4', // Minimum height of the container
     'flex',
     'flex-col',
@@ -29,7 +36,7 @@ const reservation = () => {
 
   // Create the reservation title and style it
   const reservationTitleContainer = document.createElement('h1');
-  reservationTitleContainer.textContent = 'Varaa pöytä';
+  reservationTitleContainer.textContent = language('fi')?'VARAA PÖYTÄ':'BOOK A TABLE';
   reservationTitleContainer.classList.add(
     'flex',
     'text-h1', // Use custom h1 size from tailwind config
@@ -63,7 +70,9 @@ const reservation = () => {
     'rounded-lg',
     'text-center',
     'bg-primary',
-    'text-red'
+    'text-red',
+    'border',
+    'border-red',
   );
   peopleDropdown.id = 'people';
   peopleDropdown.name = 'people';
@@ -108,6 +117,8 @@ const reservation = () => {
     'rounded-lg',
     'bg-primary',
     'text-red',
+    'border',
+    'border-red',
     'flex',
     'justify-center',
     'text-center'
@@ -143,7 +154,6 @@ const reservation = () => {
     'text-red',
     'border',
     'border-red',
-    'hover:bg-black',
     'flex',
     'justify-center',
     'items-center',
@@ -181,5 +191,7 @@ const reservation = () => {
   reservationContainer.appendChild(reservationButton);
   appDiv.appendChild(reservationContainer);
 };
+
+
 
 export {reservation};

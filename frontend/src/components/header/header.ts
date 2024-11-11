@@ -1,3 +1,4 @@
+
 const header = () => {
   const body = document.querySelector('body') as HTMLBodyElement;
   const header = document.createElement('header');
@@ -103,10 +104,24 @@ const header = () => {
 
   const fin = document.createElement('button');
   fin.textContent = 'FI';
+  fin.classList.add('language-button');
   const en = document.createElement('button');
   en.textContent = 'EN';
+  en.classList.add('language-button');
 
   languageContainer.append(fin, en);
+
+  fin.addEventListener('click', () => {
+    console.log('Finnish selected');
+  }
+  );
+
+  en.addEventListener('click', () => {
+    console.log('English selected');
+  }
+  );
+
+ 
 
   // Adding all elements created to the header
   nav.append(headerLinks, divSeperator, logoContainer, languageContainer);
