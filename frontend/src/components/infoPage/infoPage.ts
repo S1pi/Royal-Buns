@@ -2,7 +2,7 @@ import {header} from '../header/header';
 
 const infoPage = () => {
   // First create header for page
-  header(document.querySelector('body') as HTMLElement);
+  header();
 
   // Info page content
   const infoMainContainer = document.createElement('div');

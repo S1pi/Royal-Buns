@@ -18,7 +18,7 @@ export default {
       fontSize: {
         p: '1rem', // 16px
         h5: '1.25rem', // 20px
-        h2: '2rem', // 32px
+        h2: '20px', // 32px
         h1: '3rem', // 48px
       },
     },
