@@ -1,3 +1,22 @@
+const translations:{ [key: string]: { [key: string]: string } }  = {
+  FI: {
+    main: "Etusivu",
+    menu: "Menu",
+    reservation: "Varaa Pöytä",
+    restaurants: "Ravintolat",
+    gallery: "Galleria",
+    business: "Yrityksille"
+  },
+  EN: {
+    main: "Home",
+    menu: "Menu",
+    reservation: "Book a Table",
+    restaurants: "Restaurants",
+    gallery: "Gallery",
+    business: "Business reservations"
+  }
+};
+
 const header = () => {
   const body = document.querySelector('body') as HTMLBodyElement;
   const header = document.createElement('header');
@@ -107,6 +126,24 @@ const header = () => {
   en.textContent = 'EN';
 
   languageContainer.append(fin, en);
+
+  // language update function
+  const updateLanguage = (lang: 'FI' | 'EN') => {
+    links.forEach((item) => {
+      const linkElement = headerLinks.querySelector(
+        `li[data-value="${item.value}"] button`
+      ) as HTMLButtonElement;
+      const key = item.value.toLowerCase();
+      linkElement.textContent = translations[lang][key];
+    });
+  };
+
+  // Event listeners for language buttons
+  fin.addEventListener('click', () => {
+    updateLanguage('FI') 
+    console.log("töihin");});
+
+  en.addEventListener('click', () => updateLanguage('EN'));
 
   // Adding all elements created to the header
   nav.append(headerLinks, divSeperator, logoContainer, languageContainer);
