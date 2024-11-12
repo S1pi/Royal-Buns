@@ -1,7 +1,8 @@
-// import {sides} from './sides';
-// import {sliders} from './sliders';
-
-const burgers = (menuDataContainer: HTMLDivElement) => {
+const burgers = (
+  menuDataContainer: HTMLDivElement,
+  burgersButton: HTMLButtonElement
+) => {
+  // TODO: SISÄLLYTÄ TÄMÄ
   const daySpecial = document.createElement('div');
   daySpecial.classList.add(
     'bg-primary',
@@ -12,12 +13,9 @@ const burgers = (menuDataContainer: HTMLDivElement) => {
   );
   daySpecial.textContent = "Today's Special: Classic Chicken Burger for €13.99";
 
-  // wrapper for the main content of the site
-  // const contentWrapper = document.createElement('div');
-  // contentWrapper.classList.add('flex', 'flex-col', 'items-center', 'w-full');
-  // appDiv.appendChild(contentWrapper);
+  burgersButton.classList.toggle('border-b-primary');
 
-  // Menu grid container creation
+  // Mockdata for grid items
   const menuItems = [
     {
       id: 1,
@@ -76,6 +74,7 @@ const burgers = (menuDataContainer: HTMLDivElement) => {
     },
   ];
 
+  // Menu grid container creation
   const menuGridContainer = document.createElement('div');
   menuGridContainer.classList.add('grid', 'grid-cols-3', 'gap-4', 'w-full');
 
@@ -102,15 +101,13 @@ const burgers = (menuDataContainer: HTMLDivElement) => {
     itemPrice.textContent = item.price;
     itemPrice.classList.add('text-lg', 'text-red-500', 'font-semibold');
 
-    menuItem.appendChild(itemTitle);
-    menuItem.appendChild(itemDescription);
-    menuItem.appendChild(itemPrice);
+    menuItem.append(itemTitle, itemDescription, itemPrice);
 
     menuGridContainer.appendChild(menuItem);
-    // menu item creation for a 3x2 grid
 
+    // Append grid to datacontainer
     menuDataContainer.appendChild(menuGridContainer);
-    // contentWrapper.appendChild(mainMenuContainer);
   });
 };
+
 export {burgers};

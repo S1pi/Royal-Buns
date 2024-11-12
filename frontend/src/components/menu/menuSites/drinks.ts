@@ -1,15 +1,15 @@
-const sides = (
+const drinks = (
   menuDataContainer: HTMLDivElement,
-  sidesButton: HTMLButtonElement
+  drinksButton: HTMLButtonElement
 ) => {
-  sidesButton.classList.toggle('border-b-primary');
+  drinksButton.classList.toggle('border-b-primary');
 
-  //Mock data for menu items
+  //Mock data for menu items TODO: Drinks mockdata
   //TODO: replace with actual data from the database
   const menuItems = [
     {
       id: 1,
-      name: 'Classic Fries',
+      name: 'Classic Coke',
       diets: 'basic',
       description: 'Crispy golden fries with a touch of salt.',
       image: 'path-to-image1.jpg',
@@ -92,4 +92,4 @@ const sides = (
   });
 };
 
-export {sides};
+export {drinks};

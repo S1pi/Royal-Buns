@@ -41,7 +41,6 @@ const menu = () => {
 
   menuNavigation(contentWrapper, menuDataContainer);
   contentWrapper.appendChild(menuDataContainer);
-  appDiv.appendChild(contentWrapper);
 };
 
 export {menu};

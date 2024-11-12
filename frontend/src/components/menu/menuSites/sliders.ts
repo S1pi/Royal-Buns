@@ -1,59 +1,10 @@
-const sliders = (menuDataContainer: HTMLDivElement) => {
-  // Select the #app div
-  const appDiv = document.querySelector('#app') as HTMLElement;
-  appDiv.classList.add(
-    'bg-background-light',
-    'p-5',
-    'h-screen',
-    'flex',
-    'flex-col',
-    'justify-center'
-  );
-
-  // wrapper for the main content of the site
-  const contentWrapper = document.createElement('div');
-  contentWrapper.classList.add('flex', 'flex-col', 'items-center', 'w-full');
-  appDiv.appendChild(contentWrapper);
-
-  // Create the menu selection container and style it
-  const menuSelectionContainer = document.createElement('button');
-  menuSelectionContainer.classList.add(
-    'flex',
-    'justify-between',
-    'items-center',
-    'bg-primary',
-    'w-2/4', // Set width to match the main menu container
-    'p-2', // Padding for spacing inside
-    'text-center'
-  );
-  contentWrapper.appendChild(menuSelectionContainer);
-  //Create the selection buttons for menus
-  const menuButtons = ['BURGERS', 'SLIDERS', 'SIDES'];
-  menuButtons.forEach((text) => {
-    const menuSelectionButton = document.createElement('button');
-    menuSelectionButton.textContent = text;
-    menuSelectionButton.classList.add(
-      'flex-1',
-      'text-h5', // Use custom size from Tailwind config
-      'font-bold', // Bold text
-      'text-center', // Center text
-      'text-red' // Custom red color from config
-    );
-    menuSelectionContainer.appendChild(menuSelectionButton);
-  });
-  // Create the main menus container and style it
-  const mainMenuContainer = document.createElement('div');
-  mainMenuContainer.classList.add(
-    'bg-primary',
-    'h-3/4',
-    'w-full', // Match width with the button container above
-    'flex',
-    'flex-col',
-    'p-5' // Padding
-  );
-  contentWrapper.appendChild(mainMenuContainer);
-
-  // Menu grid container creation
+const sliders = (
+  menuDataContainer: HTMLDivElement,
+  slidersButton: HTMLButtonElement
+) => {
+  slidersButton.classList.toggle('border-b-primary');
+  //Mock data for menu items
+  //TODO: replace with actual data from the database
   const menuItems = [
     {
       id: 1,
@@ -100,6 +51,7 @@ const sliders = (menuDataContainer: HTMLDivElement) => {
     },
   ];
 
+  // Menu grid container creation
   const menuGridContainer = document.createElement('div');
   menuGridContainer.classList.add('grid', 'grid-cols-3', 'gap-4', 'w-full');
 
@@ -126,15 +78,13 @@ const sliders = (menuDataContainer: HTMLDivElement) => {
     itemPrice.textContent = item.price;
     itemPrice.classList.add('text-lg', 'text-red-500', 'font-semibold');
 
-    menuItem.appendChild(itemTitle);
-    menuItem.appendChild(itemDescription);
-    menuItem.appendChild(itemPrice);
+    menuItem.append(itemTitle, itemDescription, itemPrice);
 
     menuGridContainer.appendChild(menuItem);
-    // menu item creation for a 3x2 grid
 
-    mainMenuContainer.appendChild(menuGridContainer);
-    contentWrapper.appendChild(mainMenuContainer);
+    // Append grid to datacontainer
+    menuDataContainer.appendChild(menuGridContainer);
   });
 };
+
 export {sliders};
