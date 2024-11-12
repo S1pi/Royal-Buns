@@ -1,6 +1,8 @@
 import {footer} from '../footer/footer';
 import {header} from '../header/header';
 
+//data
+
 const carouselData = [
   {
     heading: 'Päivän burgeri',
@@ -22,25 +24,6 @@ const carouselData = [
 const mainPage = () => {
   const body = document.querySelector('body') as HTMLBodyElement;
 
-  // VIDEO
-
-  const videoBackground = document.createElement('video');
-  videoBackground.classList.add(
-    'absolute', // Asetetaan video täyttämään koko containerin
-    'top-0',
-    'left-0',
-    'w-full',
-    'bg-red',
-    'h-full',
-    'object-cover', // Video mukautuu containerin kokoon
-    'opacity-30', // Säädetään peittävyyttä
-    '-z-10' // Sijoitetaan videon alle muiden elementtien
-  );
-  videoBackground.src = 'path/to/your/video.mp4'; // Korvaa omalla videopolullasi
-  videoBackground.autoplay = true;
-  videoBackground.loop = true;
-  videoBackground.muted = true;
-
   const app = document.getElementById('app');
 
   // Call header and footer
@@ -48,8 +31,29 @@ const mainPage = () => {
   header();
   footer();
 
+  //VIDEO
+
+  const videoBackground = document.createElement('video');
+  videoBackground.classList.add(
+    'absolute',
+    'top-0',
+    'left-0',
+    'w-full',
+    'bg-black',
+    'h-full',
+    'object-cover',
+    'opacity-80',
+    '-z-10'
+  );
+  videoBackground.src = 'videos/RoyalBuns-figma.mp4';
+  videoBackground.autoplay = true;
+  videoBackground.loop = true;
+  videoBackground.muted = true;
+
+  // Set header bg and opacity to see video
+
   const headerBg = document.querySelector('header');
-  headerBg?.classList.add('bg-transparent');
+  headerBg?.classList.add('bg-opacity-40', 'bg-black', 'shadow-lg');
 
   // bg
 
@@ -61,6 +65,8 @@ const mainPage = () => {
     'items-center',
     'justify-center'
   );
+
+  // carousel container
 
   const carouselContainer = document.createElement('div');
   carouselContainer.classList.add(
@@ -81,6 +87,8 @@ const mainPage = () => {
     'rounded-2xl'
   );
 
+  // carousel arrows
+
   const leftArrowContainer = document.createElement('div');
   leftArrowContainer.classList.add(
     'absolute',
@@ -94,7 +102,7 @@ const mainPage = () => {
     'text-2xl',
     'duration-300',
     'hover:text-4xl',
-    'hover:bg-black',
+    // 'hover:bg-black',
     'hover:bg-opacity-5'
   );
 
@@ -116,7 +124,7 @@ const mainPage = () => {
     'text-2xl',
     'duration-300',
     'hover:text-4xl',
-    'hover:bg-black',
+    // 'hover:bg-black',
     'hover:bg-opacity-5'
   );
 
@@ -125,13 +133,15 @@ const mainPage = () => {
 
   rightArrowContainer.appendChild(rightArrow);
 
+  // Make slides to carousel container
+
   carouselData.forEach((item) => {
     const slide = document.createElement('div');
     slide.classList.add(
       'w-full',
       'flex-shrink-0',
       'h-full',
-      'bg-black',
+      // 'bg-black',
       'bg-opacity-10',
       'rounded-2xl',
       'flex',
@@ -145,12 +155,14 @@ const mainPage = () => {
     );
 
     const title = document.createElement('h2');
-    title.classList.add('text-4xl', 'font-bold', 'text-gray-800');
+    title.classList.add('text-4xl', 'font-bold', 'text-white');
     title.innerText = item.heading;
 
     const description = document.createElement('p');
-    description.classList.add('text-lg', 'text-gray-600', 'mt-8');
+    description.classList.add('text-lg', 'text-white', 'mt-8');
     description.innerText = item.text;
+
+    // Yellow div for link
 
     const linkContainer = document.createElement('div');
     linkContainer.classList.add(
@@ -207,6 +219,12 @@ const mainPage = () => {
   rightArrowContainer.addEventListener('click', () =>
     slideToIndex(currentIndex + 1)
   );
+
+  // other mainpage content to here
+
+  // ADD: info
+  // ADD: Daily burger
+  // ADD: Link to table reservation
 };
 
 export {mainPage};
