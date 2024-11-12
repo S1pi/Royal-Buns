@@ -44,49 +44,62 @@ const reservationModal = () => {
   // Create container for table map
   const reservationContainer = document.createElement('div');
   reservationContainer.classList.add(
-    // 'flex',
-    // 'justify-center',
-    // 'items-center',
-    'gap-2',
+    'flex',
+    'flex-col',
     'mt-5',
-    'bg-white',
-    'border',
-    'border-black',
-    'rounded-lg',
-    'h-3/4'
+    'items-center'
   );
 
   // Reservation legends
   const legendContainer = document.createElement('div');
+  legendContainer.classList.add('flex', 'gap-4', 'mb-4');
 
   // Legend for reserved
   const reservedLegend = document.createElement('div');
+  reservedLegend.textContent = 'Varattu';
+  reservedLegend.classList.add('flex', 'items-center');
   const reserSpan = document.createElement('span');
+  reserSpan.classList.add('w-5', 'h-5', 'mr-2', 'ml-2', 'bg-red');
   reservedLegend.appendChild(reserSpan);
 
   // Legend for availables
   const availableLegend = document.createElement('div');
+  availableLegend.textContent = 'Varattavissa';
+  availableLegend.classList.add('flex', 'items-center');
   const availableSpan = document.createElement('span');
+  availableSpan.classList.add('w-5', 'h-5', 'mr-2', 'ml-2', 'bg-green');
   availableLegend.appendChild(availableSpan);
 
-  // Legend for availables
+  // Legend for selected
   const selectedLegend = document.createElement('div');
+  selectedLegend.textContent = 'Valittu';
+  selectedLegend.classList.add('flex', 'items-center');
   const selectedSpan = document.createElement('span');
+  selectedSpan.classList.add('w-5', 'h-5', 'mr-2', 'ml-2', 'bg-yellow');
   selectedLegend.appendChild(selectedSpan);
+
+  // Append all legends into their container
+  legendContainer.append(reservedLegend, availableLegend, selectedLegend);
 
   //Create table map
   const tableMap = document.createElement('div');
-  tableMap.classList.add(
-    'flex',
-    // 'flex-wrap',
-    'w-full',
-    'h-full',
-    'justify-center',
-    'items-center',
-    'gap-2',
-    'p-5'
-  );
-  reservationContainer.appendChild(tableMap);
+  tableMap.classList.add('grid', 'grid-cols-5', 'gap-4');
+
+  // !!VANHA TYYLI ÄLÄ POISTA VIELÄ!!
+  // tableMap.classList.add(
+  //   'flex',
+  //   // 'flex-wrap',
+  //   'w-full',
+  //   'h-full',
+  //   'gap-2',
+  //   'bg-white',
+  //   'border',
+  //   'border-black',
+  //   'rounded-lg',
+  //   'h-3/4'
+  // );
+
+  reservationContainer.append(legendContainer, tableMap);
 
   // Create table mock data
   //TODO: Replace with actual data from the database
@@ -123,19 +136,7 @@ const reservationModal = () => {
     }
   });
 
-  // // Create table types
-  // const largeTable = document.createElement('div');
-  // largeTable.classList.add('w-7/12', 'h-56', 'bg-gray-400', 'rounded-lg');
-  // tableMap.appendChild(largeTable);
-  // const mediumTable = document.createElement('div');
-  // mediumTable.classList.add('w-5', 'h-30', 'bg-gray-400', 'rounded-lg');
-  // tableMap.appendChild(mediumTable);
-  // const smallTable = document.createElement('div');
-  // smallTable.classList.add('w-20', 'h-20', 'bg-gray-400', 'rounded-full');
-  // tableMap.appendChild(smallTable);
-  // Append the table map to the table map container
-
-  // Append the table map container to the reservation container
+  // Append reservationcontainer to modal container
   reservationModalContainer.appendChild(reservationContainer);
 
   appDiv.appendChild(reservationModalContainer);
