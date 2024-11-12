@@ -1,19 +1,7 @@
-import {header} from '../../header/header';
-import {sides} from './sides';
-import {sliders} from './sliders';
+// import {sides} from './sides';
+// import {sliders} from './sliders';
 
-const burgers = () => {
-  // Select the #app div
-  // const appDiv = document.querySelector('#app') as HTMLElement;
-  // appDiv.classList.add(
-  //   'bg-background-light',
-  //   'p-5',
-  //   'h-screen',
-  //   'flex',
-  //   'flex-col',
-  //   'justify-center'
-  // );
-
+const burgers = (menuDataContainer: HTMLDivElement) => {
   const daySpecial = document.createElement('div');
   daySpecial.classList.add(
     'bg-primary',
@@ -23,68 +11,11 @@ const burgers = () => {
     'mb-4'
   );
   daySpecial.textContent = "Today's Special: Classic Chicken Burger for €13.99";
-  // appDiv.appendChild(daySpecial);
 
   // wrapper for the main content of the site
   // const contentWrapper = document.createElement('div');
   // contentWrapper.classList.add('flex', 'flex-col', 'items-center', 'w-full');
   // appDiv.appendChild(contentWrapper);
-
-  // Create the main menus container and style it
-  const mainMenuContainer = document.createElement('div');
-  mainMenuContainer.classList.add(
-    'bg-primary',
-    'h-3/4',
-    'w-full', // Match width with the button container above
-    'flex',
-    'flex-col',
-    'p-5' // Padding
-  );
-  // Create the menu selection container and style it
-
-  const menuSelectionContainer = document.createElement('div');
-  menuSelectionContainer.classList.add(
-    'flex',
-    'justify-between',
-    'items-center',
-    'bg-primary',
-    'w-2/4', // Set width to match the main menu container
-    'p-2', // Padding for spacing inside
-    'text-center'
-  );
-  // contentWrapper.appendChild(menuSelectionContainer);
-
-  // Create the selection buttons for menus
-  const menuButtons = ['BURGERS', 'SLIDERS', 'SIDES'];
-  menuButtons.forEach((text) => {
-    const menuSelectionButton = document.createElement('button');
-    menuSelectionButton.textContent = text;
-    menuSelectionButton.classList.add(
-      'flex-1',
-      'text-h5', // Use custom size from Tailwind config
-      'font-bold', // Bold text
-      'text-center', // Center text
-      'text-red' // Custom red color from config
-    );
-
-    // Add event listeners to the buttons
-    menuSelectionButton.addEventListener('click', () => {
-      // Clear the existing content
-      // contentWrapper.innerHTML = '';
-      // Load the appropriate content based on the button clicked
-      if (text === 'BURGERS') {
-        burgers();
-      } else if (text === 'SLIDERS') {
-        sliders();
-      } else if (text === 'SIDES') {
-        sides();
-      }
-    });
-
-    menuSelectionContainer.appendChild(menuSelectionButton);
-  });
-
-  // contentWrapper.appendChild(mainMenuContainer);
 
   // Menu grid container creation
   const menuItems = [
@@ -178,7 +109,7 @@ const burgers = () => {
     menuGridContainer.appendChild(menuItem);
     // menu item creation for a 3x2 grid
 
-    mainMenuContainer.appendChild(menuGridContainer);
+    menuDataContainer.appendChild(menuGridContainer);
     // contentWrapper.appendChild(mainMenuContainer);
   });
 };

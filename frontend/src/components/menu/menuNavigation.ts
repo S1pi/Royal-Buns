@@ -2,7 +2,10 @@ import {burgers} from './menuSites/burgers';
 import {sides} from './menuSites/sides';
 import {sliders} from './menuSites/sliders';
 
-const menuNavigation = (contentWrapper: HTMLDivElement) => {
+const menuNavigation = (
+  contentWrapper: HTMLDivElement,
+  menuDataContainer: HTMLDivElement
+) => {
   // const contentWrapper = document.createElement('div');
   // contentWrapper.classList.add(
   //   'flex',
@@ -41,7 +44,7 @@ const menuNavigation = (contentWrapper: HTMLDivElement) => {
     // Add event listeners to the buttons
     menuSelectionButton.addEventListener('click', () => {
       // Clear the existing content
-      contentWrapper.innerHTML = '';
+      // contentWrapper.innerHTML = '';
 
       // Append the menu selection container again
       // contentWrapper.appendChild(menuSelectionContainer);
@@ -49,16 +52,16 @@ const menuNavigation = (contentWrapper: HTMLDivElement) => {
       // Load the appropriate content based on the button clicked
       switch (text) {
         case 'BURGERS':
-          contentWrapper.innerHTML = '';
-          burgers();
+          menuDataContainer.innerHTML = '';
+          burgers(menuDataContainer);
           break;
         case 'SLIDERS':
-          contentWrapper.innerHTML = '';
-          sliders();
+          menuDataContainer.innerHTML = '';
+          sliders(menuDataContainer);
           break;
         case 'SIDES':
-          contentWrapper.innerHTML = '';
-          sides();
+          menuDataContainer.innerHTML = '';
+          sides(menuDataContainer);
           break;
       }
     });

@@ -1,4 +1,4 @@
-const sliders = () => {
+const sliders = (menuDataContainer: HTMLDivElement) => {
   // Select the #app div
   const appDiv = document.querySelector('#app') as HTMLElement;
   appDiv.classList.add(

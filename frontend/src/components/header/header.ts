@@ -1,4 +1,3 @@
-
 const header = () => {
   const body = document.querySelector('body') as HTMLBodyElement;
   const header = document.createElement('header');
@@ -16,7 +15,7 @@ const header = () => {
     'h-full',
     'items-center',
     'px-4',
-    'text-h2',
+    'text-h6',
     'text-primary'
   );
 
@@ -113,15 +112,11 @@ const header = () => {
 
   fin.addEventListener('click', () => {
     console.log('Finnish selected');
-  }
-  );
+  });
 
   en.addEventListener('click', () => {
     console.log('English selected');
-  }
-  );
-
- 
+  });
 
   // Adding all elements created to the header
   nav.append(headerLinks, divSeperator, logoContainer, languageContainer);

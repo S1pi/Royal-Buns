@@ -17,23 +17,31 @@ const menu = () => {
 
   // wrapper for the main content of the site
   const contentWrapper = document.createElement('div');
-  contentWrapper.classList.add('flex', 'flex-col', 'items-center', 'w-full');
+  contentWrapper.classList.add(
+    'flex',
+    'flex-col',
+    'items-center',
+    'w-full',
+    'h-5/6'
+  );
   appDiv.appendChild(contentWrapper);
 
   // use the navigation from menuNavigation.ts
-  menuNavigation(contentWrapper);
   //render the menus based on the selection from menuSites and using the menuNavigation.ts
   // Create the main menus container and style it
-  const mainMenuContainer = document.createElement('div');
-  mainMenuContainer.classList.add(
+  const menuDataContainer = document.createElement('div');
+  menuDataContainer.classList.add(
     'bg-primary',
-    'h-3/4',
+    'h-full',
     'w-full', // Match width with the button container above
     'flex',
     'flex-col',
     'p-5' // Padding
   );
-  contentWrapper.appendChild(mainMenuContainer);
+
+  menuNavigation(contentWrapper, menuDataContainer);
+  contentWrapper.appendChild(menuDataContainer);
   appDiv.appendChild(contentWrapper);
 };
+
 export {menu};
