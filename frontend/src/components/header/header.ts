@@ -35,7 +35,7 @@ const header = () => {
     'h-full',
     'items-center',
     'px-4',
-    'text-h2',
+    'text-h6',
     'text-primary'
   );
 
