@@ -22,7 +22,7 @@ const header = () => {
   const header = document.createElement('header');
 
   // Annetaan tailwind css luokkia
-  header.classList.add('bg-secondary', 'h-16', 'flex', 'justify-between');
+  header.classList.add('bg-secondary', 'h-20', 'flex', 'justify-between');
 
   const nav = document.createElement('nav');
   nav.classList.add('flex', 'mr-10');
@@ -30,7 +30,8 @@ const header = () => {
   const headerLinks = document.createElement('ul');
   headerLinks.classList.add(
     'flex',
-    'gap-12',
+    'mr-5',
+    'gap-14',
     'h-full',
     'items-center',
     'px-4',
@@ -70,8 +71,8 @@ const header = () => {
   const divSeperator = document.createElement('div');
   divSeperator.classList.add(
     'bg-primary',
-    'w-1',
-    'h-5/6',
+    'w-0.5',
+    'h-2/3',
     'self-center',
     'mx-3'
   );
