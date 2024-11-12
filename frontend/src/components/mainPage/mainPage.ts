@@ -3,21 +3,32 @@ import {header} from '../header/header';
 
 //data
 
+//diets, price, name, description, photo, day
+
 const carouselData = [
   {
+    id: 1,
     heading: 'Päivän burgeri',
     text: 'Tänään tällainen vitun mahtava burgeri',
     link: 'joo tähä via tasus joksdni',
   },
   {
+    id: 2,
     heading: 'Lounastarjous',
     text: 'lounalla jotain ja jotain hintaan jotain €',
     link: 'linkki tähän',
   },
   {
+    id: 3,
     heading: 'Vastuullisuus',
     text: 'Tiesitkö että 94% raaka-aineistamme on kotimaisia',
     link: 'linkki tähän',
+  },
+  {
+    id: 4,
+    heading: 'MIIKA TÖIHIN',
+    text: 'Joo, luit oikein!',
+    link: '',
   },
 ];
 
@@ -39,7 +50,7 @@ const mainPage = () => {
     'top-0',
     'left-0',
     'w-full',
-    'bg-black',
+    // 'bg-black',
     'h-full',
     'object-cover',
     'opacity-80',
@@ -53,7 +64,7 @@ const mainPage = () => {
   // Set header bg and opacity to see video
 
   const headerBg = document.querySelector('header');
-  headerBg?.classList.add('bg-opacity-40', 'bg-black', 'shadow-lg');
+  headerBg?.classList.add('bg-opacity-0', 'shadow-inner');
 
   // bg
 
@@ -72,7 +83,7 @@ const mainPage = () => {
   carouselContainer.classList.add(
     'relative',
     'w-2/3',
-    'h-2/3',
+    'h-3/5',
     'overflow-hidden',
     'rounded-2xl'
     // 'bg-green'
@@ -99,6 +110,7 @@ const mainPage = () => {
     'justify-center',
     'items-center',
     'text-yellow',
+    'drop-shadow-xl',
     'text-2xl',
     'duration-300',
     'hover:text-4xl',
@@ -121,6 +133,7 @@ const mainPage = () => {
     'justify-center',
     'items-center',
     'text-yellow',
+    'drop-shadow-xl',
     'text-2xl',
     'duration-300',
     'hover:text-4xl',
@@ -155,35 +168,62 @@ const mainPage = () => {
     );
 
     const title = document.createElement('h2');
-    title.classList.add('text-4xl', 'font-bold', 'text-white');
+    title.classList.add(
+      'text-4xl',
+      'font-bold',
+      'text-white',
+      'drop-shadow-lg',
+      'shadow-black'
+    );
     title.innerText = item.heading;
 
     const description = document.createElement('p');
-    description.classList.add('text-lg', 'text-white', 'mt-8');
+    description.classList.add(
+      'text-lg',
+      'text-white',
+      'mt-8',
+      'drop-shadow-lg',
+      'shadow-black'
+    );
     description.innerText = item.text;
+
+    // Append title and description to slide
+
+    slide.append(title, description);
 
     // Yellow div for link
 
-    const linkContainer = document.createElement('div');
-    linkContainer.classList.add(
-      'mt-8',
-      'p-3',
-      'h-auto',
-      'w-16',
-      'flex',
-      'items-center',
-      'justify-center',
-      'rounded-lg',
-      'bg-yellow'
-    );
+    // ADD: Make link only if link
 
-    const link = document.createElement('a');
-    link.classList.add('text-black');
-    link.href = item.link;
-    link.innerText = 'Siirry';
+    const linkDestination = item.link;
 
-    linkContainer.appendChild(link);
-    slide.append(title, description, linkContainer);
+    if (linkDestination) {
+      const linkContainer = document.createElement('div');
+      linkContainer.classList.add(
+        'mt-8',
+        'p-3',
+        'h-auto',
+        'w-16',
+        'flex',
+        'items-center',
+        'justify-center',
+        'rounded-lg',
+        'bg-yellow',
+        'drop-shadow-xl',
+        'shadow-black'
+      );
+
+      const link = document.createElement('a');
+      link.classList.add('text-black');
+      link.href = item.link;
+      link.innerText = 'Siirry';
+
+      // If link,-> append link container to slide
+
+      linkContainer.appendChild(link);
+      slide.append(linkContainer);
+    }
+
     carousel.appendChild(slide);
   });
 
@@ -204,7 +244,7 @@ const mainPage = () => {
   setInterval(() => {
     currentIndex = (currentIndex + 1) % carouselData.length;
     carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
-  }, 7000); // 7s
+  }, 5000); // 5s
 
   const slideToIndex = (index: number) => {
     currentIndex = (index + carouselData.length) % carouselData.length;

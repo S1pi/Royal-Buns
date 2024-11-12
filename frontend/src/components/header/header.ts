@@ -1,20 +1,20 @@
-const translations:{ [key: string]: { [key: string]: string } }  = {
+const translations: {[key: string]: {[key: string]: string}} = {
   FI: {
-    main: "Etusivu",
-    menu: "Menu",
-    reservation: "Varaa Pöytä",
-    restaurants: "Ravintolat",
-    gallery: "Galleria",
-    business: "Yrityksille"
+    main: 'Etusivu',
+    menu: 'Menu',
+    reservation: 'Varaa Pöytä',
+    restaurants: 'Ravintolat',
+    gallery: 'Galleria',
+    business: 'Yrityksille',
   },
   EN: {
-    main: "Home",
-    menu: "Menu",
-    reservation: "Book a Table",
-    restaurants: "Restaurants",
-    gallery: "Gallery",
-    business: "Business reservations"
-  }
+    main: 'Home',
+    menu: 'Menu',
+    reservation: 'Book a Table',
+    restaurants: 'Restaurants',
+    gallery: 'Gallery',
+    business: 'Business reservations',
+  },
 };
 
 const header = () => {
@@ -34,7 +34,7 @@ const header = () => {
     'h-full',
     'items-center',
     'px-4',
-    'text-h2',
+    'text-h6',
     'text-primary'
   );
 
@@ -140,8 +140,9 @@ const header = () => {
 
   // Event listeners for language buttons
   fin.addEventListener('click', () => {
-    updateLanguage('FI') 
-    console.log("töihin");});
+    updateLanguage('FI');
+    console.log('töihin');
+  });
 
   en.addEventListener('click', () => updateLanguage('EN'));
 
