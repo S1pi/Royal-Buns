@@ -2,14 +2,22 @@ const burgers = (
   menuDataContainer: HTMLDivElement,
   burgersButton: HTMLButtonElement
 ) => {
-  // TODO: SISÄLLYTÄ TÄMÄ
+  // TODO: SISÄLLYTÄ TÄMÄ https://www.youtube.com/watch?v=4qRZmFYdozY
   const daySpecial = document.createElement('div');
   daySpecial.classList.add(
     'bg-primary',
     'text-center',
     'text-white',
+    'font-bold',
     'p-2',
-    'mb-4'
+    'mb-4',
+    'rounded-md',
+    'bg-red',
+    'w-2/4',
+    'flex',
+    'justify-center',
+    'items-center',
+    'mx-auto'
   );
   daySpecial.textContent = "Today's Special: Classic Chicken Burger for €13.99";
 
@@ -107,6 +115,7 @@ const burgers = (
 
     // Append grid to datacontainer
     menuDataContainer.appendChild(menuGridContainer);
+    menuDataContainer.prepend(daySpecial);
   });
 };
 
