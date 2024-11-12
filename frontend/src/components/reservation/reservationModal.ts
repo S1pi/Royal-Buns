@@ -80,60 +80,119 @@ const reservationModal = () => {
 
   // Append all legends into their container
   legendContainer.append(reservedLegend, availableLegend, selectedLegend);
+  reservationContainer.append(legendContainer);
 
   //Create table map
-  const tableMap = document.createElement('div');
-  tableMap.classList.add('grid', 'grid-cols-5', 'gap-4');
-
-  // !!VANHA TYYLI ÄLÄ POISTA VIELÄ!!
+  // const tableMap = document.createElement('div');
   // tableMap.classList.add(
-  //   'flex',
-  //   // 'flex-wrap',
-  //   'w-full',
-  //   'h-full',
-  //   'gap-2',
+  //   'grid',
+  //   'grid-cols-8',
+  //   'gap-4',
   //   'bg-white',
-  //   'border',
-  //   'border-black',
+  //   'p-4',
   //   'rounded-lg',
-  //   'h-3/4'
+  //   'border-solid',
+  //   'border-2',
+  //   'border-black'
   // );
-
-  reservationContainer.append(legendContainer, tableMap);
 
   // Create table mock data
   //TODO: Replace with actual data from the database
   const tables = [
     {id: 1, restaurantId: 1, seats: 8, reserved: false},
+    {id: 1, restaurantId: 1, seats: 8, reserved: false},
+    {id: 1, restaurantId: 1, seats: 8, reserved: false},
+    {id: 2, restaurantId: 1, seats: 6, reserved: false},
+    {id: 2, restaurantId: 1, seats: 6, reserved: false},
+    {id: 2, restaurantId: 1, seats: 6, reserved: false},
     {id: 2, restaurantId: 1, seats: 6, reserved: false},
     {id: 3, restaurantId: 1, seats: 2, reserved: true},
+    {id: 3, restaurantId: 1, seats: 2, reserved: true},
+    {id: 3, restaurantId: 1, seats: 2, reserved: true},
+    {id: 3, restaurantId: 1, seats: 2, reserved: true},
+    {id: 4, restaurantId: 1, seats: 2, reserved: false},
+    {id: 4, restaurantId: 1, seats: 2, reserved: false},
+    {id: 4, restaurantId: 1, seats: 2, reserved: false},
     {id: 4, restaurantId: 1, seats: 2, reserved: false},
     {id: 5, restaurantId: 1, seats: 2, reserved: true},
     {id: 6, restaurantId: 1, seats: 6, reserved: true},
     {id: 7, restaurantId: 1, seats: 6, reserved: false},
     {id: 8, restaurantId: 1, seats: 8, reserved: true},
+    {id: 8, restaurantId: 1, seats: 8, reserved: true},
     {id: 9, restaurantId: 1, seats: 2, reserved: false},
   ];
 
-  const smallTableContainer = document.createElement('div');
-  const largeTableContainer = document.createElement('div');
-  const mediumTableContainer = document.createElement('div');
+  const mainContainer = document.createElement('div');
+  mainContainer.classList.add(
+    'grid',
+    'grid-cols-3',
+    'bg-white',
+    'p-4',
+    'rounded-xl',
+    'gap-12'
+  );
+
+  // Grid for 8-people tables
+  const largeTableGrid = document.createElement('div');
+  largeTableGrid.classList.add(
+    'grid',
+    'grid-cols-5',
+    'gap-6',
+    'col-span-2',
+    'place-items-center'
+  );
+
+  // Grid for 6-people tables
+  const mediumTableGrid = document.createElement('div');
+  mediumTableGrid.classList.add(
+    'grid',
+    'grid-cols-3',
+    'row-span-2',
+    'gap-4',
+    'grid',
+    'place-items-center'
+  );
+
+  // Grid for 2-people tables
+  const smallTableGrid = document.createElement('div');
+  smallTableGrid.classList.add(
+    'grid',
+    'col-span-2',
+    'grid-cols-5',
+    'gap-4',
+    'justify-center',
+    'place-items-center'
+  );
+
+  // Append the grids to main container
+  mainContainer.append(largeTableGrid, mediumTableGrid, smallTableGrid);
+  reservationContainer.append(mainContainer);
 
   // loop through the tables and create table elements
   tables.forEach((table) => {
-    if (table.seats == 2) {
-      const smallTable = document.createElement('div');
-      smallTable.classList.add('w-16', 'h-16', 'bg-gray-400', 'rounded-full');
-      tableMap.appendChild(smallTable);
-    } else if (table.seats == 6) {
-      const mediumTable = document.createElement('div');
-      mediumTable.classList.add('w-5', 'h-30', 'bg-gray-400', 'rounded-lg');
-      tableMap.appendChild(mediumTable);
-    } else if (table.seats == 8) {
-      const largeTable = document.createElement('div');
-      largeTable.classList.add('w-7/12', 'h-56', 'bg-gray-400', 'rounded-lg');
-      tableMap.appendChild(largeTable);
+    const tableButton = document.createElement('button');
+    table.reserved
+      ? tableButton.classList.add('bg-red') // Gives red color if table is already reserved
+      : tableButton.classList.add('bg-green'); // Gives green color if tables is available
+
+    // Determine table size by seats
+    if (table.seats === 2) {
+      tableButton.classList.add('w-14', 'h-14', 'rounded-full');
+      smallTableGrid.appendChild(tableButton);
+    } else if (table.seats === 6) {
+      tableButton.classList.add('w-16', 'h-36', 'rounded-lg');
+      mediumTableGrid.appendChild(tableButton);
+    } else if (table.seats === 8) {
+      tableButton.classList.add('w-20', 'h-48', 'rounded-lg');
+      largeTableGrid.appendChild(tableButton);
     }
+
+    tableButton.addEventListener('click', () => {
+      if (!table.reserved) {
+        console.log(table.id);
+        tableButton.classList.toggle('bg-yellow');
+      }
+    });
   });
 
   // Append reservationcontainer to modal container
