@@ -229,15 +229,6 @@ const mainPage = () => {
 
   carouselContainer.appendChild(carousel);
 
-  mainScreenView.append(
-    videoBackground,
-    leftArrowContainer,
-    carouselContainer,
-    rightArrowContainer
-  );
-
-  app?.append(mainScreenView);
-
   // CAROUSEL SET INTERVALS
 
   let currentIndex = 0;
@@ -262,9 +253,128 @@ const mainPage = () => {
 
   // other mainpage content to here
 
+  const mainPageContentContainer = document.createElement('div');
+  mainPageContentContainer.classList.add('h-auto', 'w-full');
+
   // ADD: info
+
+  const restaurantInfoContainer = document.createElement('div');
+  restaurantInfoContainer.classList.add(
+    'h-full',
+    'w-full',
+    'p-20',
+    'bg-contain',
+    'bg-center',
+    'flex',
+    'flex-col',
+    'items-center',
+    'justify-center'
+  );
+  restaurantInfoContainer.style.backgroundImage = "url('img/gold-splash.png')";
+
+  const infoHeadingElement = document.createElement('h1');
+  infoHeadingElement.classList.add(
+    'text-green',
+    'font-bold',
+    'text-h1',
+    'mb-8'
+  );
+  infoHeadingElement.textContent = 'ROYAL BUNS';
+
+  const infoTextElement = document.createElement('p');
+  infoTextElement.classList.add(
+    'text-black',
+    'text-h5',
+    'font-normal',
+    'w-2/3',
+    'pb-14',
+    'text-center'
+  );
+  infoTextElement.textContent =
+    'Royal Buns on vuonna 2019 perustettu premium-burgeriketju, jonka ravintolat löytyvät Helsingistä, Espoosta, Tampereelta ja Rovaniemeltä. Maineemme laadukkaista ja käsityönä valmistetuista burgereista on tuonut burgerin ystävät yhteen ympäri Suomen. Rennossa mutta tyylikkäässä miljöössä valmistamme jokaisen annoksen huolella, ja Royal Buns onkin vakiinnuttanut paikkansa yhtenä Suomen kymmenestä parhaasta burgeriravintolasta vuosina 2022, 2023 ja 2024.';
+
+  restaurantInfoContainer.append(infoHeadingElement, infoTextElement);
+
   // ADD: Daily burger
+
+  // ADD: Picture
+
+  const pictureContainer = document.createElement('div');
+  pictureContainer.classList.add('w-full', 'h-96', 'bg-fixed', 'bg-cover');
+
+  pictureContainer.style.backgroundImage = "url('img/grill.jpg')";
+
   // ADD: Link to table reservation
+
+  const tableReservationContainer = document.createElement('div');
+  tableReservationContainer.classList.add(
+    'h-full',
+    'w-full',
+    'p-12',
+    'm-0',
+    'flex',
+    'flex-col',
+    'items-center',
+    'justify-center',
+    'bg-white'
+  );
+
+  const tableHeadingElement = document.createElement('h1');
+  tableHeadingElement.classList.add('text-red', 'font-bold', 'text-h1', 'mb-8');
+  tableHeadingElement.textContent = 'VARAA PÖYTÄ';
+
+  const tableTextElement = document.createElement('hp');
+  tableTextElement.classList.add(
+    'text-black',
+    'text-h5',
+    'font-normal',
+    'w-1/3',
+    'text-center'
+  );
+  tableTextElement.textContent =
+    'Varaa pöytä Royal Bunsista ja tule nauttimaan Suomen parhaimpiin kuuluvista premium-burgereista! Olipa kyseessä mukava ilta ystävien kanssa tai juhlahetki, me tarjoamme ainutlaatuisen burgerielämyksen tyylikkäässä ympäristössä. Varmista paikkasi ja tee varaus jo tänään!';
+
+  const tableLinkContainer = document.createElement('div');
+  tableLinkContainer.classList.add(
+    'w-32',
+    'h-16',
+    'my-8',
+    'bg-yellow',
+    'flex',
+    'justify-center',
+    'items-center',
+    'rounded-full',
+    'shadow-xl'
+  );
+
+  const tableLink = document.createElement('a');
+  tableLink.textContent = 'Varaa pöytä';
+  tableLink.href = '/Varaa';
+
+  tableLinkContainer.appendChild(tableLink);
+
+  tableReservationContainer.append(
+    tableHeadingElement,
+    tableTextElement,
+    tableLinkContainer
+  );
+
+  mainPageContentContainer.append(
+    restaurantInfoContainer,
+    pictureContainer,
+    tableReservationContainer
+  );
+
+  // Append everything to mainScreenView and to app
+
+  mainScreenView.append(
+    videoBackground,
+    leftArrowContainer,
+    carouselContainer,
+    rightArrowContainer
+  );
+
+  app?.append(mainScreenView, mainPageContentContainer);
 };
 
 export {mainPage};
