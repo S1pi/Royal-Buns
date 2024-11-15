@@ -128,7 +128,7 @@ const header = () => {
 
   languageContainer.append(fin, en);
 
-  // language update function
+  // language update function for links
   const updateLanguage = (lang: 'FI' | 'EN') => {
     links.forEach((item) => {
       const linkElement = headerLinks.querySelector(
