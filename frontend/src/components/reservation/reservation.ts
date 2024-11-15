@@ -1,5 +1,43 @@
 import {header} from '../header/header';
 
+// Type for 1 restaurant
+type Restaurant = {
+  id: number;
+  restaurantName: string;
+  openHours: {weekdays: string; weekends: string};
+};
+
+// Mockdata for restaurants
+// TODO: Search from database
+const restaurants = [
+  {
+    id: 1,
+    restaurantName: 'Royal Buns Helsinki',
+    openHours: {weekdays: '10:00-22:00', weekends: '12:00-23:00'},
+  },
+  {
+    id: 2,
+    restaurantName: 'Royal Buns Espoo',
+    openHours: {weekdays: '10:00-21:00', weekends: '12:00-21:00'},
+  },
+  {
+    id: 3,
+    restaurantName: 'Royal Buns Tampere',
+    openHours: {weekdays: '12:00-20:00', weekends: '12:00-23:00'},
+  },
+  {
+    id: 4,
+    restaurantName: 'Royal Buns Rovaniemi',
+    openHours: {weekdays: '12:00-20:00', weekends: '12:00-23:00'},
+  },
+];
+
+// Function to search restaurant by its id
+const getRestaurantById = (restaurantId: number) => {
+  console.log(restaurantId);
+  return restaurants.find((restaurant) => restaurant.id === restaurantId);
+};
+
 const reservation = () => {
   // Select the #app div
   const appDiv = document.querySelector('#app') as HTMLElement;
@@ -63,31 +101,6 @@ const reservation = () => {
     'flex-row'
   );
   reservationContainer.appendChild(selectionContainer);
-
-  // Mockdata for restaurants
-  // TODO: Search from database
-  const restaurants = [
-    {
-      id: 1,
-      restaurantName: 'Royal Buns Helsinki',
-      openHours: {weekdays: '10:00-22:00', weekends: '12:00-23:00'},
-    },
-    {
-      id: 2,
-      restaurantName: 'Royal Buns Espoo',
-      openHours: {weekdays: '10:00-21:00', weekends: '12:00-21:00'},
-    },
-    {
-      id: 3,
-      restaurantName: 'Royal Buns Tampere',
-      openHours: {weekdays: '12:00-20:00', weekends: '12:00-23:00'},
-    },
-    {
-      id: 4,
-      restaurantName: 'Royal Buns Rovaniemi',
-      openHours: {weekdays: '12:00-20:00', weekends: '12:00-23:00'},
-    },
-  ];
 
   // Create the dropdown for restaurant selection
   const restaurantDropdown = document.createElement('select');
@@ -167,33 +180,6 @@ const reservation = () => {
 
   //create the date selection button
 
-  // Old! list of available times
-  // const times = [
-  //   '10:00',
-  //   '10:30',
-  //   '11:00',
-  //   '11:30',
-  //   '12:00',
-  //   '12:30',
-  //   '13:00',
-  //   '13:30',
-  //   '14:00',
-  //   '14:30',
-  //   '15:00',
-  //   '15:30',
-  //   '16:00',
-  //   '16:30',
-  //   '17:00',
-  //   '17:30',
-  //   '18:00',
-  //   '18:30',
-  //   '19:00',
-  //   '19:30',
-  //   '20:00',
-  //   '20:30',
-  //   '21:00',
-  // ];
-
   const dateSelection = document.createElement('input');
   dateSelection.type = 'date';
   dateSelection.classList.add(
@@ -219,6 +205,13 @@ const reservation = () => {
 
   // Append the reservation container to the appDiv
   selectionContainer.appendChild(dateSelection);
+
+  dateSelection.addEventListener('click', () => {
+    const restaurantId = restaurantDropdown.value;
+
+    const restaurant = getRestaurantById(Number(restaurantId)) as Restaurant;
+    if (restaurant == undefined) alert('You need to select Restaurant');
+  });
 
   // Generates times for time selection depending of the restaurant open hours
   const generateTimes = (openHours: string): string[] => {
@@ -268,9 +261,7 @@ const reservation = () => {
     'text-center'
   );
 
-  // Determine what day it is and generate times by restaurant and what day is
-  // If restaurant changes that won't yet change new times etc
-  dateSelection.addEventListener('change', () => {
+  const generateTimeSelection = (restaurant: Restaurant) => {
     timeSelection.innerHTML = '';
     const timeOption = document.createElement('option');
     timeOption.value = 'time';
@@ -279,7 +270,6 @@ const reservation = () => {
     timeOption.selected = true;
     timeSelection.appendChild(timeOption);
     const currentDate = dateSelection.value;
-    const restaurantId = restaurantDropdown.value;
     const date = new Date(currentDate);
     let timeOfWeek: 'weekends' | 'weekdays';
     if (date.getDay() === 0 || date.getDay() === 6) {
@@ -290,42 +280,49 @@ const reservation = () => {
       console.log('Arki');
     }
 
-    type Restaurant = {
-      id: number;
-      restaurantName: string;
-      openHours: {weekdays: string; weekends: string};
-    };
+    // Determine the opening hours and generate times from those
+    const openHours = restaurant.openHours[timeOfWeek];
 
-    const getRestaurantById = (restaurantId: number) => {
-      console.log(restaurantId);
-      return restaurants.find((restaurant) => restaurant.id === restaurantId);
-    };
+    const reservationTimes = generateTimes(openHours);
+
+    reservationTimes.forEach((time) => {
+      const timeOption = document.createElement('option');
+      timeOption.value = time;
+      timeOption.textContent = time;
+      timeSelection.appendChild(timeOption);
+    });
+    console.log(date.getDay(), reservationTimes);
+    // Append the reservation container to the appDiv
+    selectionContainer.appendChild(timeSelection);
+  };
+
+  // Determine what day it is and generate times by restaurant and what day is
+  // If restaurant changes that won't yet change new times etc
+  dateSelection.addEventListener('change', () => {
+    // Get restaurant
+    const restaurantId = restaurantDropdown.value;
     const restaurant = getRestaurantById(Number(restaurantId)) as Restaurant;
+    // Generate that restaurant times
+    generateTimeSelection(restaurant);
 
     if (restaurant === undefined) {
-      alert('You need to select restaurant');
-      throw new Error('Restaurant not selected');
+      throw new Error('Error occured with fetching restaurant');
     } else {
       console.log(restaurant);
-      const openHours = restaurant.openHours[timeOfWeek];
 
-      const reservationTimes = generateTimes(openHours);
-
-      reservationTimes.forEach((time) => {
-        const timeOption = document.createElement('option');
-        timeOption.value = time;
-        timeOption.textContent = time;
-        timeSelection.appendChild(timeOption);
+      // Adds event listner to restaurant dropdown to change also times
+      restaurantDropdown.addEventListener('change', () => {
+        const restaurantId = restaurantDropdown.value;
+        const restaurant = getRestaurantById(
+          Number(restaurantId)
+        ) as Restaurant;
+        generateTimeSelection(restaurant);
       });
-      console.log(date.getDay(), reservationTimes);
-      // Append the reservation container to the appDiv
-      selectionContainer.appendChild(timeSelection);
     }
   });
 
-  //create reservation date selector button
-
-  //Create the main reservation button
+  // Create reservation date selector button
+  // Create the main reservation button
   const reservationButton = document.createElement('button');
   reservationButton.textContent = 'Varaa pöytä';
   reservationButton.classList.add(
