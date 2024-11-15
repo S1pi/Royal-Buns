@@ -63,8 +63,8 @@ const mainPage = () => {
 
   // Set header bg and opacity to see video
 
-  const headerBg = document.querySelector('header');
-  headerBg?.classList.add('bg-opacity-0', 'shadow-inner');
+  const headerBg = document.querySelector('header') as HTMLElement;
+  headerBg.classList.add('bg-opacity-0', 'shadow-inner');
 
   // bg
 

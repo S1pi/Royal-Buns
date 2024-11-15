@@ -1,1 +1,2 @@
-import {mainPage} from './components/mainPage/mainPage';
+import {router} from './components/navigation/router';
+router();
