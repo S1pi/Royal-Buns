@@ -41,23 +41,24 @@ const header = () => {
 
   // Created all items for navbar
   const links = [
-    {name: 'Etusivu', value: 'main'},
-    {name: 'Menu', value: 'menu'},
-    {name: 'Varaa Pöytä', value: 'reservation'},
-    {name: 'Ravintolat', value: 'restaurants'},
-    {name: 'Galleria', value: 'gallery'},
-    {name: 'Yrityksille', value: 'business'},
+    {name: 'Etusivu', value: 'main', href: '/'},
+    {name: 'Menu', value: 'menu', href: '/menu'},
+    {name: 'Varaa Pöytä', value: 'reservation', href: 'reservation'},
+    {name: 'Ravintolat', value: 'restaurants', href: 'restaurants'},
+    {name: 'Galleria', value: 'gallery', href: 'gallery'},
+    {name: 'Yrityksille', value: 'business', href: 'about'}, // Väliaikaisesti about us
   ];
 
   // Iterating throuh list and adding them to dom
   // Note to self: Muuta mahdollisesti käyttämään (a) elementtejä sekä href liikkumista varten
   links.forEach((item) => {
     const listItem = document.createElement('li') as HTMLLIElement;
-    const btn = document.createElement('button');
+    const a = document.createElement('a');
     listItem.className = 'h-3/4 flex items-center';
-    btn.textContent = item.name;
+    a.textContent = item.name;
+    a.href = item.href;
     listItem.dataset.value = item.value;
-    listItem.appendChild(btn);
+    listItem.appendChild(a);
     headerLinks.appendChild(listItem);
   });
 
