@@ -33,14 +33,11 @@ const carouselData = [
 ];
 
 const mainPage = () => {
-  const body = document.querySelector('body') as HTMLBodyElement;
-
   const app = document.getElementById('app');
-
   // Call header and footer
 
-  header();
-  footer();
+  // header();
+  // footer();
 
   //VIDEO
 

@@ -1,9 +1,11 @@
-import {header} from '../header/header';
-
 const infoPage = () => {
   const appDiv = document.querySelector('#app') as HTMLElement;
-  appDiv.classList.add('bg-background-light', 'p-10');
-  header();
+
+  const bgContainer = document.createElement('div');
+  bgContainer.classList.add('bg-background-light', 'p-10');
+
+  const header = document.querySelector('header');
+  header?.classList.remove('bg-opacity-0');
 
   const infoMainContainer = document.createElement('div');
   infoMainContainer.classList.add(
@@ -87,7 +89,8 @@ const infoPage = () => {
   );
   infoRightContent.appendChild(infoRightContentText);
 
-  appDiv.appendChild(infoMainContainer); // Append the main container to the div with id "app"
+  bgContainer.appendChild(infoMainContainer); // Append the main container to the div with id "app"
+  appDiv.appendChild(bgContainer);
 };
 
 export {infoPage};

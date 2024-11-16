@@ -5,7 +5,11 @@ import {menuNavigation} from './menuNavigation';
 const menu = () => {
   // Select the #app div
   const appDiv = document.querySelector('#app') as HTMLElement;
-  appDiv.classList.add(
+  const header = document.querySelector('header');
+  header?.classList.remove('bg-opacity-0');
+
+  const bgContainer = document.createElement('div');
+  bgContainer.classList.add(
     'bg-background-light',
     'p-5',
     'h-screen',
@@ -13,7 +17,6 @@ const menu = () => {
     'flex-col',
     'justify-center'
   );
-  header(); // Ensure header is placed on the site
 
   // wrapper for the main content of the site
   const contentWrapper = document.createElement('div');
@@ -24,7 +27,8 @@ const menu = () => {
     'w-full',
     'h-5/6'
   );
-  appDiv.appendChild(contentWrapper);
+  bgContainer.appendChild(contentWrapper);
+  appDiv.appendChild(bgContainer);
 
   // use the navigation from menuNavigation.ts
   //render the menus based on the selection from menuSites and using the menuNavigation.ts
