@@ -1,10 +1,14 @@
-import {header} from '../header/header';
-
 // Reservation modal
 const reservationModal = () => {
   // Select the #app div
   const appDiv = document.querySelector('#app') as HTMLElement;
-  appDiv.classList.add(
+
+  // Get header element and remove opacity
+  const headerBg = document.querySelector('header') as HTMLElement;
+  headerBg.classList.remove('bg-opacity-0');
+
+  const bgContainer = document.createElement('div');
+  bgContainer.classList.add(
     'bg-background-light',
     'p-5',
     'h-screen',
@@ -12,7 +16,6 @@ const reservationModal = () => {
     'flex-col',
     'justify-center'
   );
-  header(); // Ensure header is placed inside appDiv
 
   // Creates the table reservation modal and styles it
   const reservationModalContainer = document.createElement('div');
@@ -198,7 +201,8 @@ const reservationModal = () => {
   // Append reservationcontainer to modal container
   reservationModalContainer.appendChild(reservationContainer);
 
-  appDiv.appendChild(reservationModalContainer);
+  bgContainer.appendChild(reservationModalContainer);
+  appDiv.appendChild(bgContainer);
 };
 
 export {reservationModal};

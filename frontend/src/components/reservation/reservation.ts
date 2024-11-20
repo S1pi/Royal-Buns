@@ -1,5 +1,4 @@
 import {getRestaurants} from '../../utils/getRestaurants';
-import {header} from '../header/header';
 
 // Type for 1 restaurant
 type Restaurant = {
@@ -8,41 +7,12 @@ type Restaurant = {
   openHours: {weekdays: string; weekends: string};
 };
 
-// Mockdata for restaurants
-// TODO: Search from database
-// const restaurants = [
-//   {
-//     id: 1,
-//     restaurantName: 'Royal Buns Helsinki',
-//     openHours: {weekdays: '10:00-22:00', weekends: '12:00-23:00'},
-//   },
-//   {
-//     id: 2,
-//     restaurantName: 'Royal Buns Espoo',
-//     openHours: {weekdays: '10:00-21:00', weekends: '12:00-21:00'},
-//   },
-//   {
-//     id: 3,
-//     restaurantName: 'Royal Buns Tampere',
-//     openHours: {weekdays: '12:00-20:00', weekends: '12:00-23:00'},
-//   },
-//   {
-//     id: 4,
-//     restaurantName: 'Royal Buns Rovaniemi',
-//     openHours: {weekdays: '12:00-20:00', weekends: '12:00-23:00'},
-//   },
-// ];
-
-// Function to search restaurant by its id
-// const getRestaurantById = (restaurantId: number) => {
-//   console.log(restaurantId);
-//   return restaurants.find((restaurant) => restaurant.id === restaurantId);
-// };
-
 const reservation = async () => {
   // Select the #app div
   const appDiv = document.querySelector('#app') as HTMLElement;
-  appDiv.classList.add(
+
+  const bgContainer = document.createElement('div');
+  bgContainer.classList.add(
     'bg-background-light',
     'p-5',
     'h-screen',
@@ -50,6 +20,7 @@ const reservation = async () => {
     'flex-col',
     'justify-center'
   );
+
   // Very very broken still... WALTTERI MAKE TIS WORK!!
   const language = (lang: string) => {
     if (lang === 'FI') {
@@ -58,8 +29,6 @@ const reservation = async () => {
       return false;
     }
   };
-
-  header(); // Ensure header is placed inside appDiv
 
   // Creates the reservation container and styles it
   const reservationContainer = document.createElement('div');
@@ -352,8 +321,12 @@ const reservation = async () => {
     'pop-out-animation'
   );
   reservationContainer.appendChild(reservationButton);
-  appDiv.appendChild(reservationContainer);
+  bgContainer.appendChild(reservationContainer);
+  appDiv.appendChild(bgContainer);
 
+  // TODO: Implement changing to reservation modal and pass all data from inputs to modal
+  // for table creation
+  // Now its just showing all data on console log
   reservationButton.addEventListener('click', () => {
     const restaurantId = restaurantDropdown.value;
     const peopleAmount = peopleDropdown.value;
