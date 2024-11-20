@@ -7,7 +7,7 @@ const routes: {[key: string]: () => void} = {
   '/': mainPage,
   '/about': infoPage,
   '/menu': menu,
-  '/navigation': reservation,
+  '/reservation': reservation,
 };
 
 const router = () => {

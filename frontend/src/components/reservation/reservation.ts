@@ -11,6 +11,10 @@ const reservation = async () => {
   // Select the #app div
   const appDiv = document.querySelector('#app') as HTMLElement;
 
+  const headerBg = document.querySelector('header') as HTMLElement;
+
+  headerBg.classList.remove('bg-opacity-0');
+
   const bgContainer = document.createElement('div');
   bgContainer.classList.add(
     'bg-background-light',

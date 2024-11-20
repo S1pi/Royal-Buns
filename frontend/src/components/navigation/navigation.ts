@@ -17,7 +17,7 @@ const navigation = () => {
   const links = [
     {name: 'Etusivu', value: 'main', href: '/'},
     {name: 'Menu', value: 'menu', href: '/menu'},
-    {name: 'Varaa Pöytä', value: 'reservation', href: 'reservation'},
+    {name: 'Varaa Pöytä', value: 'reservation', href: '/reservation'},
     {name: 'Ravintolat', value: 'restaurants', href: 'restaurants'},
     {name: 'Galleria', value: 'gallery', href: 'gallery'},
     {name: 'Yrityksille', value: 'business', href: 'about'}, // Väliaikaisesti about us
