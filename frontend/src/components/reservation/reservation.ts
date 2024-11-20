@@ -240,7 +240,7 @@ const reservation = async () => {
     'align-center',
     'text-center',
     'rounded-lg',
-    'bg-offwhite',
+    'bg-primary',
     'text-red',
     'border',
     'border-red',
