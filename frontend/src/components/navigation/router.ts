@@ -1,11 +1,13 @@
 import {infoPage} from '../infoPage/infoPage';
 import {mainPage} from '../mainPage/mainPage';
 import {menu} from '../menu/menu';
+import {reservation} from '../reservation/reservation';
 
 const routes: {[key: string]: () => void} = {
   '/': mainPage,
   '/about': infoPage,
   '/menu': menu,
+  '/navigation': reservation,
 };
 
 const router = () => {

@@ -34,10 +34,6 @@ const carouselData = [
 
 const mainPage = () => {
   const app = document.getElementById('app');
-  // Call header and footer
-
-  // header();
-  // footer();
 
   //VIDEO
 

@@ -1,4 +1,3 @@
-import {header} from '../header/header';
 import {menuNavigation} from './menuNavigation';
 
 //the main menu rendering logic

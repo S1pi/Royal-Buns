@@ -24,7 +24,6 @@ const navigation = () => {
   ];
 
   // Iterating throuh list and adding them to dom
-  // Note to self: Muuta mahdollisesti käyttämään (a) elementtejä sekä href liikkumista varten
   links.forEach((item) => {
     const listItem = document.createElement('li') as HTMLLIElement;
     const a = document.createElement('a');
