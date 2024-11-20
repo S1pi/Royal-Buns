@@ -33,15 +33,14 @@ const reservation = async () => {
   // Creates the reservation container and styles it
   const reservationContainer = document.createElement('div');
   reservationContainer.classList.add(
-    'mx-auto', // Center the container horizontally
-    'm-10', // Margin top for spacing
+    'mx-auto',
+    'm-10',
     'bg-primary',
     'h-3/4',
-    'w-3/4', // Minimum height of the container
+    'w-3/4',
     'flex',
     'flex-col',
-    'p-5' // Padding
-    // Background color
+    'p-5'
   );
 
   // Create the reservation title and style it
@@ -76,16 +75,19 @@ const reservation = async () => {
   const restaurantDropdown = document.createElement('select');
   restaurantDropdown.classList.add(
     'block',
-    'w-1/4',
+    'w-full',
     'h-10',
     'mx-auto',
     'mt-5',
+    'appearance-none',
     'rounded-lg',
     'text-center',
     'bg-primary',
     'text-red',
     'border',
-    'border-red'
+    'border-red',
+    'relative',
+    'pr-10'
   );
   restaurantDropdown.id = 'restaurantSelect';
   restaurantDropdown.name = 'restaurantSelect';
@@ -98,6 +100,8 @@ const reservation = async () => {
   restaurantOption.selected = true;
   restaurantDropdown.appendChild(restaurantOption);
 
+  // Fetch the restaurants
+
   const restaurants = await getRestaurants();
 
   restaurants.forEach((restaurant) => {
@@ -107,13 +111,31 @@ const reservation = async () => {
     restaurantDropdown.appendChild(optionElement);
   });
 
-  selectionContainer.appendChild(restaurantDropdown);
+  // Create a container for dropdown and replacement icon
+  const restDropdownContainer = document.createElement('div');
+  restDropdownContainer.classList.add('relative', 'inline-block', 'w-1/4');
+  const restaurantIcon = document.createElement('i');
+  restaurantIcon.classList.add(
+    'fa-solid',
+    'fa-burger',
+    'absolute',
+    'right-3',
+    'top-2/3',
+    'transform',
+    '-translate-y-1/2',
+    'pointer-events-none',
+    'text-red'
+  );
+  restDropdownContainer.appendChild(restaurantDropdown);
+  restDropdownContainer.appendChild(restaurantIcon);
+  selectionContainer.appendChild(restDropdownContainer);
 
   // Create the dropdown for amount of people
   const peopleDropdown = document.createElement('select');
   peopleDropdown.classList.add(
     'block',
-    'w-1/4',
+    'w-full',
+    'appearance-none',
     'h-10',
     'mx-auto',
     'mt-5',
@@ -148,15 +170,32 @@ const reservation = async () => {
     optionElement.textContent = option;
     peopleDropdown.appendChild(optionElement);
   });
-  selectionContainer.appendChild(peopleDropdown);
+  const peopleDropdownContainer = document.createElement('div');
+  peopleDropdownContainer.classList.add('w-1/4', 'relative', 'inline-block');
+  const peopleIcon = document.createElement('i');
+  peopleIcon.classList.add(
+    'fa-solid',
+    'fa-users',
+    'absolute',
+    'right-3',
+    'top-2/3',
+    'transform',
+    '-translate-y-1/2',
+    'pointer-events-none',
+    'text-red'
+  );
+  peopleDropdownContainer.appendChild(peopleDropdown);
+  peopleDropdownContainer.appendChild(peopleIcon);
+  selectionContainer.appendChild(peopleDropdownContainer);
 
   //create the date selection button
 
+  // Create the date selection input
   const dateSelection = document.createElement('input');
   dateSelection.type = 'date';
   dateSelection.classList.add(
     'block',
-    'w-1/4',
+    'w-full', // Use the same width as other elements
     'h-10',
     'mx-auto',
     'mt-5',
@@ -165,18 +204,18 @@ const reservation = async () => {
     'text-red',
     'border',
     'border-red',
-    'flex',
-    'justify-center',
-    'items-center',
     'text-center'
   );
 
-  const dateSelectionText = 'Valitse päivämäärä';
-  dateSelection.textContent = dateSelectionText;
-  selectionContainer.appendChild(dateSelection);
+  // Create a container for date selection
+  const dateContainer = document.createElement('div');
+  dateContainer.classList.add('relative', 'inline-block', 'w-1/4');
 
-  // Append the reservation container to the appDiv
-  selectionContainer.appendChild(dateSelection);
+  // Append the date selection input to the container
+  dateContainer.appendChild(dateSelection);
+
+  // Append the container to the selection container
+  selectionContainer.appendChild(dateContainer);
 
   dateSelection.addEventListener('click', () => {
     const restaurantId = restaurantDropdown.value;
@@ -188,7 +227,47 @@ const reservation = async () => {
     if (restaurant == undefined) alert('You need to select Restaurant');
   });
 
-  // Generates times for time selection depending of the restaurant open hours
+  //main logic for creating the time selection button
+  // Create the time selection dropdown
+  const timeSelection = document.createElement('select');
+  timeSelection.classList.add(
+    'block',
+    'w-full', // Use full width for the dropdown
+    'h-10',
+    'mx-auto',
+    'mt-5',
+    'appearance-none',
+    'align-center',
+    'text-center',
+    'rounded-lg',
+    'bg-offwhite',
+    'text-red',
+    'border',
+    'border-red',
+    'relative',
+    'pr-12' // Increase right padding to make space for the icon
+  );
+
+  // Create a container for time selection and replacement icon
+  const timeContainer = document.createElement('div');
+  timeContainer.classList.add('relative', 'inline-block', 'w-1/4');
+
+  const timeIcon = document.createElement('i');
+  timeIcon.classList.add(
+    'fa-solid',
+    'fa-clock',
+    'absolute',
+    'right-3',
+    'top-2/3',
+    'transform',
+    '-translate-y-1/2',
+    'pointer-events-none'
+  );
+
+  timeContainer.appendChild(timeSelection);
+  timeContainer.appendChild(timeIcon);
+
+  // Generates times for time selection depending on the restaurant open hours
   const generateTimes = (openHours: string): string[] => {
     const [start, end] = openHours.split('-');
 
@@ -217,24 +296,6 @@ const reservation = async () => {
 
     return times;
   };
-
-  //main logic for creating the time selection button
-  const timeSelection = document.createElement('select');
-  timeSelection.classList.add(
-    'block',
-    'w-1/4',
-    'h-10',
-    'mx-auto',
-    'mt-5',
-    'rounded-lg',
-    'bg-primary',
-    'text-red',
-    'border',
-    'border-red',
-    'flex',
-    'justify-center',
-    'text-center'
-  );
 
   const generateTimeSelection = (restaurant: Restaurant) => {
     timeSelection.innerHTML = '';
@@ -268,7 +329,7 @@ const reservation = async () => {
     });
     console.log(date.getDay(), reservationTimes);
     // Append the reservation container to the appDiv
-    selectionContainer.appendChild(timeSelection);
+    selectionContainer.appendChild(timeContainer);
   };
 
   // Determine what day it is and generate times by restaurant and what day is
@@ -283,11 +344,11 @@ const reservation = async () => {
     generateTimeSelection(restaurant);
 
     if (restaurant === undefined) {
-      throw new Error('Error occured with fetching restaurant');
+      throw new Error('Error occurred with fetching restaurant');
     } else {
       console.log(restaurant);
 
-      // Adds event listner to restaurant dropdown to change also times
+      // Adds event listener to restaurant dropdown to change also times
       restaurantDropdown.addEventListener('change', () => {
         const restaurantId = restaurantDropdown.value;
         const restaurant = restaurants.find(
@@ -326,7 +387,7 @@ const reservation = async () => {
 
   // TODO: Implement changing to reservation modal and pass all data from inputs to modal
   // for table creation
-  // Now its just showing all data on console log
+  // Now it's just showing all data on console log
   reservationButton.addEventListener('click', () => {
     const restaurantId = restaurantDropdown.value;
     const peopleAmount = peopleDropdown.value;
