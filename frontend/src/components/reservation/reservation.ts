@@ -1,3 +1,4 @@
+import {getRestaurants} from '../../utils/getRestaurants';
 import {header} from '../header/header';
 
 // Type for 1 restaurant
@@ -9,36 +10,36 @@ type Restaurant = {
 
 // Mockdata for restaurants
 // TODO: Search from database
-const restaurants = [
-  {
-    id: 1,
-    restaurantName: 'Royal Buns Helsinki',
-    openHours: {weekdays: '10:00-22:00', weekends: '12:00-23:00'},
-  },
-  {
-    id: 2,
-    restaurantName: 'Royal Buns Espoo',
-    openHours: {weekdays: '10:00-21:00', weekends: '12:00-21:00'},
-  },
-  {
-    id: 3,
-    restaurantName: 'Royal Buns Tampere',
-    openHours: {weekdays: '12:00-20:00', weekends: '12:00-23:00'},
-  },
-  {
-    id: 4,
-    restaurantName: 'Royal Buns Rovaniemi',
-    openHours: {weekdays: '12:00-20:00', weekends: '12:00-23:00'},
-  },
-];
+// const restaurants = [
+//   {
+//     id: 1,
+//     restaurantName: 'Royal Buns Helsinki',
+//     openHours: {weekdays: '10:00-22:00', weekends: '12:00-23:00'},
+//   },
+//   {
+//     id: 2,
+//     restaurantName: 'Royal Buns Espoo',
+//     openHours: {weekdays: '10:00-21:00', weekends: '12:00-21:00'},
+//   },
+//   {
+//     id: 3,
+//     restaurantName: 'Royal Buns Tampere',
+//     openHours: {weekdays: '12:00-20:00', weekends: '12:00-23:00'},
+//   },
+//   {
+//     id: 4,
+//     restaurantName: 'Royal Buns Rovaniemi',
+//     openHours: {weekdays: '12:00-20:00', weekends: '12:00-23:00'},
+//   },
+// ];
 
 // Function to search restaurant by its id
-const getRestaurantById = (restaurantId: number) => {
-  console.log(restaurantId);
-  return restaurants.find((restaurant) => restaurant.id === restaurantId);
-};
+// const getRestaurantById = (restaurantId: number) => {
+//   console.log(restaurantId);
+//   return restaurants.find((restaurant) => restaurant.id === restaurantId);
+// };
 
-const reservation = () => {
+const reservation = async () => {
   // Select the #app div
   const appDiv = document.querySelector('#app') as HTMLElement;
   appDiv.classList.add(
@@ -128,6 +129,8 @@ const reservation = () => {
   restaurantOption.selected = true;
   restaurantDropdown.appendChild(restaurantOption);
 
+  const restaurants = await getRestaurants();
+
   restaurants.forEach((restaurant) => {
     const optionElement = document.createElement('option');
     optionElement.value = restaurant.id.toString();
@@ -209,7 +212,10 @@ const reservation = () => {
   dateSelection.addEventListener('click', () => {
     const restaurantId = restaurantDropdown.value;
 
-    const restaurant = getRestaurantById(Number(restaurantId)) as Restaurant;
+    const restaurant = restaurants.find(
+      (restaurant) => restaurant.id === Number(restaurantId)
+    ) as Restaurant;
+    console.log(restaurant);
     if (restaurant == undefined) alert('You need to select Restaurant');
   });
 
@@ -301,7 +307,9 @@ const reservation = () => {
   dateSelection.addEventListener('change', () => {
     // Get restaurant
     const restaurantId = restaurantDropdown.value;
-    const restaurant = getRestaurantById(Number(restaurantId)) as Restaurant;
+    const restaurant = restaurants.find(
+      (restaurant) => restaurant.id === Number(restaurantId)
+    ) as Restaurant;
     // Generate that restaurant times
     generateTimeSelection(restaurant);
 
@@ -313,8 +321,8 @@ const reservation = () => {
       // Adds event listner to restaurant dropdown to change also times
       restaurantDropdown.addEventListener('change', () => {
         const restaurantId = restaurantDropdown.value;
-        const restaurant = getRestaurantById(
-          Number(restaurantId)
+        const restaurant = restaurants.find(
+          (restaurant) => restaurant.id === Number(restaurantId)
         ) as Restaurant;
         generateTimeSelection(restaurant);
       });
