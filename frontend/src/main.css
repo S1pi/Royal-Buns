@@ -1,3 +1,59 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*   const leftUpperCard = document.createElement('div');
+  leftUpperCard.classList.add('card');
+
+  const leftUpperFaceFront = document.createElement('div');
+  leftUpperFaceFront.classList.add('fs', 'l-u-front');
+
+  const leftLowerFaceFront = document.createElement('div');
+  leftLowerFaceFront.classList.add('fs', 'l-u-back'); */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+/*
+.scene {
+  perspective: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition-duration: 2s;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fs {
+  position: absolute;
+  color: white;
+  width: 90%;
+  height: 90%;
+}
+
+.l-u-front {
+  background-color: aqua;
+  backface-visibility: hidden;
+}
+
+.l-u-back {
+  background-color: red;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.card.flip {
+  transform: rotateY(-180deg);
+} */
