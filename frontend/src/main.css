@@ -36,4 +36,6 @@ input {
   animation: pop-in 0.5s forwards;
 }
 
-
+.date-picker::-webkit-calendar-picker-indicator {
+  display: none;
+}

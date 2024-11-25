@@ -91,7 +91,8 @@ const reservation = async () => {
     'border',
     'border-red',
     'relative',
-    'pr-10'
+    'pr-10',
+    'cursor-pointer'
   );
   restaurantDropdown.id = 'restaurantSelect';
   restaurantDropdown.name = 'restaurantSelect';
@@ -148,7 +149,8 @@ const reservation = async () => {
     'bg-primary',
     'text-red',
     'border',
-    'border-red'
+    'border-red',
+    'cursor-pointer'
   );
   peopleDropdown.id = 'people';
   peopleDropdown.name = 'people';
@@ -208,15 +210,34 @@ const reservation = async () => {
     'text-red',
     'border',
     'border-red',
-    'text-center'
+    'text-center',
+    'date-picker',
+    'cursor-pointer'
   );
+
+  const calendarButton = document.createElement('button');
+  // calendarButton.textContent = '📅 ';
+  const calendarIcon = document.createElement('i');
+  calendarIcon.classList.add('fa-regular', 'fa-calendar', 'text-red');
+  calendarButton.appendChild(calendarIcon);
+  calendarButton.classList.add(
+    'absolute',
+    'right-3',
+    'top-2/3',
+    '-translate-y-1/2',
+    'pointer-events-none'
+  );
+
+  calendarButton.addEventListener('click', () => {
+    // dateSelection.showPicker();
+  });
 
   // Create a container for date selection
   const dateContainer = document.createElement('div');
   dateContainer.classList.add('relative', 'inline-block', 'w-1/4');
 
   // Append the date selection input to the container
-  dateContainer.appendChild(dateSelection);
+  dateContainer.append(dateSelection, calendarButton);
 
   // Append the container to the selection container
   selectionContainer.appendChild(dateContainer);
@@ -229,6 +250,7 @@ const reservation = async () => {
     ) as Restaurant;
     console.log(restaurant);
     if (restaurant == undefined) alert('You need to select Restaurant');
+    dateSelection.showPicker();
   });
 
   //main logic for creating the time selection button
@@ -249,7 +271,8 @@ const reservation = async () => {
     'border',
     'border-red',
     'relative',
-    'pr-12' // Increase right padding to make space for the icon
+    'pr-12', // Increase right padding to make space for the icon
+    'cursor-pointer'
   );
 
   // Create a container for time selection and replacement icon
@@ -265,7 +288,8 @@ const reservation = async () => {
     'top-2/3',
     'transform',
     '-translate-y-1/2',
-    'pointer-events-none'
+    'pointer-events-none',
+    'text-red'
   );
 
   timeContainer.appendChild(timeSelection);
