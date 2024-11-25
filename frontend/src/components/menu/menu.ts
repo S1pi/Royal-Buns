@@ -11,7 +11,8 @@ const menu = () => {
     'h-screen',
     'flex',
     'flex-col',
-    'justify-center'
+    'justify-center',
+    'items-center'
   );
   header(); // Ensure header is placed on the site
 
@@ -21,7 +22,7 @@ const menu = () => {
     'flex',
     'flex-col',
     'items-center',
-    'w-full',
+    'w-2/3',
     'h-5/6'
   );
   appDiv.appendChild(contentWrapper);
@@ -32,11 +33,11 @@ const menu = () => {
   const menuDataContainer = document.createElement('div');
   menuDataContainer.classList.add(
     'bg-primary',
-    'h-full',
+    // 'h-full',
     'w-full', // Match width with the button container above
     'flex',
     'flex-col',
-    'p-5' // Padding
+    'p-14' // Padding
   );
 
   menuNavigation(contentWrapper, menuDataContainer);
