@@ -54,8 +54,8 @@ const router = () => {
   }
 };
 
-window.onpopstate = () => {
-  router();
-};
+// window.onpopstate = () => {
+//   router();
+// };
 
 export {router};
