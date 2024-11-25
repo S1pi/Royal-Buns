@@ -1,3 +1,4 @@
+import {stringify} from './../../../../node_modules/postcss/lib/postcss.d';
 // TODO: Implement the restaurants to appear on the map page fron the getRestaurants mock data.
 // TODO: Improve to get the same data from the actual database backend.
 import {getRestaurants} from '../../utils/getRestaurants';
@@ -75,6 +76,38 @@ const restaurants = async () => {
   );
   restaurantsMainContainer.appendChild(restaurantSelectionContainer);
 
+  // Create container for map
+  const mapContainer = document.createElement('div');
+  mapContainer.classList.add(
+    'h-/5', // Full height
+    'w-3/5',
+    'items-center',
+    'justify-center',
+    'mt-20'
+  );
+
+  restaurantsMainContainer.appendChild(mapContainer);
+
+  // Initialize Leaflet map
+  const map = L.map(mapContainer).setView([64.31434, 25.26326], 6); //
+
+  // Add OpenStreetMap tiles
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
+
+  setTimeout(() => {
+    map.invalidateSize();
+  }, 100);
+
+  const customIcon = L.icon({
+    iconUrl: 'img/pin.png',
+    iconSize: [47, 50],
+    iconAnchor: [25, 50],
+    popupAnchor: [0, -46],
+  });
+
   // get restaurants from mock data
   const restaurantNames = await getRestaurants();
   //TODO: Implement the actual database fetch
@@ -92,46 +125,27 @@ const restaurants = async () => {
       'm-2',
       'pop-out-animation'
     );
+
+    const marker = L.marker([restaurants.latitude, restaurants.longitude], {
+      icon: customIcon,
+    }).addTo(map);
+
+    marker.bindPopup(
+      `<b>${restaurants.restaurantName}</b><br>${restaurants.openHours.weekdays} - ${restaurants.openHours.weekends}`
+    );
+
+    restaurantSelectionButtons.addEventListener('click', () => {
+      map.setView([restaurants.latitude, restaurants.longitude], 16);
+      marker.openPopup();
+      console.log(restaurants.latitude, restaurants.longitude);
+    });
+
     restaurantSelectionContainer.appendChild(restaurantSelectionButtons);
   });
-  restaurantsMainContainer.appendChild(restaurantSelectionContainer);
-
-  // Create container for map
-  const mapContainer = document.createElement('div');
-  mapContainer.classList.add(
-    'h-/5', // Full height
-    'w-3/5',
-    'items-center',
-    'justify-center',
-    'mt-20'
-  );
-
-  restaurantsMainContainer.appendChild(mapContainer);
-
-  // Initialize Leaflet map
-  const map = L.map(mapContainer).setView([64.31434, 27.26326], 5); // Set initial view to center of finland
-
-  // Add OpenStreetMap tiles
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(map);
-
-  setTimeout(() => {
-    map.invalidateSize();
-  }, 100);
-
   // Add markers for each restaurant
-  restaurantNames.forEach((restaurant) => {
-    const marker = L.marker([restaurant.latitude, restaurant.longitude]).addTo(
-      map
-    );
-    marker.bindPopup(
-      `<b>${restaurant.restaurantName}</b><br>${restaurant.openHours.weekdays} - ${restaurant.openHours.weekends}`
-    );
-  });
   bgContainer.appendChild(restaurantsMainContainer);
   appDiv.appendChild(bgContainer);
+  restaurantsMainContainer.appendChild(restaurantSelectionContainer);
 };
 
 export {restaurants};
