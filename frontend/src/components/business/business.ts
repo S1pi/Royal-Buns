@@ -1,16 +1,10 @@
-import {footer} from '../footer/footer';
-import {header} from '../header/header';
-
 const business = () => {
-  // First create header for page
-  header();
-  footer();
-
   const app = document.getElementById('app') as HTMLElement;
-  // app.classList
+
+  const header = document.querySelector('header') as HTMLElement;
+  header.classList.remove('bg-opacity-0');
 
   // Colored background
-
   const bg = document.createElement('div');
   bg.classList.add(
     'bg-background-light',

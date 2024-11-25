@@ -20,7 +20,7 @@ const navigation = () => {
     {name: 'Varaa Pöytä', value: 'reservation', href: '/reservation'},
     {name: 'Ravintolat', value: 'restaurants', href: 'restaurants'},
     {name: 'Galleria', value: 'gallery', href: 'gallery'},
-    {name: 'Yrityksille', value: 'business', href: 'about'}, // Väliaikaisesti about us
+    {name: 'Yrityksille', value: 'business', href: 'business'}, // Väliaikaisesti about us
   ];
 
   // Iterating throuh list and adding them to dom

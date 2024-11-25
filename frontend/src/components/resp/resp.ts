@@ -1,13 +1,6 @@
-import {footer} from '../footer/footer';
-import {header} from '../header/header';
-
 // resp = Responsibility
 
 const resp = () => {
-  // First create header for page
-  header();
-  footer();
-
   const app = document.getElementById('app') as HTMLElement;
   // app.classList
 

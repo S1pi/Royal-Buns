@@ -1,13 +1,23 @@
+import {business} from '../business/business';
+import {gallery} from '../gallery/gallery';
 import {infoPage} from '../infoPage/infoPage';
 import {mainPage} from '../mainPage/mainPage';
 import {menu} from '../menu/menu';
 import {reservation} from '../reservation/reservation';
+import {resp} from '../resp/resp';
 
 const routes: {[key: string]: () => void} = {
+  // Header navigation
   '/': mainPage,
-  '/about': infoPage,
   '/menu': menu,
   '/reservation': reservation,
+  // "/restaurant": restaurant, TODO: Restaurant function here
+  '/business': business,
+  '/gallery': gallery,
+
+  // Other navigation
+  '/about': infoPage,
+  '/responsibility': resp,
 };
 
 const router = () => {
