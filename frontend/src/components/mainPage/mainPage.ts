@@ -281,7 +281,28 @@ const mainPage = () => {
   infoTextElement.textContent =
     'Royal Buns on vuonna 2019 perustettu premium-burgeriketju, jonka ravintolat löytyvät Helsingistä, Espoosta, Tampereelta ja Rovaniemeltä. Maineemme laadukkaista ja käsityönä valmistetuista burgereista on tuonut burgerin ystävät yhteen ympäri Suomen. Rennossa mutta tyylikkäässä miljöössä valmistamme jokaisen annoksen huolella, ja Royal Buns onkin vakiinnuttanut paikkansa yhtenä Suomen kymmenestä parhaasta burgeriravintolasta vuosina 2022, 2023 ja 2024.';
 
-  restaurantInfoContainer.append(infoHeadingElement, infoTextElement);
+  const infoButtonContainer = document.createElement('div');
+  infoButtonContainer.classList.add(
+    'w-32',
+    'h-16',
+    'my-8',
+    'bg-yellow',
+    'flex',
+    'justify-center',
+    'items-center',
+    'rounded-full',
+    'shadow-xl'
+  );
+  const infoLink = document.createElement('a');
+  infoLink.href = '/about';
+  infoLink.textContent = 'Lue lisää';
+  infoButtonContainer.appendChild(infoLink);
+
+  restaurantInfoContainer.append(
+    infoHeadingElement,
+    infoTextElement,
+    infoButtonContainer
+  );
 
   // ADD: Daily burger
 
