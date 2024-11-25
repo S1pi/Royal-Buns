@@ -64,10 +64,28 @@ const restaurants = async () => {
     'justify-center',
     'mt-5',
     'text-black',
-    'border-1'
+    'border-1',
+    'border-black'
   );
+  restaurantsMainContainer.appendChild(restaurantSelectionContainer);
 
-  appDiv.appendChild(restaurantsMainContainer);
+  // get restaurants from mock data 
+  const restaurantNames = await getRestaurants();
+  //TODO: Implement the actual database fetch
+  // Create buttons for restaurant selection
+  restaurantNames.forEach((restaurants) => {
+    const restaurantSelectionButtons = document.createElement('button');
+    restaurantSelectionButtons.textContent = restaurants.restaurantName;
+    restaurantSelectionButtons.classList.add(
+      'bg-primary',
+      'text-black',
+      'p-2',
+      'm-2'
+    );
+    restaurantSelectionContainer.appendChild(restaurantSelectionButtons);
+  });
+  appDiv.appendChild(bgContainer);
+  bgContainer.appendChild(restaurantsMainContainer);
 };
 
 export {restaurants};
