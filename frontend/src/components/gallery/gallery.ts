@@ -1,3 +1,6 @@
+import {footer} from '../footer/footer';
+import {header} from '../header/header';
+
 const gallery = () => {
   const app = document.getElementById('app') as HTMLElement;
 

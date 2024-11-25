@@ -3,8 +3,6 @@
 @tailwind utilities;
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
   border: none;
 }
 
@@ -63,10 +61,10 @@
 .card.flip {
   transform: rotateY(-180deg);
 }
-
+/* 
 input {
   border: 2px solid black;
-}
+} */
 
 .pop-out-animation {
   transition: transform 0.5s ease-in-out;

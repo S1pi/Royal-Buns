@@ -3,7 +3,7 @@ const footer = () => {
 
   // FOOTER component
 
-  const footerContainer = document.createElement('div');
+  const footerContainer = document.createElement('footer');
   footerContainer.classList.add(
     'flex',
     'flex-col',
