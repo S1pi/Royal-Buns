@@ -44,10 +44,10 @@ const restaurants = async () => {
 
   const updateContent = () => {
     restaurantTitleContainer.textContent = translations[currentLanguage].title;
-    restaurantTextContainer.textContent = translations[currentLanguage].selectRestaurant;
+    restaurantTextContainer.textContent =
+      translations[currentLanguage].selectRestaurant;
   };
 
-  
   // Create the container for the main content of the page
   const restaurantsMainContainer = document.createElement('div');
   restaurantsMainContainer.classList.add(
@@ -97,7 +97,6 @@ const restaurants = async () => {
     'h-4/5',
     'mt-10',
     'rounded-lg',
-    'h-full',
     'gap-4' // Set width for the restaurant selection container
   );
   restaurantsMainContainer.appendChild(restaurantSelectionContainer);
@@ -105,14 +104,14 @@ const restaurants = async () => {
   // Create container for map
   const mapContainer = document.createElement('div');
   mapContainer.classList.add(
-    'h-4/5', 
+    'h-4/5',
     'w-3/5',
     'items-center',
     'justify-center',
     'mt-10',
     'rounded-lg',
     'border-2',
-    'border-secondary',
+    'border-secondary'
   );
 
   restaurantsMainContainer.appendChild(mapContainer);
@@ -158,7 +157,7 @@ const restaurants = async () => {
       'p-2',
       'm-2',
       'pop-out-animation',
-      'rounded-lg',
+      'rounded-lg'
     );
 
     const marker = L.marker([restaurants.latitude, restaurants.longitude], {
@@ -177,10 +176,11 @@ const restaurants = async () => {
 
     restaurantSelectionContainer.appendChild(restaurantSelectionButtons);
   });
-  
+
   // text for bottom of page
   const restaurantTextContainer = document.createElement('p');
-  restaurantTextContainer.textContent = translations[currentLanguage].selectRestaurant
+  restaurantTextContainer.textContent =
+    translations[currentLanguage].selectRestaurant;
   restaurantTextContainer.classList.add(
     'flex',
     'mx-auto',
@@ -190,8 +190,7 @@ const restaurants = async () => {
     'text-center', // Center text
     'justify-center', // Flex to center the text in case it's inside a flex container
     'text-black',
-    'bg-primary',
-    
+    'bg-primary'
   );
   bgContainer.appendChild(restaurantTextContainer);
 
