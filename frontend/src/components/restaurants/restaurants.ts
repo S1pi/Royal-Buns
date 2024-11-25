@@ -4,6 +4,17 @@ import {stringify} from './../../../../node_modules/postcss/lib/postcss.d';
 import {getRestaurants} from '../../utils/getRestaurants';
 import L from 'leaflet';
 
+// Translations for the page (mock data).
+const translations = {
+  FI: {
+    title: 'Ravintolat',
+    selectRestaurant: 'Valitse ravintola kartalta',
+  },
+  EN: {
+    title: 'Restaurants',
+    selectRestaurant: 'Select restaurant from the map',
+  },
+};
 // Main container for the page content.
 const restaurants = async () => {
   // select #app div element.
@@ -20,13 +31,24 @@ const restaurants = async () => {
   );
 
   // TODO: Implement translations for the page.
-  const language = (lang: string) => {
-    if (lang === 'FI') {
-      return true;
-    } else {
-      return false;
-    }
+  let currentLanguage: 'FI' | 'EN' = 'EN'; // Default language
+  const languageButtons = document.querySelectorAll('button');
+  languageButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const selectedLanguage = button.textContent as 'FI' | 'EN';
+      if (selectedLanguage === 'FI' || selectedLanguage === 'EN') {
+        currentLanguage = selectedLanguage;
+      }
+      updateContent();
+    });
+  });
+
+  const updateContent = () => {
+    restaurantTitleContainer.textContent = translations[currentLanguage].title;
+    restaurantTextContainer.textContent = translations[currentLanguage].selectRestaurant;
   };
+
+  
   // Create the container for the main content of the page
   const restaurantsMainContainer = document.createElement('div');
   restaurantsMainContainer.classList.add(
@@ -44,9 +66,7 @@ const restaurants = async () => {
 
   // Create the title for the page
   const restaurantTitleContainer = document.createElement('h1');
-  restaurantTitleContainer.textContent = language('FI')
-    ? 'Ravintolat'
-    : 'Restaurants';
+  restaurantTitleContainer.textContent = translations[currentLanguage].title;
 
   // Use the styling universal to all pages
   restaurantTitleContainer.classList.add(
@@ -71,25 +91,35 @@ const restaurants = async () => {
     'justify-center',
     'p-4',
     'text-black',
-    'w-2/5',
-    'h-full' // Set width for the restaurant selection container
+    'bg-white',
+    'border-2',
+    'border-secondary',
+    'w-1/8',
+    'h-4/5',
+    'mt-10',
+    'rounded-lg',
+    'h-full',
+    'gap-4' // Set width for the restaurant selection container
   );
   restaurantsMainContainer.appendChild(restaurantSelectionContainer);
 
   // Create container for map
   const mapContainer = document.createElement('div');
   mapContainer.classList.add(
-    'h-/5', // Full height
+    'h-4/5', 
     'w-3/5',
     'items-center',
     'justify-center',
-    'mt-20'
+    'mt-10',
+    'rounded-lg',
+    'border-2',
+    'border-secondary',
   );
 
   restaurantsMainContainer.appendChild(mapContainer);
 
   // Initialize Leaflet map
-  const map = L.map(mapContainer).setView([64.31434, 25.26326], 6); //
+  const map = L.map(mapContainer).setView([64.31434, 25.26326], 5); //
 
   // Add OpenStreetMap tiles
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -120,10 +150,16 @@ const restaurants = async () => {
       'flex-col',
       'bg-primary',
       'text-black',
+      'border-2',
+      'border-secondary',
       'text-h2',
+      'text-center',
+      'items-center',
+      'justify-center',
       'p-2',
       'm-2',
-      'pop-out-animation'
+      'pop-out-animation',
+      'rounded-lg',
     );
 
     const marker = L.marker([restaurants.latitude, restaurants.longitude], {
@@ -142,7 +178,24 @@ const restaurants = async () => {
 
     restaurantSelectionContainer.appendChild(restaurantSelectionButtons);
   });
-  // Add markers for each restaurant
+  
+  // text for bottom of page
+  const restaurantTextContainer = document.createElement('p');
+  restaurantTextContainer.textContent = translations[currentLanguage].selectRestaurant
+  restaurantTextContainer.classList.add(
+    'flex',
+    'mx-auto',
+    'w-3/4',
+    'text-h2', // Use custom h1 size from tailwind config
+    'font-bold', // Bold text
+    'text-center', // Center text
+    'justify-center', // Flex to center the text in case it's inside a flex container
+    'text-black',
+    'bg-primary',
+    
+  );
+  bgContainer.appendChild(restaurantTextContainer);
+
   bgContainer.appendChild(restaurantsMainContainer);
   appDiv.appendChild(bgContainer);
   restaurantsMainContainer.appendChild(restaurantSelectionContainer);
