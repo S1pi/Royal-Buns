@@ -9,10 +9,10 @@ const business = () => {
   bg.classList.add(
     'bg-background-light',
     'w-full',
-    'h-full',
     'flex',
     'justify-center',
-    'items-center'
+    'items-center',
+    'p-10'
   );
 
   // Colored container for content

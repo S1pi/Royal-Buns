@@ -41,27 +41,27 @@ const footer = () => {
 
   const aboutUs = [
     {text: 'TIETOA MEISTÄ', href: 'heading'},
-    {text: 'Tietoa meistä', href: 'about'},
-    {text: 'Ravintolat', href: 'restaurants'},
-    {text: 'Galleria', href: 'gallery'},
+    {text: 'Tietoa meistä', href: '/about'},
+    {text: 'Ravintolat', href: '/restaurants'},
+    {text: 'Galleria', href: '/gallery'},
   ];
 
   const customerService = [
     {text: 'ASIAKASPALVELU', href: 'heading'},
-    {text: 'Ota yhteyttä', href: 'contact'},
+    {text: 'Ota yhteyttä', href: '/contact'},
     {text: 'Usein kysyttyä', href: 'https://chatgpt.com'},
-    {text: 'Yrityksille', href: 'business'},
+    {text: 'Yrityksille', href: '/business'},
   ];
 
   const products = [
     {text: 'TUOTTEET', href: 'heading'},
-    {text: 'Menu', href: 'menu'},
-    {text: 'Vastuullisuus', href: 'responsibility'},
+    {text: 'Menu', href: '/menu'},
+    {text: 'Vastuullisuus', href: '/responsibility'},
   ];
 
   const offers = [
     {text: 'KAMPANJAT JA TARJOUKSET', href: 'heading'},
-    {text: 'Lounastarjous', href: 'menu'}, // TODO?: Luo tarjoukset kohta menuun
+    {text: 'Lounastarjous', href: '/menu'}, // TODO?: Luo tarjoukset kohta menuun
   ];
 
   const followUs = [

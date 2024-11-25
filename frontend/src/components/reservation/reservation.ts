@@ -421,6 +421,9 @@ const reservation = async () => {
     const peopleAmount = peopleDropdown.value;
     const reservationTime = timeSelection.value;
     const reservationDate = dateSelection.value;
+
+    // TODO: Selection check before going next path
+    window.location.pathname += '/table-selection';
     console.log(restaurantId, peopleAmount, reservationTime, reservationDate);
   });
 };

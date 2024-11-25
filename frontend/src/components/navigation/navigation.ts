@@ -17,10 +17,10 @@ const navigation = () => {
   const links = [
     {name: 'Etusivu', value: 'main', href: '/'},
     {name: 'Menu', value: 'menu', href: '/menu'},
-    {name: 'Varaa Pöytä', value: 'reservation', href: '/reservation'},
-    {name: 'Ravintolat', value: 'restaurants', href: 'restaurants'},
-    {name: 'Galleria', value: 'gallery', href: 'gallery'},
-    {name: 'Yrityksille', value: 'business', href: 'business'}, // Väliaikaisesti about us
+    {name: 'Varaa pöytä', value: 'reservation', href: '/reservation'},
+    {name: 'Ravintolat', value: 'restaurants', href: '/restaurants'},
+    {name: 'Galleria', value: 'gallery', href: '/gallery'},
+    {name: 'Yrityksille', value: 'business', href: '/business'}, // Väliaikaisesti about us
   ];
 
   // Iterating throuh list and adding them to dom
@@ -38,8 +38,11 @@ const navigation = () => {
         const href = target.getAttribute('href');
         e.preventDefault();
         if (href) {
-          history.pushState({}, '', href);
-          router(); // Updates page to user
+          if (window.location.pathname !== href) {
+            history.pushState({}, '', href);
+            // window.location.pathname = href;
+            router(); // Updates page to user
+          }
         }
       }
     });
