@@ -98,27 +98,7 @@ const gallery = () => {
   contentContainer.classList.add('w-10/12', 'h-full', 'flex');
 
   const leftContentContainer = document.createElement('div');
-  leftContentContainer.classList.add(
-    // 'bg-black',
-    'w-2/3',
-    'h-full',
-    'relative',
-    'p-12'
-  );
-
-  //   const leftUpperPicture = document.createElement('div');
-  //   leftUpperPicture.classList.add(
-  //     'absolute',
-  //     'left-0',
-  //     'top-4',
-  //     'w-1/2',
-  //     'h-1/2',
-  //     'kortti'
-  //   );
-  //   leftUpperPicture.style.backgroundImage = 'url("/img/placeholder.png")';
-  //   leftUpperPicture.style.backgroundSize = 'contain';
-  //   leftUpperPicture.style.backgroundPosition = 'center';
-  //   leftUpperPicture.style.backgroundRepeat = 'no-repeat';
+  leftContentContainer.classList.add('w-2/3', 'h-full', 'relative', 'p-12');
 
   const leftUpperScene = document.createElement('div');
   leftUpperScene.classList.add(
@@ -128,7 +108,6 @@ const gallery = () => {
     'top-10',
     'w-1/2',
     'h-1/2',
-    // 'border-white',
     'border-2'
   );
 
@@ -138,8 +117,20 @@ const gallery = () => {
   const leftUpperFaceFront = document.createElement('div');
   leftUpperFaceFront.classList.add('fs', 'l-u-front');
 
+  leftUpperFaceFront.style.backgroundImage = 'url(img/burger2.jpeg)';
+  leftUpperFaceFront.style.backgroundSize = 'cover';
+  leftUpperFaceFront.style.backgroundRepeat = 'no-repeat';
+  leftUpperFaceFront.style.backgroundPosition = 'center';
+  leftUpperFaceFront.style.backfaceVisibility = 'hidden';
+
   const leftUpperFaceBack = document.createElement('div');
   leftUpperFaceBack.classList.add('fs', 'l-u-back');
+
+  leftUpperFaceBack.style.backgroundImage = 'url(img/frenchFires.jpeg)';
+  leftUpperFaceBack.style.backgroundSize = 'cover';
+  leftUpperFaceBack.style.backgroundRepeat = 'no-repeat';
+  leftUpperFaceBack.style.backgroundPosition = 'center';
+  leftUpperFaceBack.style.backfaceVisibility = 'hidden';
 
   // LeftUpper Appends
 
@@ -164,10 +155,22 @@ const gallery = () => {
   leftLowerCard.classList.add('card');
 
   const leftLowerFaceFront = document.createElement('div');
-  leftLowerFaceFront.classList.add('fs', 'l-u-front');
+  leftLowerFaceFront.classList.add('fs', 'l-l-front');
+
+  leftLowerFaceFront.style.backgroundImage = 'url(img/restaurant1.jpeg)';
+  leftLowerFaceFront.style.backgroundSize = 'cover';
+  leftLowerFaceFront.style.backgroundRepeat = 'no-repeat';
+  leftLowerFaceFront.style.backgroundPosition = 'center';
+  leftLowerFaceFront.style.backfaceVisibility = 'hidden';
 
   const leftLowerFaceBack = document.createElement('div');
-  leftLowerFaceBack.classList.add('fs', 'l-u-back');
+  leftLowerFaceBack.classList.add('fs', 'l-l-back');
+
+  leftLowerFaceBack.style.backgroundImage = 'url(img/restaurant2.jpeg)';
+  leftLowerFaceBack.style.backgroundSize = 'cover';
+  leftLowerFaceBack.style.backgroundRepeat = 'no-repeat';
+  leftLowerFaceBack.style.backgroundPosition = 'center';
+  leftLowerFaceBack.style.backfaceVisibility = 'hidden';
 
   // LeftUpper Appends
 
@@ -188,7 +191,7 @@ const gallery = () => {
   rightScene.classList.add(
     'scene',
     'w-full',
-    'h-1/2',
+    'h-3/4',
     // 'border-black',
     'border-2'
   );
@@ -197,10 +200,22 @@ const gallery = () => {
   rightCard.classList.add('card');
 
   const rightFaceFront = document.createElement('div');
-  rightFaceFront.classList.add('fs', 'l-u-front');
+  rightFaceFront.classList.add('fs', 'r-front');
+
+  rightFaceFront.style.backgroundImage = 'url(img/restaurant3.jpeg)';
+  rightFaceFront.style.backgroundSize = 'cover';
+  rightFaceFront.style.backgroundRepeat = 'no-repeat';
+  rightFaceFront.style.backgroundPosition = 'center';
+  rightFaceFront.style.backfaceVisibility = 'hidden';
 
   const rightFaceBack = document.createElement('div');
-  rightFaceBack.classList.add('fs', 'l-u-back');
+  rightFaceBack.classList.add('fs', 'r-back');
+
+  rightFaceBack.style.backgroundImage = 'url(img/burger1.jpeg)';
+  rightFaceBack.style.backgroundSize = 'cover';
+  rightFaceBack.style.backgroundRepeat = 'no-repeat';
+  rightFaceBack.style.backgroundPosition = 'center';
+  rightFaceBack.style.backfaceVisibility = 'hidden';
 
   // LeftUpper Appends
 
@@ -223,6 +238,21 @@ const gallery = () => {
     rightCard.classList.toggle('flip');
     console.log('FLIPPING');
   });
+
+  setInterval(function () {
+    leftUpperCard.classList.toggle('flip');
+    console.log('Left upper card flipped');
+
+    setTimeout(function () {
+      leftLowerCard.classList.toggle('flip');
+      console.log('Left lower card flipped');
+    }, 1000);
+
+    setTimeout(function () {
+      rightCard.classList.toggle('flip');
+      console.log('Right card flipped');
+    }, 2000);
+  }, 6000);
 
   // APPENDS
   leftContentContainer.append(leftUpperScene, leftLowerScene);

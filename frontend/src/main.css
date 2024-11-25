@@ -19,7 +19,7 @@
 }
 
 .scene {
-  perspective: 700px;
+  perspective: 1000px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,12 +44,28 @@
 }
 
 .l-u-front {
-  background-color: aqua;
   backface-visibility: hidden;
 }
 
 .l-u-back {
-  background-color: red;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.r-front {
+  backface-visibility: hidden;
+}
+
+.r-back {
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.l-l-front {
+  backface-visibility: hidden;
+}
+
+.l-l-back {
   backface-visibility: hidden;
   transform: rotateY(180deg);
 }
