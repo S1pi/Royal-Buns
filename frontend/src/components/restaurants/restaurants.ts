@@ -30,7 +30,7 @@ const restaurants = async () => {
     'justify-center'
   );
 
-  // TODO: Implement translations for the page.
+  // Translation functionality for the page.
   let currentLanguage: 'FI' | 'EN' = 'EN'; // Default language
   const languageButtons = document.querySelectorAll('button');
   languageButtons.forEach((button) => {
