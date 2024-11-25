@@ -24,12 +24,7 @@ const carouselData = [
     text: 'Tiesitkö että 94% raaka-aineistamme on kotimaisia',
     link: 'linkki tähän',
   },
-  {
-    id: 4,
-    heading: 'MIIKA TÖIHIN',
-    text: 'Joo, luit oikein!',
-    link: '',
-  },
+  // {},
 ];
 
 const mainPage = () => {
@@ -342,7 +337,7 @@ const mainPage = () => {
 
   const tableLink = document.createElement('a');
   tableLink.textContent = 'Varaa pöytä';
-  tableLink.href = '/Varaa';
+  tableLink.href = '/reservation';
 
   tableLinkContainer.appendChild(tableLink);
 
