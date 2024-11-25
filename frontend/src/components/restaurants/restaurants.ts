@@ -1,4 +1,3 @@
-import {stringify} from './../../../../node_modules/postcss/lib/postcss.d';
 // TODO: Implement the restaurants to appear on the map page fron the getRestaurants mock data.
 // TODO: Improve to get the same data from the actual database backend.
 import {getRestaurants} from '../../utils/getRestaurants';
