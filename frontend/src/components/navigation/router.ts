@@ -8,13 +8,14 @@ import {menu} from '../menu/menu';
 import {reservation} from '../reservation/reservation';
 import {reservationModal} from '../reservation/reservationModal';
 import {resp} from '../resp/resp';
+import {restaurants} from '../restaurants/restaurants';
 
 const routes: {[key: string]: () => void} = {
   // Header navigation
   '/': mainPage,
   '/menu': menu,
   '/reservation': reservation,
-  // "/restaurants": restaurants, TODO: Restaurant function here
+  '/restaurants': restaurants,
   '/business': business,
   '/gallery': gallery,
 
