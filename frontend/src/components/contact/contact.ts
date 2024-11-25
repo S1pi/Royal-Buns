@@ -9,10 +9,10 @@ const contact = () => {
   bg.classList.add(
     'bg-background-light',
     'w-full',
-    'h-screen',
     'flex',
     'justify-center',
-    'items-center'
+    'items-center',
+    'p-10'
   );
 
   // Colored container for content
@@ -40,7 +40,6 @@ const contact = () => {
 
   const textContainer = document.createElement('div');
   textContainer.classList.add(
-    'flex',
     'h-1/6',
     'items-end',
     'p-15',
@@ -76,7 +75,7 @@ const contact = () => {
 
   const form = document.createElement('form');
   form.classList.add(
-    'w-1/2',
+    'w-full',
     'space-y-5',
     'flex',
     'flex-col',

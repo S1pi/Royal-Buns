@@ -1,4 +1,5 @@
 import {business} from '../business/business';
+import {contact} from '../contact/contact';
 import {gallery} from '../gallery/gallery';
 import {infoPage} from '../infoPage/infoPage';
 import {mainPage} from '../mainPage/mainPage';
@@ -18,7 +19,7 @@ const routes: {[key: string]: () => void} = {
   // Other navigation
   '/about': infoPage,
   '/responsibility': resp,
-  // "/contact": contact,
+  '/contact': contact,
 };
 
 const router = () => {
