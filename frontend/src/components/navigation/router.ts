@@ -11,13 +11,14 @@ const routes: {[key: string]: () => void} = {
   '/': mainPage,
   '/menu': menu,
   '/reservation': reservation,
-  // "/restaurant": restaurant, TODO: Restaurant function here
+  // "/restaurants": restaurants, TODO: Restaurant function here
   '/business': business,
   '/gallery': gallery,
 
   // Other navigation
   '/about': infoPage,
   '/responsibility': resp,
+  // "/contact": contact,
 };
 
 const router = () => {

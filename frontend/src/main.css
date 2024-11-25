@@ -3,7 +3,6 @@
 @tailwind utilities;
 * {
   box-sizing: border-box;
-  border: none;
 }
 
 .scene {
@@ -11,6 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border: none;
 }
 
 .card {
@@ -61,10 +61,10 @@
 .card.flip {
   transform: rotateY(-180deg);
 }
-/* 
+
 input {
   border: 2px solid black;
-} */
+}
 
 .pop-out-animation {
   transition: transform 0.5s ease-in-out;

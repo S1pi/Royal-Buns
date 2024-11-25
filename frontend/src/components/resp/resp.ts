@@ -2,13 +2,14 @@
 
 const resp = () => {
   const app = document.getElementById('app') as HTMLElement;
-  // app.classList
+  const header = document.createElement('header') as HTMLElement;
+  header.classList.remove('bg-opacity-0');
 
   const bg = document.createElement('div');
   bg.classList.add(
     'bg-background-light',
     'w-full',
-    'h-full',
+    'h-screen',
     'flex',
     'justify-center',
     'items-center'

@@ -1,6 +1,3 @@
-import {footer} from '../footer/footer';
-import {header} from '../header/header';
-
 const gallery = () => {
   const app = document.getElementById('app') as HTMLElement;
 
@@ -13,11 +10,10 @@ const gallery = () => {
   bg.classList.add(
     'bg-background-light',
     'w-full',
-    'h-full',
+    'h-screen',
     'flex',
     'justify-center',
-    'items-center',
-    'p-5'
+    'items-center'
   );
 
   // Colored container for content
