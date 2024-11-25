@@ -100,7 +100,6 @@ const restaurants = async () => {
     'h-4/5',
     'mt-10',
     'rounded-lg',
-    'h-full',
     'gap-4' // Set width for the restaurant selection container
   );
   restaurantsMainContainer.appendChild(restaurantSelectionContainer);
