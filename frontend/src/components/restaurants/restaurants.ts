@@ -153,7 +153,7 @@ const restaurants = async () => {
       'text-black',
       'border-2',
       'border-secondary',
-      'text-h2',
+      'text-h5',
       'text-center',
       'items-center',
       'justify-center',
@@ -180,7 +180,7 @@ const restaurants = async () => {
     restaurantSelectionContainer.appendChild(restaurantSelectionButtons);
   });
 
-  // text for bottom of page
+  // Restaurant selection info
   const restaurantTextContainer = document.createElement('p');
   restaurantTextContainer.textContent =
     translations[currentLanguage].selectRestaurant;
@@ -188,7 +188,7 @@ const restaurants = async () => {
     'flex',
     'mx-auto',
     'w-3/4',
-    'text-h2', // Use custom h1 size from tailwind config
+    'text-h5', // Use custom h1 size from tailwind config
     'font-bold', // Bold text
     'text-center', // Center text
     'justify-center', // Flex to center the text in case it's inside a flex container
