@@ -38,6 +38,7 @@ const router = () => {
           history.back();
           history.replaceState({}, '', '/reservation');
           alert('You need to select all selections first');
+          return;
         }
         // If reservationSelectionCheck returns true we generate table-selection
         app.innerHTML = '';
