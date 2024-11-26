@@ -76,7 +76,7 @@ Ole yhteydessä alla olevalla lomakkeella.`;
 
   const form = document.createElement('form');
   form.classList.add(
-    'w-1/2',
+    'w-full',
     'space-y-5',
     'flex',
     'flex-col',
