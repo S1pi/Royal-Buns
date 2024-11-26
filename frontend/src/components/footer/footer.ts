@@ -10,7 +10,7 @@ const footer = () => {
     'items-center',
     'justify-center',
     'bg-red',
-    'h-80',
+    'p-10',
     'w-full'
   );
 

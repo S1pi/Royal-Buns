@@ -11,7 +11,6 @@ const menu = () => {
   bgContainer.classList.add(
     'bg-background-light',
     'p-5',
-    'h-screen',
     'flex',
     'flex-col',
     'justify-center',
@@ -25,7 +24,7 @@ const menu = () => {
     'flex-col',
     'items-center',
     'w-2/3',
-    'h-5/6'
+    'min-h-[600px]'
   );
   bgContainer.appendChild(contentWrapper);
   appDiv.appendChild(bgContainer);
