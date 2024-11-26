@@ -1,7 +1,101 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+* {
+  box-sizing: border-box;
+}
+
+.scene {
+  perspective: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition-duration: 2s;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fs {
+  position: absolute;
+  color: white;
+  width: 90%;
+  height: 90%;
+}
+
+.l-u-front {
+  backface-visibility: hidden;
+}
+
+.l-u-back {
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.r-front {
+  backface-visibility: hidden;
+}
+
+.r-back {
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.l-l-front {
+  backface-visibility: hidden;
+}
+
+.l-l-back {
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.card.flip {
+  transform: rotateY(-180deg);
+}
 
 input {
   border: 2px solid black;
+}
+
+.pop-out-animation {
+  transition: transform 0.5s ease-in-out;
+}
+
+.pop-out-animation:hover {
+  animation: pop-out 0.5s forwards;
+}
+
+.pop-out-animation:not(:hover) {
+  animation: pop-in 0.5s forwards;
+}
+
+.date-picker::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+@keyframes pop-out {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
