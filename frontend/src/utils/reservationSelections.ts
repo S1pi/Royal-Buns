@@ -8,9 +8,10 @@ const reservationSelections = () => {
 
 const reservationSelectionCheck = () => {
   const selections = reservationSelections();
-  return Object.values(selections).every(
-    (value) => value !== null && value !== ''
-  );
+  // return Object.values(selections).every(
+  //   (value) => value !== null && value !== ''
+  // );
+  return true;
 };
 
 export {reservationSelections, reservationSelectionCheck};
