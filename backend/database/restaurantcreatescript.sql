@@ -10,9 +10,11 @@ CREATE TABLE burgers (
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255),
-    passwrd VARCHAR(255),
-    user_type VARCHAR(50),
+    username VARCHAR(255) NOT NULL,
+    passwrd VARCHAR(255) NOT NULL,
+    email VARCHAR(255),
+    phonenumber VARCHAR(255),
+    user_type VARCHAR(50) NOT NULL,
     token VARCHAR(255),
     create_day TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     favourite_brgr_id INT,
