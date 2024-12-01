@@ -159,7 +159,7 @@ input {
 }
 
 .cont.active .toggleContainer {
-  transform: translateX(-100%);
+  transform: translateX(-100.1%);
   border-radius: 0 130px 130px 0;
 }
 

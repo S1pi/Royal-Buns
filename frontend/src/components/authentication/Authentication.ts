@@ -28,7 +28,7 @@ const authenticationComponent = () => {
     'relative',
     'overflow-hidden',
     'w-3/4',
-    'max-w-full',
+    'max-w-screen-lg',
     'min-h-[630px]'
   );
 
