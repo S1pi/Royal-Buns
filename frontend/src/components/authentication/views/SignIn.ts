@@ -9,7 +9,10 @@ const createSignInView = (): HTMLDivElement => {
     'h-full',
     'left-0',
     'w-1/2',
-    'z-[2]'
+    'z-[2]',
+    'flex',
+    'justify-center',
+    'items-center'
   );
   const form = document.createElement('form');
   form.classList.add(
@@ -18,12 +21,18 @@ const createSignInView = (): HTMLDivElement => {
     'items-center',
     'justify-center',
     'flex-col',
+    'gap-4',
     'py-0',
     'px-10',
-    'h-full'
+    'h-2/3',
+    'w-2/3',
+    'border-solid',
+    'border-red',
+    'border-2',
+    'rounded-[30px]'
   );
-  const heading = document.createElement('h3');
-  heading.classList.add('text-h3', 'font-bold');
+  const heading = document.createElement('h1');
+  heading.classList.add('text-h1', 'font-bold', 'mb-8', 'text-secondary');
   // TODO: Change for language selection
   heading.textContent = 'KIRJAUDU';
 

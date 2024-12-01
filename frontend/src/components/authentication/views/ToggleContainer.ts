@@ -19,11 +19,17 @@ const signInToggle = (authContainer: HTMLDivElement): HTMLDivElement => {
     'translate-x-[-200%]'
   );
 
-  const leftHeading = document.createElement('h3');
-  leftHeading.classList.add('text-h3', 'font-bold');
+  const leftHeading = document.createElement('h2');
+  leftHeading.classList.add('text-h2', 'font-bold', 'mb-5');
   leftHeading.textContent = `Sinua odotetaan - kirjaudu sisään ja nauti!`;
   const leftP = document.createElement('p');
-  leftP.classList.add('text-h6', 'leading-5', 'tracking-wide', 'my-5');
+  leftP.classList.add(
+    'text-h6',
+    'leading-5',
+    'tracking-wide',
+    'my-10',
+    'max-w-xs'
+  );
   leftP.textContent =
     'Premium-nautinto on vain kirjautumisen päässä. Liity takaisin ja nauti yksityiskohtaisesta palvelustamme.';
 
@@ -45,7 +51,7 @@ const signInToggle = (authContainer: HTMLDivElement): HTMLDivElement => {
     'font-semibold',
     'tracking-wider',
     'uppercase',
-    'mt-3',
+    'mt-6',
     'cursor-pointer'
   );
   signInBtn.textContent = 'KIRJAUTUMAAN';
@@ -79,11 +85,17 @@ const signUpToggle = (authContainer: HTMLDivElement): HTMLDivElement => {
     'right-0',
     'translate-x-0'
   );
-  const rightHeading = document.createElement('h3');
-  rightHeading.classList.add('text-h3', 'font-bold');
+  const rightHeading = document.createElement('h2');
+  rightHeading.classList.add('text-h2', 'font-bold', 'mb-5');
   rightHeading.textContent = 'Liity kuninkaalliseen pöytään!';
   const rightP = document.createElement('p');
-  rightP.classList.add('text-h6', 'leading-5', 'tracking-wide', 'my-5');
+  rightP.classList.add(
+    'text-h6',
+    'leading-5',
+    'tracking-wide',
+    'my-10',
+    'max-w-xs'
+  );
 
   rightP.textContent =
     'Kun rekisteröidyt, avaat oven kuninkaallisiin etuihin, jotka tekevät hampurilaiskokemuksestasi unohtumattoman.';
@@ -106,7 +118,7 @@ const signUpToggle = (authContainer: HTMLDivElement): HTMLDivElement => {
     'font-semibold',
     'tracking-wider',
     'uppercase',
-    'mt-3',
+    'mt-6',
     'cursor-pointer'
   );
   signUpBtn.textContent = 'REKISTERÖIDY NYT';
