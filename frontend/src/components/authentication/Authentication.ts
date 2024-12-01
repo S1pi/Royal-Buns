@@ -5,6 +5,8 @@ import {createToggleContainer} from './views/ToggleContainer';
 const authenticationComponent = () => {
   // TODO: Yhteensopivuus navigaationkanssa
   const app = document.querySelector('#app');
+  const header = document.querySelector('header') as HTMLElement;
+  header.classList.remove('bg-opacity-0');
 
   const background = document.createElement('div');
   background.classList.add(

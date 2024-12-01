@@ -1,5 +1,4 @@
-// import {footer} from './components/footer/footer';
-import {authenticationComponent} from './components/authentication/Authentication';
+import {footer} from './components/footer/footer';
 import {header} from './components/header/header';
 import {router} from './components/navigation/router';
 
@@ -11,6 +10,5 @@ window.addEventListener('popstate', router);
 
 // Call header and footer on the DOM and after that call router to handle routing on the page
 header();
-// footer();
-// router();
-authenticationComponent();
+footer();
+router();

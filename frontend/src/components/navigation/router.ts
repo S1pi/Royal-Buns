@@ -9,6 +9,7 @@ import {reservation} from '../reservation/reservation';
 import {reservationModal} from '../reservation/reservationModal';
 import {resp} from '../resp/resp';
 import {restaurants} from '../restaurants/restaurants';
+import {authenticationComponent} from '../authentication/Authentication';
 
 const routes: {[key: string]: () => void} = {
   // Header navigation
@@ -18,6 +19,7 @@ const routes: {[key: string]: () => void} = {
   '/restaurants': restaurants,
   '/business': business,
   '/gallery': gallery,
+  '/login': authenticationComponent,
 
   // Other navigation
   '/about': infoPage,
