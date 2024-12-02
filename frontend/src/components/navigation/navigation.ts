@@ -45,6 +45,16 @@ const navigation = () => {
           }
         }
       }
+      // Remove yellow color and bold from all header links
+      const allLinks = headerLinks.querySelectorAll('a');
+      allLinks.forEach((link) => {
+        link.classList.remove('text-yellow', 'font-bold');
+      });
+
+      //Add yellow color and bold to active site
+      if (window.location.pathname === item.href) {
+        a.classList.add('text-yellow', 'font-bold');
+      }
     });
 
     listItem.dataset.value = item.value;
