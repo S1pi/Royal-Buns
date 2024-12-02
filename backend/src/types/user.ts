@@ -10,5 +10,8 @@ interface User {
 }
 
 type NewUser = Omit<User, 'id' | 'create_day' | 'favourite_bgr_id' | 'token'>;
+type UserReturn = Omit<User, 'passwrd' | 'token'>;
 
-export type {NewUser};
+type UserCreds = {username: string; password: string};
+
+export type {NewUser, UserCreds, User, UserReturn};

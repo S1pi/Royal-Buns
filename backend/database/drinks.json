@@ -1,0 +1,52 @@
+[
+  {
+    "name": "The Velvet Throne",
+    "type": "Alcoholic",
+    "description": "Aged bourbon, cherry liqueur, and spiced honey with a rosemary garnish."
+  },
+  {
+    "name": "King's Jewel",
+    "type": "Alcoholic",
+    "description": "Gin, cucumber, elderflower tonic, and lime with edible gold flakes."
+  },
+  {
+    "name": "Rustic Crown",
+    "type": "Alcoholic",
+    "description": "Mezcal, orange juice, and spiced maple syrup with a cinnamon stick."
+  },
+  {
+    "name": "Majesty’s Martini",
+    "type": "Alcoholic",
+    "description": "Dry martini with vodka and black truffle essence, served with a golden olive."
+  },
+  {
+    "name": "Royal Orchard",
+    "type": "Alcoholic",
+    "description": "Apple brandy, caramel syrup, and sparkling apple cider."
+  },
+  {
+    "name": "The Noble Spritz",
+    "type": "Non-Alcoholic",
+    "description": "Sparkling water with blood orange, mint, and grenadine."
+  },
+  {
+    "name": "Crown Jewel Cooler",
+    "type": "Non-Alcoholic",
+    "description": "Cucumber, basil, lime, and agave syrup with soda."
+  },
+  {
+    "name": "Golden Hour",
+    "type": "Non-Alcoholic",
+    "description": "Pineapple, coconut water, and passionfruit, garnished with orange."
+  },
+  {
+    "name": "Earl’s Elixir",
+    "type": "Non-Alcoholic",
+    "description": "Iced Earl Grey tea with lavender honey and thyme."
+  },
+  {
+    "name": "Rustic Bliss",
+    "type": "Non-Alcoholic",
+    "description": "Ginger beer with vanilla and lime, served in a copper mug."
+  }
+]
