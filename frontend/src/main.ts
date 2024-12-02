@@ -1,5 +1,3 @@
-import {menu} from './components/menu/menu';
+import {mainPage} from './components/mainPage/mainPage';
 
-document.addEventListener('DOMContentLoaded', () => {
-  menu();
-});
+mainPage();
