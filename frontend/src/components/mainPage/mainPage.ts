@@ -1,9 +1,4 @@
-import {footer} from '../footer/footer';
-import {header} from '../header/header';
-
 //data
-
-//diets, price, name, description, photo, day
 
 const carouselData = [
   {
@@ -38,7 +33,6 @@ const mainPage = () => {
     'top-0',
     'left-0',
     'w-full',
-    // 'bg-black',
     'h-full',
     'object-cover',
     'opacity-80',
@@ -59,7 +53,6 @@ const mainPage = () => {
   const mainScreenView = document.createElement('div');
   mainScreenView.classList.add(
     'h-screen',
-    // 'bg-background-light',
     'flex',
     'items-center',
     'justify-center'
@@ -74,7 +67,6 @@ const mainPage = () => {
     'h-3/5',
     'overflow-hidden',
     'rounded-2xl'
-    // 'bg-green'
   );
 
   const carousel = document.createElement('div');
@@ -102,7 +94,6 @@ const mainPage = () => {
     'text-2xl',
     'duration-300',
     'hover:text-4xl',
-    // 'hover:bg-black',
     'hover:bg-opacity-5'
   );
 
@@ -125,7 +116,6 @@ const mainPage = () => {
     'text-2xl',
     'duration-300',
     'hover:text-4xl',
-    // 'hover:bg-black',
     'hover:bg-opacity-5'
   );
 
@@ -142,7 +132,6 @@ const mainPage = () => {
       'w-full',
       'flex-shrink-0',
       'h-full',
-      // 'bg-black',
       'bg-opacity-10',
       'rounded-2xl',
       'flex',
@@ -152,7 +141,6 @@ const mainPage = () => {
       'text-center',
       'py-12',
       'px-6'
-      // 'shadow-lg'
     );
 
     const title = document.createElement('h2');
