@@ -19,6 +19,33 @@ const translations: {[key: string]: {[key: string]: string}} = {
   },
 };
 
+const pages: {[key: string]: string} = {
+  main: '/',
+  menu: '/menu',
+  reservation: '/reservation',
+  restaurants: '/restaurants',
+  gallery: '/gallery',
+  business: '/business',
+};
+
+const logos = [
+  {
+    logoName: 'Facebook',
+    fontAwesomeClass: 'fa-brands fa-facebook-f',
+    href: 'https://www.facebook.com',
+  },
+  {
+    logoName: 'instagram',
+    fontAwesomeClass: 'fa-brands fa-instagram',
+    href: 'https://www.instagram.com',
+  },
+  {
+    logoName: 'logIn',
+    fontAwesomeClass: 'fa-solid fa-right-to-bracket',
+    href: '/login',
+  },
+];
+
 const header = () => {
   const body = document.querySelector('body') as HTMLBodyElement;
   const header = document.createElement('header');
@@ -47,23 +74,7 @@ const header = () => {
   );
 
   // List of logos and their attributes (Logos comes from fontawesome)
-  const logos = [
-    {
-      logoName: 'Facebook',
-      fontAwesomeClass: 'fa-brands fa-facebook-f',
-      href: 'https://www.facebook.com',
-    },
-    {
-      logoName: 'instagram',
-      fontAwesomeClass: 'fa-brands fa-instagram',
-      href: 'https://www.instagram.com',
-    },
-    {
-      logoName: 'logIn',
-      fontAwesomeClass: 'fa-solid fa-right-to-bracket',
-      href: '/login',
-    },
-  ];
+
   const logoContainer = document.createElement('div');
   logoContainer.classList.add('flex');
 
