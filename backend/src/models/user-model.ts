@@ -1,6 +1,6 @@
 import promisePool from '../utils/database';
 import {NewUser, User, UserCreds, UserReturn} from '../types/user';
-import {FieldPacket, QueryResult, ResultSetHeader, RowDataPacket} from 'mysql2';
+import {FieldPacket, ResultSetHeader, RowDataPacket} from 'mysql2';
 
 const createUser = async (newUser: NewUser): Promise<number> => {
   const sql = `INSERT INTO users (username, passwrd, email, phonenumber, user_type) VALUES (?, ?, ?, ?, ?)`;

@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import {NewUser, User} from '../types/user';
+import {NewUser} from '../types/user';
 import {createUser, selectUserByCreds} from '../models/user-model';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
@@ -55,7 +55,12 @@ const userLogin = async (req: Request, res: Response) => {
 };
 
 const getMe = async (req: Request, res: Response) => {
-  console.log('getMe', req.user);
+  if (req.user) {
+    console.log('getMe', req.user);
+    res.json({message: 'token ok', user: req.user});
+  } else {
+    res.sendStatus(401);
+  }
 };
 
 export {postUser, userLogin, getMe};

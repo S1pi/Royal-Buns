@@ -1,13 +1,14 @@
 import {Request, Response, NextFunction} from 'express';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
+import {UserReturn} from '../types/user';
 
 const tokenAuth = async (req: Request, res: Response, next: NextFunction) => {
   console.log('tokenAuth', req.headers);
   const authHead = req.headers['authorization'];
   const token = authHead && authHead.split(' ')[1];
   console.log('Token: ', token);
-  if (token == null) {
+  if (!token) {
     res.sendStatus(401);
     return;
   }
@@ -15,7 +16,9 @@ const tokenAuth = async (req: Request, res: Response, next: NextFunction) => {
     if (!process.env.JWT_SECRET) {
       throw new Error('JWT_SECRET is not defined');
     }
-    req.user = jwt.verify(token, process.env.JWT_SECRET);
+    // Decodes it to user object
+    const decoded = jwt.verify(token, process.env.JWT_SECRET) as UserReturn;
+    req.user = decoded;
     next();
   } catch (err) {
     res.status(403).send({message: 'invalid token'});
