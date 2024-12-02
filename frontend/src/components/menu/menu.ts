@@ -1,4 +1,4 @@
-import {header} from '../header/header';
+import {header} from '../header/header.ts';
 import {menuNavigation} from './menuNavigation';
 
 //the main menu rendering logic
@@ -7,14 +7,13 @@ const menu = () => {
   const appDiv = document.querySelector('#app') as HTMLElement;
   appDiv.classList.add(
     'bg-background-light',
-    'p-5',
-    'h-screen',
+    'p-10',
     'flex',
     'flex-col',
     'justify-center',
     'items-center'
   );
-  header(); // Ensure header is placed on the site
+  header();
 
   // wrapper for the main content of the site
   const contentWrapper = document.createElement('div');
