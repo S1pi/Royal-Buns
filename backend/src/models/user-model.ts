@@ -34,13 +34,23 @@ const selectUserByCreds = async (credentials: UserCreds): Promise<UserReturn | n
   const sql =
     'SELECT id, username, email, phonenumber, user_type, favourite_brgr_id FROM users WHERE username = ? AND passwrd = ?';
   const params = [credentials.username, credentials.password];
-  const [rows] = await promisePool.execute<UserReturn[] & RowDataPacket[]>(sql, params);
+  try {
+    const [rows] = await promisePool.execute<UserReturn[] & RowDataPacket[]>(sql, params);
 
-  if (rows.length > 0) {
-    return rows[0];
+    if (rows.length > 0) {
+      return rows[0];
+    }
+
+    return null;
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error('selectUserByCreds', err.message);
+      throw new Error('Error fetching user from db with credentials');
+    } else {
+      console.error('Unknown error occured');
+      throw new Error('Unknown error occured');
+    }
   }
-
-  return null;
 };
 
 export {createUser, selectUserByCreds};

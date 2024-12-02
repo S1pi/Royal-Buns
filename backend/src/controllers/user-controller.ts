@@ -33,17 +33,23 @@ const postUser = async (req: Request, res: Response): Promise<void> => {
 const userLogin = async (req: Request, res: Response) => {
   console.log('userLogin: ', req.body);
   const creds = {username: req.body.username, password: req.body.password};
-  const user = await selectUserByCreds(creds);
-  if (user) {
-    if (!process.env.JWT_SECRET) {
-      throw new Error('JWT_SECRET is not defined');
-    }
-    const token = jwt.sign(user, process.env.JWT_SECRET, {expiresIn: '24h'});
-    res.json({...user, token});
-  } else {
-    return res.sendStatus(401);
+  if (!creds.username || !creds.password) {
+    res.status(400).json({message: 'Parameters are undefined or missing'});
+    return;
   }
   try {
+    const user = await selectUserByCreds(creds);
+    if (user) {
+      if (!process.env.JWT_SECRET) {
+        throw new Error('JWT_SECRET is not defined');
+      }
+      const token = jwt.sign(user, process.env.JWT_SECRET, {expiresIn: '24h'});
+      res.json({...user, token});
+    } else {
+      console.log('Täältä');
+      res.sendStatus(401);
+      return;
+    }
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.error('userLogin', err.message);
