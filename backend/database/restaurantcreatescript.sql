@@ -15,7 +15,7 @@ CREATE TABLE users (
     email VARCHAR(255),
     phonenumber VARCHAR(255),
     user_type VARCHAR(50) NOT NULL,
-    token VARCHAR(255),
+    token TEXT,
     create_day TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     favourite_brgr_id INT,
     FOREIGN KEY (favourite_brgr_id) REFERENCES burgers(id)
