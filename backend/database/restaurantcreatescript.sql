@@ -10,7 +10,7 @@ CREATE TABLE burgers (
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL UNIQUE,
     passwrd VARCHAR(255) NOT NULL,
     email VARCHAR(255),
     phonenumber VARCHAR(255),
