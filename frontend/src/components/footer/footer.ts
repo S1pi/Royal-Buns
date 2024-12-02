@@ -90,7 +90,7 @@ const footer = () => {
         // Heading component to green h3
 
         const containerHeading = document.createElement('h3');
-        containerHeading.classList.add('text-green', 'font-bold', 'mb-2');
+        containerHeading.classList.add('text-white', 'font-bold', 'mb-2');
         containerHeading.textContent = text;
         tableContainer.append(containerHeading);
       } else {
