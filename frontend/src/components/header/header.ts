@@ -1,3 +1,5 @@
+import {navigation} from '../navigation/navigation';
+
 const translations: {[key: string]: {[key: string]: string}} = {
   FI: {
     main: 'Etusivu',
@@ -25,41 +27,8 @@ const header = () => {
   header.classList.add('bg-secondary', 'h-20', 'flex', 'justify-between');
 
   const nav = document.createElement('nav');
+  nav.id = 'navBar';
   nav.classList.add('flex', 'mr-10');
-
-  const headerLinks = document.createElement('ul');
-  headerLinks.classList.add(
-    'flex',
-    'mr-5',
-    'gap-14',
-    'h-full',
-    'items-center',
-    'px-4',
-    'text-h6',
-    'text-primary'
-  );
-
-  // Created all items for navbar
-  const links = [
-    {name: 'Etusivu', value: 'main'},
-    {name: 'Menu', value: 'menu'},
-    {name: 'Varaa Pöytä', value: 'reservation'},
-    {name: 'Ravintolat', value: 'restaurants'},
-    {name: 'Galleria', value: 'gallery'},
-    {name: 'Yrityksille', value: 'business'},
-  ];
-
-  // Iterating throuh list and adding them to dom
-  // Note to self: Muuta mahdollisesti käyttämään (a) elementtejä sekä href liikkumista varten
-  links.forEach((item) => {
-    const listItem = document.createElement('li') as HTMLLIElement;
-    const btn = document.createElement('button');
-    listItem.className = 'h-3/4 flex items-center';
-    btn.textContent = item.name;
-    listItem.dataset.value = item.value;
-    listItem.appendChild(btn);
-    headerLinks.appendChild(listItem);
-  });
 
   // Navbar Royal-buns logo creation and vertical separator for navbar and link logos
   const rbLogo = document.createElement('div');
@@ -128,52 +97,34 @@ const header = () => {
 
   languageContainer.append(fin, en);
 
-  // language update function
-  const updateLanguage = (lang: 'FI' | 'EN') => {
-    links.forEach((item) => {
-      const linkElement = headerLinks.querySelector(
-        `li[data-value="${item.value}"] button`
-      ) as HTMLButtonElement;
-      const key = item.value.toLowerCase();
-      linkElement.textContent = translations[lang][key];
-    });
-  };
+  // !!! Language selection needs to be re-implemented
+  // // language update function for links
+  // const updateLanguage = (lang: 'FI' | 'EN') => {
+  //   links.forEach((item) => {
+  //     const linkElement = headerLinks.querySelector(
+  //       `li[data-value="${item.value}"] button`
+  //     ) as HTMLButtonElement;
+  //     const key = item.value.toLowerCase();
+  //     linkElement.textContent = translations[lang][key];
+  //   });
+  // };
 
-  // Event listeners for language buttons
-  fin.addEventListener('click', () => {
-    updateLanguage('FI');
-    console.log('töihin');
-  });
+  // // Event listeners for language buttons
+  // fin.addEventListener('click', () => {
+  //   updateLanguage('FI');
+  //   console.log('töihin');
+  // });
 
-  en.addEventListener('click', () => updateLanguage('EN'));
+  // en.addEventListener('click', () => updateLanguage('EN'));
 
   // Adding all elements created to the header
-  nav.append(headerLinks, divSeperator, logoContainer, languageContainer);
+  nav.append(divSeperator, logoContainer, languageContainer);
   header.append(rbLogo, nav);
   // Adding header as first element of body
   body.prepend(header);
-};
 
-const navigation = (page: string) => {
-  const dataContainer = document.getElementById('app');
-
-  if (!dataContainer) {
-    throw new Error('Elementtiä ei löydetty');
-  } else {
-    // Ekana nollataan koko sivu Inner.HTML avulla
-    dataContainer.innerHTML = '';
-
-    switch (page) {
-      case 'main':
-        // Load mainscreen function
-        break;
-      case 'menu':
-        // Load menu screen function
-        break;
-      default:
-        console.error('Something went wrong');
-    }
-  }
+  // After created all other elements for header we call navigation function to prepend all navigation links to navbar
+  navigation();
 };
 
 export {header};

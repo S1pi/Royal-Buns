@@ -3,14 +3,14 @@ const footer = () => {
 
   // FOOTER component
 
-  const footerContainer = document.createElement('div');
+  const footerContainer = document.createElement('footer');
   footerContainer.classList.add(
     'flex',
     'flex-col',
     'items-center',
     'justify-center',
     'bg-red',
-    'h-80',
+    'p-10',
     'w-full'
   );
 
@@ -40,34 +40,34 @@ const footer = () => {
   // Text and links for footer
 
   const aboutUs = [
-    {text: 'TIETOA MEISTÄ', value: 'heading'},
-    {text: 'Tietoa meistä', value: 'tietoameista'},
-    {text: 'Ravintolat', value: 'ravintolat'},
-    {text: 'Galleria', value: 'gallery'},
+    {text: 'TIETOA MEISTÄ', href: 'heading'},
+    {text: 'Tietoa meistä', href: '/about'},
+    {text: 'Ravintolat', href: '/restaurants'},
+    {text: 'Galleria', href: '/gallery'},
   ];
 
   const customerService = [
-    {text: 'ASIAKASPALVELU', value: 'heading'},
-    {text: 'Ota yhteyttä', value: 'otaYhteytta'},
-    {text: 'Usein kysyttyä', value: 'useinKysyttya'},
-    {text: 'Yrityksille', value: 'yrityksille'},
+    {text: 'ASIAKASPALVELU', href: 'heading'},
+    {text: 'Ota yhteyttä', href: '/contact'},
+    {text: 'Usein kysyttyä', href: 'https://chatgpt.com'},
+    {text: 'Yrityksille', href: '/business'},
   ];
 
   const products = [
-    {text: 'TUOTTEET', value: 'heading'},
-    {text: 'Menu', value: 'menu'},
-    {text: 'Vastuullisuus', value: 'resp'},
+    {text: 'TUOTTEET', href: 'heading'},
+    {text: 'Menu', href: '/menu'},
+    {text: 'Vastuullisuus', href: '/responsibility'},
   ];
 
   const offers = [
-    {text: 'KAMPANJAT JA TARJOUKSET', value: 'heading'},
-    {text: 'Lounastarjous', value: 'lounasTarjous'},
+    {text: 'KAMPANJAT JA TARJOUKSET', href: 'heading'},
+    {text: 'Lounastarjous', href: '/menu'}, // TODO?: Luo tarjoukset kohta menuun
   ];
 
   const followUs = [
-    {text: 'SEURAA MEITÄ', value: 'heading'},
-    {text: 'Instagram', value: 'https://www.instagram.com'},
-    {text: 'Facebook', value: 'https://www.facebook.com'},
+    {text: 'SEURAA MEITÄ', href: 'heading'},
+    {text: 'Instagram', href: 'https://www.instagram.com'},
+    {text: 'Facebook', href: 'https://www.facebook.com'},
   ];
 
   // To one table
@@ -84,13 +84,13 @@ const footer = () => {
       // Take text and links for table
 
       const text = element.text;
-      const link = element.value;
+      const link = element.href;
 
       if (link === 'heading') {
         // Heading component to green h3
 
         const containerHeading = document.createElement('h3');
-        containerHeading.classList.add('text-green', 'font-bold', 'mb-2');
+        containerHeading.classList.add('text-white', 'font-bold', 'mb-2');
         containerHeading.textContent = text;
         tableContainer.append(containerHeading);
       } else {
