@@ -28,4 +28,5 @@ authRouter
     userLogin
   );
 
+authRouter.route('/me').get(tokenAuth, getMe);
 export default authRouter;
