@@ -14,7 +14,7 @@ userRouter.route('/').post(postUser);
 userRouter.route('/auth/login').post(userLogin);
 
 //Testi user homma
-userRouter.route('/auth/login/me').post(tokenAuth, getMe);
+userRouter.route('/auth/login/me').get(tokenAuth, getMe);
 
 // Käyttäjän lempi burgerit
 // userRouter.route('/:id/favourites').get(favBurgers);
