@@ -103,26 +103,26 @@ const reservationModal = () => {
   //TODO: Replace with actual data from the database
   const tables = [
     {id: 1, restaurantId: 1, seats: 8, reserved: false},
-    {id: 1, restaurantId: 1, seats: 8, reserved: false},
-    {id: 1, restaurantId: 1, seats: 8, reserved: false},
-    {id: 2, restaurantId: 1, seats: 6, reserved: false},
-    {id: 2, restaurantId: 1, seats: 6, reserved: false},
-    {id: 2, restaurantId: 1, seats: 6, reserved: false},
-    {id: 2, restaurantId: 1, seats: 6, reserved: false},
-    {id: 3, restaurantId: 1, seats: 2, reserved: true},
-    {id: 3, restaurantId: 1, seats: 2, reserved: true},
-    {id: 3, restaurantId: 1, seats: 2, reserved: true},
-    {id: 3, restaurantId: 1, seats: 2, reserved: true},
-    {id: 4, restaurantId: 1, seats: 2, reserved: false},
-    {id: 4, restaurantId: 1, seats: 2, reserved: false},
-    {id: 4, restaurantId: 1, seats: 2, reserved: false},
-    {id: 4, restaurantId: 1, seats: 2, reserved: false},
-    {id: 5, restaurantId: 1, seats: 2, reserved: true},
-    {id: 6, restaurantId: 1, seats: 6, reserved: true},
+    {id: 2, restaurantId: 1, seats: 8, reserved: false},
+    {id: 3, restaurantId: 1, seats: 8, reserved: false},
+    {id: 4, restaurantId: 1, seats: 6, reserved: false},
+    {id: 5, restaurantId: 1, seats: 6, reserved: false},
+    {id: 6, restaurantId: 1, seats: 6, reserved: false},
     {id: 7, restaurantId: 1, seats: 6, reserved: false},
-    {id: 8, restaurantId: 1, seats: 8, reserved: true},
-    {id: 8, restaurantId: 1, seats: 8, reserved: true},
-    {id: 9, restaurantId: 1, seats: 2, reserved: false},
+    {id: 8, restaurantId: 1, seats: 2, reserved: true},
+    {id: 9, restaurantId: 1, seats: 2, reserved: true},
+    {id: 10, restaurantId: 1, seats: 2, reserved: true},
+    {id: 11, restaurantId: 1, seats: 2, reserved: true},
+    {id: 12, restaurantId: 1, seats: 2, reserved: false},
+    {id: 13, restaurantId: 1, seats: 2, reserved: false},
+    {id: 14, restaurantId: 1, seats: 2, reserved: false},
+    {id: 15, restaurantId: 1, seats: 2, reserved: false},
+    {id: 16, restaurantId: 1, seats: 2, reserved: true},
+    {id: 17, restaurantId: 1, seats: 6, reserved: true},
+    {id: 18, restaurantId: 1, seats: 6, reserved: false},
+    {id: 19, restaurantId: 1, seats: 8, reserved: true},
+    {id: 20, restaurantId: 1, seats: 8, reserved: true},
+    {id: 21, restaurantId: 1, seats: 2, reserved: false},
   ];
 
   const mainContainer = document.createElement('div');
@@ -171,8 +171,15 @@ const reservationModal = () => {
   mainContainer.append(largeTableGrid, mediumTableGrid, smallTableGrid);
   reservationContainer.append(mainContainer);
 
+  // Get the reservation size from session storage
+  const selectionSize = sessionStorage.getItem('reservation-size');
+
+  let selectedTable: number | null;
+  let tableElements: HTMLButtonElement[] = [];
+
   // loop through the tables and create table elements
   tables.forEach((table) => {
+    // Filter tables by reservation size
     const tableButton = document.createElement('button');
     table.reserved
       ? tableButton.classList.add('bg-red') // Gives red color if table is already reserved
@@ -190,11 +197,25 @@ const reservationModal = () => {
       largeTableGrid.appendChild(tableButton);
     }
 
+    if (table.seats.toString() !== selectionSize) {
+      tableButton.disabled = true;
+      tableButton.classList.add('cursor-not-allowed', 'opacity-50');
+    }
     tableButton.addEventListener('click', () => {
-      if (!table.reserved) {
+      if (!table.reserved && table.seats) {
         console.log(table.id);
-        tableButton.classList.toggle('bg-yellow');
+        // if (!selectedTable) {
+        // tableButton.classList.toggle('bg-yellow');
+        // selectedTable = table.id;
+        // }
+        tableElements.forEach((element) => {
+          element.classList.remove('bg-yellow');
+        });
+        tableButton.classList.add('bg-yellow');
+        selectedTable = table.id;
+        console.log(selectedTable);
       }
+      tableElements.push(tableButton);
     });
   });
 

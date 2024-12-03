@@ -116,6 +116,11 @@ const reservation = async () => {
     restaurantDropdown.appendChild(optionElement);
   });
 
+  // save the selected restaurant to session storage
+  restaurantDropdown.addEventListener('change', () => {
+    console.log(restaurantDropdown.value);
+    sessionStorage.setItem('restaurant', restaurantDropdown.value);
+  });
   // Create a container for dropdown and replacement icon
   const restDropdownContainer = document.createElement('div');
   restDropdownContainer.classList.add('relative', 'inline-block', 'w-1/4');
@@ -175,6 +180,21 @@ const reservation = async () => {
     optionElement.value = option;
     optionElement.textContent = option;
     peopleDropdown.appendChild(optionElement);
+  });
+
+  // save the selected people amount to session storage
+  peopleDropdown.addEventListener('change', () => {
+    console.log(peopleDropdown.value);
+    // Change the value to the selected value to match table sizes in database
+    if (peopleDropdown.value === '1-2 Henkilöä') {
+      sessionStorage.setItem('reservation-size', '2');
+    } else if (peopleDropdown.value === '3-4 Henkilöä') {
+      sessionStorage.setItem('reservation-size', '6');
+    } else if (peopleDropdown.value === '5-6 Henkilöä') {
+      sessionStorage.setItem('reservation-size', '6');
+    } else if (peopleDropdown.value === '7-8 Henkilöä') {
+      sessionStorage.setItem('reservation-size', '8');
+    }
   });
   const peopleDropdownContainer = document.createElement('div');
   peopleDropdownContainer.classList.add('w-1/4', 'relative', 'inline-block');
@@ -241,6 +261,11 @@ const reservation = async () => {
 
   // Append the container to the selection container
   selectionContainer.appendChild(dateContainer);
+
+  // Save the selected date to session storage
+  dateSelection.addEventListener('change', () => {
+    sessionStorage.setItem('reservation-day', dateSelection.value);
+  });
 
   dateSelection.addEventListener('click', () => {
     const restaurantId = restaurantDropdown.value;
@@ -358,6 +383,11 @@ const reservation = async () => {
     console.log(date.getDay(), reservationTimes);
     // Append the reservation container to the appDiv
     selectionContainer.appendChild(timeContainer);
+
+    // Save the selected time to session storage
+    timeSelection.addEventListener('change', () => {
+      sessionStorage.setItem('reservation-time', timeSelection.value + ':00');
+    });
   };
 
   // Determine what day it is and generate times by restaurant and what day is
