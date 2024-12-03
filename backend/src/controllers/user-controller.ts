@@ -5,19 +5,20 @@ import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 
 const postUser = async (req: Request, res: Response): Promise<void> => {
-  const {username, passwrd, email, phonenumber} = req.body;
+  const {username, password, email, phonenumber} = req.body;
   const newUser: NewUser = {
     username,
-    passwrd,
+    password,
     email,
     phonenumber,
     user_type: 'customer',
   };
+  console.log(newUser);
 
-  if (!username || !passwrd) {
-    res.status(400).json({message: 'Username and Password is required'});
-    return;
-  }
+  // if (!username || !passwrd) {
+  //   res.status(400).json({message: 'Username and Password is required'});
+  //   return;
+  // }
 
   try {
     const userId = await createUser(newUser);
@@ -29,6 +30,33 @@ const postUser = async (req: Request, res: Response): Promise<void> => {
     }
   }
 };
+
+// old working one
+// const postUser = async (req: Request, res: Response): Promise<void> => {
+//   const {username, passwrd, email, phonenumber} = req.body;
+//   const newUser: NewUser = {
+//     username,
+//     passwrd,
+//     email,
+//     phonenumber,
+//     user_type: 'customer',
+//   };
+
+//   if (!username || !passwrd) {
+//     res.status(400).json({message: 'Username and Password is required'});
+//     return;
+//   }
+
+//   try {
+//     const userId = await createUser(newUser);
+//     res.status(201).json({message: `User: ${username} created succesfully`, id: userId});
+//   } catch (err: unknown) {
+//     if (err instanceof Error) {
+//       console.error('postUser', err.message);
+//       res.status(503).json({code: 503, message: err.message});
+//     }
+//   }
+// };
 
 const userLogin = async (req: Request, res: Response) => {
   console.log('userLogin: ', req.body);

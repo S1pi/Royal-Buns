@@ -1,12 +1,21 @@
-import {Result, ValidationError, validationResult} from 'express-validator';
+import {
+  ValidationError as BaseValidationError,
+  validationResult,
+} from 'express-validator';
 import {NextFunction, Request, Response} from 'express';
 
 interface ExtendedError extends Error {
   status?: number;
-  errors?: {message: any}[];
+  errors?: {field: any; message: any}[];
 }
 
-const customError = (message: string, status: number, errors: {message: any}[]) => {
+type ValidationError = BaseValidationError & {path: string};
+
+const customError = (
+  message: string,
+  status: number,
+  errors: {field: any; message: any}[]
+) => {
   const error = new Error(message) as ExtendedError;
   error.status = status;
   if (errors) {
@@ -16,13 +25,21 @@ const customError = (message: string, status: number, errors: {message: any}[]) 
 };
 
 const validationErrorHandler = (req: Request, res: Response, next: NextFunction) => {
-  const errors: Result<ValidationError> = validationResult(req);
-  console.log(errors);
+  const errors = validationResult(req);
+  console.log('Testi errorit: ', errors);
 
   if (!errors.isEmpty()) {
-    const validationErrors = errors.array({onlyFirstError: true}).map((error) => ({
-      message: error.msg,
-    }));
+    const validationErrors = errors.array({onlyFirstError: true}).map((error) => {
+      const typedError = error as ValidationError;
+      console.log(error);
+      if (typedError.path === 'password') {
+        typedError.msg += '; Password must be min 8 long';
+      }
+      return {
+        field: typedError.path,
+        message: typedError.msg,
+      };
+    });
 
     return next(customError('Invalid input data', 400, validationErrors));
   }

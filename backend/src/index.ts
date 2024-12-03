@@ -1,5 +1,6 @@
 import express from 'express';
 import userRouter from './routes/user-router';
+import {errorHandler, notFoundHandler} from './middlewares/error-handler';
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -14,6 +15,11 @@ app.use(express.static('public'));
 // });
 
 app.use('/api/user', userRouter);
+
+// if non of routes works uses this
+app.use(notFoundHandler);
+// errorHandler that handles all errors
+app.use(errorHandler);
 
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);

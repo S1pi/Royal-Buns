@@ -1,11 +1,21 @@
 import express from 'express';
 import {getMe, postUser, userLogin} from '../controllers/user-controller';
 import {tokenAuth} from '../middlewares/authentication';
+import {validationErrorHandler} from '../middlewares/error-handler';
+import {body} from 'express-validator';
 
 const userRouter = express.Router();
 
 // Käyttäjän luonti
-userRouter.route('/').post(postUser);
+userRouter.route('/').post(
+  body('username').trim().isLength({min: 3, max: 20}).isAlphanumeric(),
+  body('password').isLength({min: 8, max: 200}).escape(),
+  body('email').trim().isEmail().optional().escape(),
+  // Selvitä mitä .isMobilePhone tekee ja tarviiko käyttää
+  body('phonenumber').trim().optional().isNumeric(),
+  validationErrorHandler,
+  postUser
+);
 
 // Käyttäjän tiedot sekä poisto
 // userRouter.route('/:id').get(getUser).put(putUser).delete(deleteUser);

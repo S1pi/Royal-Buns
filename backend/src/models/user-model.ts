@@ -7,7 +7,7 @@ const createUser = async (newUser: NewUser): Promise<number> => {
 
   const params = [
     newUser.username,
-    newUser.passwrd,
+    newUser.password,
     newUser.email || null,
     newUser.phonenumber || null,
     newUser.user_type,
