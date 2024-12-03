@@ -33,7 +33,7 @@ const restaurants = async () => {
   );
 
   // Translation functionality for the page.
-  let currentLanguage: 'FI' | 'EN' = 'EN'; // Default language
+  let currentLanguage: 'EN' | 'FI' = 'FI'; // Default language
   const languageButtons = document.querySelectorAll('button');
   languageButtons.forEach((button) => {
     button.addEventListener('click', () => {
