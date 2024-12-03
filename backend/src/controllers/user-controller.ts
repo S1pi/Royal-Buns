@@ -15,11 +15,6 @@ const postUser = async (req: Request, res: Response): Promise<void> => {
   };
   console.log(newUser);
 
-  // if (!username || !passwrd) {
-  //   res.status(400).json({message: 'Username and Password is required'});
-  //   return;
-  // }
-
   try {
     const userId = await createUser(newUser);
     res.status(201).json({message: `User: ${username} created succesfully`, id: userId});
@@ -31,7 +26,7 @@ const postUser = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-// old working one
+// old version
 // const postUser = async (req: Request, res: Response): Promise<void> => {
 //   const {username, passwrd, email, phonenumber} = req.body;
 //   const newUser: NewUser = {
@@ -71,7 +66,9 @@ const userLogin = async (req: Request, res: Response) => {
       if (!process.env.JWT_SECRET) {
         throw new Error('JWT_SECRET is not defined');
       }
-      const token = jwt.sign(user, process.env.JWT_SECRET, {expiresIn: '24h'});
+      const token = jwt.sign(user, process.env.JWT_SECRET, {
+        expiresIn: process.env.EXPI_TIME,
+      });
       res.json({...user, token});
     } else {
       console.log('Täältä');
