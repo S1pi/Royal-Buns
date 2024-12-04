@@ -1,4 +1,5 @@
 import {navigation} from '../navigation/navigation';
+import {router} from '../navigation/router';
 
 const translations: {[key: string]: {[key: string]: string}} = {
   FI: {
@@ -85,7 +86,20 @@ const header = () => {
     link.className = 'flex p-4 items-center';
     const icon = document.createElement('i');
     icon.className = item.fontAwesomeClass as string;
-    icon.classList.add('text-2xl', 'text-primary');
+    icon.classList.add('text-2xl', 'text-primary', 'pointer-events-none');
+    if (item.href == '/login') {
+      link.addEventListener('click', (e) => {
+        const target = e.target as HTMLLinkElement;
+        const href = target.getAttribute('href');
+        e.preventDefault();
+        if (href) {
+          if (window.location.pathname !== href) {
+            history.pushState({}, '', link.href);
+            router(); // Updates page to user
+          }
+        }
+      });
+    }
     link.appendChild(icon);
     logoContainer.appendChild(link);
   });

@@ -23,6 +23,12 @@ export default {
         h5: '1.25rem',
         h6: '1rem',
       },
+      boxShadow: {
+        auth: '0 5px 15px rgba(0, 0, 0, 0.35)',
+      },
+      height: {
+        'screen-header': 'calc(100vh - 5rem)',
+      },
     },
     plugins: [],
   },

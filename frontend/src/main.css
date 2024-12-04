@@ -99,3 +99,78 @@ input {
     transform: scale(1);
   }
 }
+
+/* Log in & Sign up */
+
+.sign-in {
+  visibility: visible;
+  opacity: 1;
+  z-index: 5;
+}
+
+.sign-up {
+  visibility: hidden;
+  opacity: 0;
+  z-index: 1;
+}
+
+.toggleContainer {
+  transition: all 0.6s ease-in-out;
+}
+
+.toggle {
+  transition: all 0.6s ease-in-out;
+}
+
+.form-container {
+  transition: all 0.6s ease-in-out;
+}
+
+.toggle-panel {
+  transition: all 0.6s ease-in-out;
+}
+
+.cont.active .sign-in {
+  transform: translateX(100%);
+  opacity: 0;
+  z-index: 1;
+  visibility: hidden;
+}
+
+.cont.active .sign-up {
+  transform: translateX(100%);
+  visibility: visible;
+  opacity: 1;
+  z-index: 5;
+  animation: move 0.6s ease-in-out;
+}
+
+@keyframes move {
+  0%,
+  49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+  50%,
+  100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+.cont.active .toggleContainer {
+  transform: translateX(-100.1%);
+  border-radius: 0 130px 130px 0;
+}
+
+.cont.active .toggle {
+  transform: translateX(50%);
+}
+
+.cont.active .toggleLeft {
+  transform: translateX(0);
+}
+
+.cont.active .toggleRight {
+  transform: translateX(200%);
+}

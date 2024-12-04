@@ -1,3 +1,13 @@
+-- VANHA VERSIO
+
+CREATE DATABASE royal_buns;
+
+USE royal_buns;
+
+SET NAMES 'utf8mb4';
+SET CHARACTER SET 'utf8mb4';
+SET COLLATION_CONNECTION = 'utf8mb4_0900_ai_ci';
+
 CREATE TABLE burgers (
     id INT AUTO_INCREMENT PRIMARY KEY,
     diets VARCHAR(255),
@@ -10,12 +20,12 @@ CREATE TABLE burgers (
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL UNIQUE,
     passwrd VARCHAR(255) NOT NULL,
     email VARCHAR(255),
     phonenumber VARCHAR(255),
     user_type VARCHAR(50) NOT NULL,
-    token VARCHAR(255),
+    token TEXT,
     create_day TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     favourite_brgr_id INT,
     FOREIGN KEY (favourite_brgr_id) REFERENCES burgers(id)
@@ -27,14 +37,14 @@ CREATE TABLE restaurant (
     city VARCHAR(255),
     location VARCHAR(255),
     address VARCHAR(255),
-    coordinates VARCHAR(255)  -- Oletuksena VARCHAR koordinaateille
+    coordinates JSON CHECK (JSON_VALID(coordinates))
 );
 
 CREATE TABLE res_table (
     table_id INT AUTO_INCREMENT PRIMARY KEY,
     restaurant_id INT,
     seats INT,  -- Pilkku lisätty tähän
-    reserved BOOLEAN,
+    reserved BOOLEAN DEFAULT false,
     FOREIGN KEY (restaurant_id) REFERENCES restaurant(id)
 );
 
