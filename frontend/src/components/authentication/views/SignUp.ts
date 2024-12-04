@@ -1,6 +1,7 @@
+import {sendRegisterationData} from '../AuthenticationService';
+
 const createSignUpView = (): HTMLDivElement => {
   const container = document.createElement('div');
-  // TODO: Vaihda mahdollisesti suoraan kaikki luokat tähän
   container.classList.add(
     'form-container',
     'sign-up',
@@ -40,15 +41,17 @@ const createSignUpView = (): HTMLDivElement => {
 
   // Creates inputelements from inputs array
   const inputs = [
-    {type: 'username', placeholder: 'Käyttäjänimi'},
-    {type: 'password', placeholder: 'Salasana'},
-    {type: 'email', placeholder: 'Sähköposti'},
-    {type: 'tel', placeholder: 'Puhelinnumero'},
+    {name: 'username', type: 'text', placeholder: 'Käyttäjänimi'},
+    {name: 'password', type: 'password', placeholder: 'Salasana'},
+    {name: 'email', type: 'email', placeholder: 'Sähköposti'},
+    {name: 'phonenumber', type: 'tel', placeholder: 'Puhelinnumero'},
   ];
 
   inputs.forEach((data) => {
     const input = document.createElement('input');
     input.type = data.type;
+    input.name = data.name;
+    if (data.name === 'username' || data.name === 'password') input.required = true;
     input.placeholder = data.placeholder;
     input.classList.add(
       'bg-slate-200',
@@ -64,6 +67,7 @@ const createSignUpView = (): HTMLDivElement => {
   });
 
   const signUpBtn = document.createElement('button');
+  signUpBtn.type = 'submit';
   signUpBtn.textContent = 'REKISTERÖIDY';
   signUpBtn.classList.add(
     'bg-red',
@@ -81,6 +85,21 @@ const createSignUpView = (): HTMLDivElement => {
     'mt-3',
     'cursor-pointer'
   );
+
+  // Submit lomakkeen käsittely
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const data: Record<string, string> = {};
+    formData.forEach((value, key) => {
+      console.log('Value: ' + value, 'Key: ', key);
+      if (value !== '') {
+        data[key] = value as string;
+      }
+    });
+
+    sendRegisterationData(data);
+  });
 
   form.appendChild(signUpBtn);
   container.appendChild(form);

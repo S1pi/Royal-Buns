@@ -1,3 +1,5 @@
+import {sendLoginData} from '../AuthenticationService';
+
 const createSignInView = (): HTMLDivElement => {
   const container = document.createElement('div');
   // TODO: Vaihda mahdollisesti suoraan kaikki luokat tähän
@@ -39,14 +41,16 @@ const createSignInView = (): HTMLDivElement => {
   form.appendChild(heading);
 
   const inputs = [
-    {type: 'username', placeholder: 'Käyttäjänimi'},
-    {type: 'password', placeholder: 'Salasana'},
+    {name: 'username', type: 'text', placeholder: 'Käyttäjänimi'},
+    {name: 'password', type: 'password', placeholder: 'Salasana'},
   ];
 
   // Creates inputelements from inputs array
   inputs.forEach((data) => {
     const input = document.createElement('input');
     input.type = data.type;
+    input.name = data.name;
+    if (data.name === 'username' || data.name === 'password') input.required = true;
     input.placeholder = data.placeholder;
     input.classList.add(
       'bg-slate-200',
@@ -63,6 +67,7 @@ const createSignInView = (): HTMLDivElement => {
   });
 
   const signInBtn = document.createElement('button');
+  signInBtn.type = 'submit';
   signInBtn.textContent = 'KIRJAUDU';
   signInBtn.classList.add(
     'bg-red',
@@ -80,6 +85,21 @@ const createSignInView = (): HTMLDivElement => {
     'mt-3',
     'cursor-pointer'
   );
+
+  // Submit lomakkeen käsittely
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const data: Record<string, string> = {};
+    formData.forEach((value, key) => {
+      console.log('Value: ' + value, 'Key: ', key);
+      if (value !== '') {
+        data[key] = value as string;
+      }
+    });
+
+    sendLoginData(data);
+  });
 
   form.appendChild(signInBtn);
 
