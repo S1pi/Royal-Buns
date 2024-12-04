@@ -2,7 +2,6 @@ import {reservation} from './reservation';
 
 // Reservation modal
 const reservationModal = () => {
-  
   // Select the #app div
   const appDiv = document.querySelector('#app') as HTMLElement;
 
@@ -49,12 +48,7 @@ const reservationModal = () => {
 
   // Create container for table map
   const reservationContainer = document.createElement('div');
-  reservationContainer.classList.add(
-    'flex',
-    'flex-col',
-    'mt-5',
-    'items-center'
-  );
+  reservationContainer.classList.add('flex', 'flex-col', 'mt-5', 'items-center');
 
   // Reservation legends
   const legendContainer = document.createElement('div');
@@ -198,12 +192,7 @@ const reservationModal = () => {
     );
     const successMessage = document.createElement('p');
     successMessage.textContent = 'Reservation successful!';
-    successMessage.classList.add(
-      'text-lg',
-      'font-semibold',
-      'mb-4',
-      'text-green-600'
-    );
+    successMessage.classList.add('text-lg', 'font-semibold', 'mb-4', 'text-green-600');
     modalContent.appendChild(successMessage);
     const closeButton = document.createElement('button');
     closeButton.textContent = 'Close';
@@ -217,16 +206,19 @@ const reservationModal = () => {
       'pop-out-animation',
       'cursor-pointer'
     );
-    closeButton.addEventListener(
-      'click',
-      () =>
-        window.location.href = '/' // Close the modal and navigate to the home page 
-      
-      
+    closeButton.addEventListener('click', () => {
+      window.location.href = '/';
+      sessionStorage.removeItem('reservation-day');
+      sessionStorage.removeItem('reservation-size');
+      sessionStorage.removeItem('reservation-time');
+      sessionStorage.removeItem('restaurant');
+      sessionStorage.removeItem('selected-table');
+
       //TODO show the modal ONLY if the backend returns a successful response
       //TODO hide the modal after a few seconds
       //TODO make close button navigate the user back to home page
-    );
+      // Close the modal and navigate to the home page
+    });
 
     modalContent.appendChild(closeButton);
     modalContainer.appendChild(modalContent);
@@ -252,7 +244,6 @@ const reservationModal = () => {
   reservationContainer.appendChild(submitButton);
   submitButton.addEventListener('click', () => {
     successModal.classList.remove('hidden'); // Show the success modal
-    
   });
 
   const updateContent = () => {
@@ -274,7 +265,7 @@ const reservationModal = () => {
     successModal.childNodes[0].childNodes[1].textContent =
       translations[currentLanguage].closeButton;
   };
-  
+
   // Translation functionality for the page.
   const translations = {
     FI: {
@@ -296,7 +287,7 @@ const reservationModal = () => {
       closeButton: 'Close',
     },
   };
-  
+
   let currentLanguage: 'EN' | 'FI' = localStorage.getItem('language') as 'EN' | 'FI'; // Default language
   const languageButtons = document.querySelectorAll('button');
   languageButtons.forEach((button) => {
@@ -310,23 +301,21 @@ const reservationModal = () => {
       updateContent();
     });
   });
-  
-  
-  
+
   // Get the reservation size from session storage
   const selectionSize = sessionStorage.getItem('reservation-size');
-  
+
   let selectedTable: number | null;
   let tableElements: HTMLButtonElement[] = [];
-  
+
   // loop through the tables and create table elements
   tables.forEach((table) => {
     // Filter tables by reservation size
     const tableButton = document.createElement('button');
     table.reserved
-    ? tableButton.classList.add('bg-red') // Gives red color if table is already reserved
-    : tableButton.classList.add('bg-green'); // Gives green color if tables is available
-    
+      ? tableButton.classList.add('bg-red') // Gives red color if table is already reserved
+      : tableButton.classList.add('bg-green'); // Gives green color if tables is available
+
     // Determine table size by seats
     if (table.seats === 2) {
       tableButton.classList.add('w-14', 'h-14', 'rounded-full');
@@ -338,7 +327,7 @@ const reservationModal = () => {
       tableButton.classList.add('w-20', 'h-48', 'rounded-lg');
       largeTableGrid.appendChild(tableButton);
     }
-    
+
     if (table.seats.toString() !== selectionSize) {
       tableButton.disabled = true;
       tableButton.classList.add('cursor-not-allowed', 'opacity-50');
@@ -347,11 +336,11 @@ const reservationModal = () => {
       if (!table.reserved && table.seats) {
         console.log(table.id);
         // if (!selectedTable) {
-          // tableButton.classList.toggle('bg-yellow');
-          // selectedTable = table.id;
-          // }
-          tableElements.forEach((element) => {
-            element.classList.remove('bg-yellow');
+        // tableButton.classList.toggle('bg-yellow');
+        // selectedTable = table.id;
+        // }
+        tableElements.forEach((element) => {
+          element.classList.remove('bg-yellow');
         });
         tableButton.classList.add('bg-yellow');
         selectedTable = table.id;
@@ -381,10 +370,10 @@ const reservationModal = () => {
       tableElements.push(tableButton);
     });
   });
-  
+
   // Append reservationcontainer to modal container
   reservationModalContainer.appendChild(reservationContainer);
-  
+
   bgContainer.appendChild(reservationModalContainer);
   appDiv.appendChild(bgContainer);
   updateContent();
