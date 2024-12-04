@@ -2,10 +2,18 @@ import express from 'express';
 import userRouter from './routes/user-router';
 import {errorHandler, notFoundHandler} from './middlewares/error-handler';
 import authRouter from './routes/auth-router';
+import cors from 'cors';
 
 const hostname = '127.0.0.1';
 const port = 3000;
 const app = express();
+
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    methods: 'GET,POST,PUT,DELETE,OPTIONS',
+  })
+);
 
 app.use(express.json());
 

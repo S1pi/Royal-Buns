@@ -26,7 +26,7 @@ const customError = (
 
 const validationErrorHandler = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
-  console.log('Testi errorit: ', errors);
+  // console.log('Testi errorit: ', errors);
 
   if (!errors.isEmpty()) {
     const validationErrors = errors.array({onlyFirstError: true}).map((error) => {
