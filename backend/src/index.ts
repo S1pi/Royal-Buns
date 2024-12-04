@@ -3,6 +3,7 @@ import userRouter from './routes/user-router';
 import {errorHandler, notFoundHandler} from './middlewares/error-handler';
 import authRouter from './routes/auth-router';
 import cors from 'cors';
+import restaurantRouter from './routes/restaurant-router';
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -26,6 +27,8 @@ app.use(express.static('public'));
 app.use('/api/user', userRouter);
 
 app.use('/api/auth', authRouter);
+
+app.use('/api/restaurant', restaurantRouter);
 
 // if non of routes works uses this
 app.use(notFoundHandler);
