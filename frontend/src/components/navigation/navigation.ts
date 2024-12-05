@@ -30,6 +30,12 @@ const navigation = () => {
     listItem.className = 'h-3/4 flex items-center';
     a.textContent = item.name;
     a.href = item.href;
+    a.className = 'hover:text-yellow';
+
+    // Adds yellow color and bold to main site
+    if (window.location.pathname === item.href) {
+      a.classList.add('text-yellow', 'font-bold');
+    }
 
     // Adds eventListner for links to reload new page without refreshing the app
     a.addEventListener('click', (e) => {
