@@ -13,6 +13,8 @@ const navigation = () => {
     'text-primary'
   );
 
+  const hamburgerMenuContent = document.querySelector('.hamMenuContent');
+
   // Created all items for navbar
   const links = [
     {name: 'Etusivu', value: 'main', href: '/'},
@@ -23,15 +25,16 @@ const navigation = () => {
     {name: 'Yrityksille', value: 'business', href: '/business'}, // Väliaikaisesti about us
   ];
 
-  // Iterating throuh list and adding them to dom
+  // Iterating through list and adding them to DOM
   links.forEach((item) => {
+    // Luo listaelementti ja linkki nav-baariin
     const listItem = document.createElement('li') as HTMLLIElement;
     const a = document.createElement('a');
     listItem.className = 'h-3/4 flex items-center';
     a.textContent = item.name;
     a.href = item.href;
 
-    // Adds eventListner for links to reload new page without refreshing the app
+    // Lisää eventListener nav-baarin linkeille
     a.addEventListener('click', (e) => {
       const target = e.target as HTMLLinkElement;
       if (target) {
@@ -40,27 +43,108 @@ const navigation = () => {
         if (href) {
           if (window.location.pathname !== href) {
             history.pushState({}, '', href);
-            // window.location.pathname = href;
-            router(); // Updates page to user
+            router(); // Päivitä sisältö käyttäjälle
           }
         }
       }
-      // Remove yellow color and bold from all header links
+      // Poista valinnat muista linkeistä nav-baarissa
       const allLinks = headerLinks.querySelectorAll('a');
       allLinks.forEach((link) => {
         link.classList.remove('text-yellow', 'font-bold');
       });
 
-      //Add yellow color and bold to active site
+      // Lisää aktiivisen sivun tyylit
       if (window.location.pathname === item.href) {
         a.classList.add('text-yellow', 'font-bold');
       }
+
+      // Hampurilaisvalikon linkit samaksi
+      const allHamburgerLinks = hamburgerMenuContent?.querySelectorAll('a');
+      allHamburgerLinks?.forEach((link) => {
+        link.classList.remove('text-yellow', 'font-bold');
+      });
+
+      const correspondingHamburgerLink = hamburgerMenuContent?.querySelector(
+        `a[href="${item.href}"]`
+      );
+      correspondingHamburgerLink?.classList.add('text-yellow', 'font-bold');
     });
 
+    // Lisää nav-baarin linkit
     listItem.dataset.value = item.value;
     listItem.appendChild(a);
     headerLinks.appendChild(listItem);
+
+    // Luo linkit myös hampurilaisvalikkoon
+    const hamburgerListItem = document.createElement('li') as HTMLLIElement;
+    const hamburgerLink = document.createElement('a');
+    hamburgerListItem.className = 'w-full text-center py-2';
+    hamburgerLink.textContent = item.name;
+    hamburgerLink.href = item.href;
+
+    // Lisää eventListener hampurilaisvalikon linkeille
+    hamburgerLink.addEventListener('click', (e) => {
+      const target = e.target as HTMLLinkElement;
+      if (target) {
+        const href = target.getAttribute('href');
+        e.preventDefault();
+        if (href) {
+          if (window.location.pathname !== href) {
+            history.pushState({}, '', href);
+            router(); // Päivitä sisältö käyttäjälle
+          }
+        }
+      }
+
+      // Poista valinnat muista linkeistä hampurilaisvalikossa
+      const allHamburgerLinks = hamburgerMenuContent?.querySelectorAll('a');
+      allHamburgerLinks?.forEach((link) => {
+        link.classList.remove('text-yellow', 'font-bold');
+      });
+
+      // Lisää aktiivisen sivun tyylit hampurilaisvalikkoon
+      if (window.location.pathname === item.href) {
+        hamburgerLink.classList.add('text-yellow', 'font-bold');
+      }
+
+      // Synkronoi header-linkkien tyylit
+      const allLinks = headerLinks.querySelectorAll('a');
+      allLinks.forEach((link) => {
+        link.classList.remove('text-yellow', 'font-bold');
+      });
+
+      const correspondingHeaderLink = headerLinks.querySelector(
+        `a[href="${item.href}"]`
+      );
+      correspondingHeaderLink?.classList.add('text-yellow', 'font-bold');
+
+      // Sulje hampurilaisvalikko
+      const menuDisplay = document.querySelector(
+        '.hamburgerMenuDisplay'
+      ) as HTMLDivElement;
+      if (menuDisplay) {
+        menuDisplay.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+    });
+
+    hamburgerListItem.appendChild(hamburgerLink);
+    if (hamburgerMenuContent) {
+      hamburgerMenuContent.appendChild(hamburgerListItem);
+    }
   });
+
+  const currentPath = window.location.pathname || '/';
+  const activeHeaderLink = headerLinks.querySelector(
+    `a[href="${currentPath}"]`
+  );
+  activeHeaderLink?.classList.add('text-yellow', 'font-bold');
+
+  const activeHamburgerLink = hamburgerMenuContent?.querySelector(
+    `a[href="${currentPath}"]`
+  );
+  activeHamburgerLink?.classList.add('text-yellow', 'font-bold');
+
   const navBar = document.querySelector('#navBar');
   if (navBar) {
     navBar.prepend(headerLinks);

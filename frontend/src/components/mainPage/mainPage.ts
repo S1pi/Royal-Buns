@@ -36,7 +36,8 @@ const mainPage = () => {
     'h-full',
     'object-cover',
     'opacity-80',
-    '-z-10'
+    '-z-10',
+    'videoBg'
   );
   videoBackground.src = 'videos/RoyalBuns-figma.mp4';
   videoBackground.autoplay = true;
@@ -52,11 +53,12 @@ const mainPage = () => {
 
   const mainScreenView = document.createElement('div');
   mainScreenView.classList.add(
-    'h-screen',
     'flex',
     'items-center',
-    'justify-center'
+    'justify-center',
+    'mainView'
   );
+  mainScreenView.style.height = 'calc(100vh - 80px)';
 
   // carousel container
 
@@ -66,7 +68,8 @@ const mainPage = () => {
     'w-2/3',
     'h-3/5',
     'overflow-hidden',
-    'rounded-2xl'
+    'rounded-2xl',
+    'carouselContainer'
   );
 
   const carousel = document.createElement('div');
@@ -94,7 +97,8 @@ const mainPage = () => {
     'text-2xl',
     'duration-300',
     'hover:text-4xl',
-    'hover:bg-opacity-5'
+    'hover:bg-opacity-5',
+    'carouselArrowContainer'
   );
 
   const leftArrow = document.createElement('i');
@@ -116,7 +120,8 @@ const mainPage = () => {
     'text-2xl',
     'duration-300',
     'hover:text-4xl',
-    'hover:bg-opacity-5'
+    'hover:bg-opacity-5',
+    'carouselArrowContainer'
   );
 
   const rightArrow = document.createElement('i');
@@ -244,16 +249,18 @@ const mainPage = () => {
     'flex',
     'flex-col',
     'items-center',
-    'justify-center'
+    'justify-center',
+    'restInfoContainer'
   );
   restaurantInfoContainer.style.backgroundImage = "url('img/gold-splash.png')";
 
   const infoHeadingElement = document.createElement('h1');
   infoHeadingElement.classList.add(
+    'infoHeading',
     'text-green',
     'font-bold',
     'text-h1',
-    'mb-8'
+    'my-8'
   );
   infoHeadingElement.textContent = 'ROYAL BUNS';
 
@@ -264,7 +271,8 @@ const mainPage = () => {
     'font-normal',
     'w-2/3',
     'pb-14',
-    'text-center'
+    'text-center',
+    'infoTextElement'
   );
   infoTextElement.textContent =
     'Royal Buns on vuonna 2019 perustettu premium-burgeriketju, jonka ravintolat löytyvät Helsingistä, Espoosta, Tampereelta ja Rovaniemeltä. Maineemme laadukkaista ja käsityönä valmistetuista burgereista on tuonut burgerin ystävät yhteen ympäri Suomen. Rennossa mutta tyylikkäässä miljöössä valmistamme jokaisen annoksen huolella, ja Royal Buns onkin vakiinnuttanut paikkansa yhtenä Suomen kymmenestä parhaasta burgeriravintolasta vuosina 2022, 2023 ja 2024.';
@@ -279,7 +287,8 @@ const mainPage = () => {
     'justify-center',
     'items-center',
     'rounded-full',
-    'shadow-xl'
+    'shadow-xl',
+    'infoBtnContainer'
   );
   const infoLink = document.createElement('a');
   infoLink.href = '/about';
@@ -292,12 +301,17 @@ const mainPage = () => {
     infoButtonContainer
   );
 
-  // ADD: Daily burger
-
   // ADD: Picture
 
   const pictureContainer = document.createElement('div');
-  pictureContainer.classList.add('w-full', 'h-96', 'bg-fixed', 'bg-cover');
+  pictureContainer.classList.add(
+    'w-full',
+    'h-96',
+    'bg-fixed',
+    'bg-cover',
+    'bg-center',
+    'picContainer'
+  );
 
   pictureContainer.style.backgroundImage = "url('img/grill.jpg')";
 
@@ -312,21 +326,30 @@ const mainPage = () => {
     'flex',
     'flex-col',
     'items-center',
+    'text-center',
     'justify-center',
-    'bg-white'
+    'bg-white',
+    'tabelResContainer'
   );
 
   const tableHeadingElement = document.createElement('h1');
-  tableHeadingElement.classList.add('text-red', 'font-bold', 'text-h1', 'mb-8');
+  tableHeadingElement.classList.add(
+    'text-red',
+    'font-bold',
+    'text-h1',
+    'mb-8',
+    'infoHeading'
+  );
   tableHeadingElement.textContent = 'VARAA PÖYTÄ';
 
-  const tableTextElement = document.createElement('hp');
+  const tableTextElement = document.createElement('p');
   tableTextElement.classList.add(
     'text-black',
     'text-h5',
     'font-normal',
-    'w-1/3',
-    'text-center'
+    'w-2/3',
+    'text-center',
+    'tableTextElement'
   );
   tableTextElement.textContent =
     'Varaa pöytä Royal Bunsista ja tule nauttimaan Suomen parhaimpiin kuuluvista premium-burgereista! Olipa kyseessä mukava ilta ystävien kanssa tai juhlahetki, me tarjoamme ainutlaatuisen burgerielämyksen tyylikkäässä ympäristössä. Varmista paikkasi ja tee varaus jo tänään!';
