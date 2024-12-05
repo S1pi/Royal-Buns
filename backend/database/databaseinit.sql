@@ -42,23 +42,9 @@ CREATE TABLE res_table (
     table_id INT AUTO_INCREMENT PRIMARY KEY,
     restaurant_id INT,
     seats INT,  -- Pilkku lisätty tähän
-    reserved BOOLEAN DEFAULT false,
+    -- reserved BOOLEAN DEFAULT false, -- Tämä on turha, koska sitä ei käytetä (säilytetään varmuudeksi)
     FOREIGN KEY (restaurant_id) REFERENCES restaurant(id)
 );
-
-
--- OLD Reservation (don't delete yet)
-
--- CREATE TABLE reservation (
---     id INT AUTO_INCREMENT PRIMARY KEY,
---     user_id INT,
---     reservation_time TIMESTAMP,
---     table_id INT,
---     restaurant_id INT,
---     FOREIGN KEY (user_id) REFERENCES users(id),
---     FOREIGN KEY (table_id) REFERENCES res_table(table_id),
---     FOREIGN KEY (restaurant_id) REFERENCES restaurant(id)
--- );
 
 CREATE TABLE reservation (
     id INT AUTO_INCREMENT PRIMARY KEY,

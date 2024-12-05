@@ -1,7 +1,8 @@
-import {reservation} from './reservation';
+import {Table} from '../../types/restaurant';
+import fetchTableMap from './fetchTableMap';
 
 // Reservation modal
-const reservationModal = () => {
+const reservationModal = async () => {
   // Select the #app div
   const appDiv = document.querySelector('#app') as HTMLElement;
 
@@ -95,32 +96,6 @@ const reservationModal = () => {
   //   'border-2',
   //   'border-black'
   // );
-
-  // Create table mock data
-  //TODO: Replace with actual data from the database
-  const tables = [
-    {id: 1, restaurantId: 1, seats: 8, reserved: false},
-    {id: 2, restaurantId: 1, seats: 8, reserved: false},
-    {id: 3, restaurantId: 1, seats: 8, reserved: false},
-    {id: 4, restaurantId: 1, seats: 6, reserved: false},
-    {id: 5, restaurantId: 1, seats: 6, reserved: false},
-    {id: 6, restaurantId: 1, seats: 6, reserved: false},
-    {id: 7, restaurantId: 1, seats: 6, reserved: false},
-    {id: 8, restaurantId: 1, seats: 2, reserved: true},
-    {id: 9, restaurantId: 1, seats: 2, reserved: true},
-    {id: 10, restaurantId: 1, seats: 2, reserved: true},
-    {id: 11, restaurantId: 1, seats: 2, reserved: true},
-    {id: 12, restaurantId: 1, seats: 2, reserved: false},
-    {id: 13, restaurantId: 1, seats: 2, reserved: false},
-    {id: 14, restaurantId: 1, seats: 2, reserved: false},
-    {id: 15, restaurantId: 1, seats: 2, reserved: false},
-    {id: 16, restaurantId: 1, seats: 2, reserved: true},
-    {id: 17, restaurantId: 1, seats: 6, reserved: true},
-    {id: 18, restaurantId: 1, seats: 6, reserved: false},
-    {id: 19, restaurantId: 1, seats: 8, reserved: true},
-    {id: 20, restaurantId: 1, seats: 8, reserved: true},
-    {id: 21, restaurantId: 1, seats: 2, reserved: false},
-  ];
 
   const mainContainer = document.createElement('div');
   mainContainer.classList.add(
@@ -241,6 +216,7 @@ const reservationModal = () => {
     'border-red',
     'pop-out-animation'
   );
+
   reservationContainer.appendChild(submitButton);
   submitButton.addEventListener('click', () => {
     successModal.classList.remove('hidden'); // Show the success modal
@@ -288,7 +264,7 @@ const reservationModal = () => {
     },
   };
 
-  let currentLanguage: 'EN' | 'FI' = localStorage.getItem('language') as 'EN' | 'FI'; // Default language
+  let currentLanguage = localStorage.getItem('language') as 'EN' | 'FI'; // Get the language from local storage Default to FI
   const languageButtons = document.querySelectorAll('button');
   languageButtons.forEach((button) => {
     button.addEventListener('click', () => {
@@ -302,19 +278,71 @@ const reservationModal = () => {
     });
   });
 
-  // Get the reservation size from session storage
-  const selectionSize = sessionStorage.getItem('reservation-size');
+  // Get the reservation information from session storage
+  const selectionSize = sessionStorage.getItem('reservation-size') as number | null;
+  const selectionDay = sessionStorage.getItem('reservation-day');
+  const selectionRestaurant = sessionStorage.getItem('restaurant') as number | null;
+  const selectionStartTime = sessionStorage.getItem('reservation-time');
+  let [hour, minute, seconds] = selectionStartTime?.split(':') as string[];
+  // Add 2 hours to the reservation time
+  hour = (parseInt(hour) + 2).toString();
+  const selectionEndTime = `${hour}:${minute}:${seconds}`;
+  console.log('Selction end time: ', selectionEndTime);
 
   let selectedTable: number | null;
   let tableElements: HTMLButtonElement[] = [];
+
+  // Create table mock data
+  //TODO: Replace with actual data from the database
+
+  let tables: Table[] = [];
+
+  if (!selectionRestaurant || !selectionDay || !selectionStartTime || !selectionEndTime) {
+    console.error('Missing reservation information');
+    return;
+  } else {
+    tables = await fetchTableMap(
+      selectionRestaurant,
+      selectionDay,
+      selectionStartTime,
+      selectionEndTime
+    );
+    // console.log('Tables: ', tables);
+  }
+
+  console.log('Tables: ', tables);
+  // const mocktables = [
+  //   {id: 1, restaurantId: 1, seats: 8, reserved: false},
+  //   {id: 2, restaurantId: 1, seats: 8, reserved: false},
+  //   {id: 3, restaurantId: 1, seats: 8, reserved: false},
+  //   {id: 4, restaurantId: 1, seats: 6, reserved: false},
+  //   {id: 5, restaurantId: 1, seats: 6, reserved: false},
+  //   {id: 6, restaurantId: 1, seats: 6, reserved: false},
+  //   {id: 7, restaurantId: 1, seats: 6, reserved: false},
+  //   {id: 8, restaurantId: 1, seats: 2, reserved: true},
+  //   {id: 9, restaurantId: 1, seats: 2, reserved: true},
+  //   {id: 10, restaurantId: 1, seats: 2, reserved: true},
+  //   {id: 11, restaurantId: 1, seats: 2, reserved: true},
+  //   {id: 12, restaurantId: 1, seats: 2, reserved: false},
+  //   {id: 13, restaurantId: 1, seats: 2, reserved: false},
+  //   {id: 14, restaurantId: 1, seats: 2, reserved: false},
+  //   {id: 15, restaurantId: 1, seats: 2, reserved: false},
+  //   {id: 16, restaurantId: 1, seats: 2, reserved: true},
+  //   {id: 17, restaurantId: 1, seats: 6, reserved: true},
+  //   {id: 18, restaurantId: 1, seats: 6, reserved: false},
+  //   {id: 19, restaurantId: 1, seats: 8, reserved: true},
+  //   {id: 20, restaurantId: 1, seats: 8, reserved: true},
+  //   {id: 21, restaurantId: 1, seats: 2, reserved: false},
+  // ];
 
   // loop through the tables and create table elements
   tables.forEach((table) => {
     // Filter tables by reservation size
     const tableButton = document.createElement('button');
-    table.reserved
-      ? tableButton.classList.add('bg-red') // Gives red color if table is already reserved
-      : tableButton.classList.add('bg-green'); // Gives green color if tables is available
+    console.log(table.is_free);
+    table.is_free
+      ? tableButton.classList.add('bg-green') // Gives green color if tables is available
+      : tableButton.classList.add('bg-red', 'cursor-not-allowed'); // Gives red color if table is reserved
 
     // Determine table size by seats
     if (table.seats === 2) {
@@ -328,22 +356,24 @@ const reservationModal = () => {
       largeTableGrid.appendChild(tableButton);
     }
 
-    if (table.seats.toString() !== selectionSize) {
+    if (table.seats !== Number(selectionSize)) {
       tableButton.disabled = true;
       tableButton.classList.add('cursor-not-allowed', 'opacity-50');
+    } else if (table.is_free) {
+      tableButton.classList.add('hover:bg-hover-green');
     }
+
+    // Handles table selection if the table is available
     tableButton.addEventListener('click', () => {
-      if (!table.reserved && table.seats) {
-        console.log(table.id);
-        // if (!selectedTable) {
-        // tableButton.classList.toggle('bg-yellow');
-        // selectedTable = table.id;
-        // }
+      if (table.is_free && table.seats) {
+        console.log(table.table_id);
         tableElements.forEach((element) => {
+          element.classList.add('hover:bg-hover-green');
           element.classList.remove('bg-yellow');
         });
         tableButton.classList.add('bg-yellow');
-        selectedTable = table.id;
+        tableButton.classList.remove('hover:bg-hover-green');
+        selectedTable = table.table_id;
         console.log(selectedTable);
         // add selected table to session storage
         sessionStorage.setItem('selected-table', selectedTable.toString());

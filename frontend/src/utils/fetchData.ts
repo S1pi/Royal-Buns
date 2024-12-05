@@ -16,6 +16,12 @@ const fetchData = async <T>(url: string, options: RequestInit): Promise<T> => {
         errorText: response.statusText,
         message: 'Kirjautuminen epäonnistui: Ei oikeuksia',
       } as T;
+    } else if (response.statusText === 'Not Found') {
+      return {
+        status: response.status,
+        errorText: response.statusText,
+        message: 'Resurssia ei löytynyt',
+      } as T;
     }
     console.error('Jokin meni vikaan backend fetchissä: ', response, typeof response);
     throw new Error('Error!!');

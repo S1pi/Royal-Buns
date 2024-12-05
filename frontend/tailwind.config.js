@@ -9,6 +9,7 @@ export default {
         yellow: '#D4AF37',
         green: '#7B8B42',
         red: '#8B3A3A',
+        'hover-green': '#6B7C3E',
 
         background: {
           light: '#88745C',

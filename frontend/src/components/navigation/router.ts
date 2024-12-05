@@ -10,6 +10,7 @@ import {reservationModal} from '../reservation/reservationModal';
 import {resp} from '../resp/resp';
 import {restaurants} from '../restaurants/restaurants';
 import {authenticationComponent} from '../authentication/Authentication';
+import {checkUserAuthentication} from '../authentication/AuthenticationService';
 
 const routes: {[key: string]: () => void} = {
   // Header navigation
@@ -28,7 +29,7 @@ const routes: {[key: string]: () => void} = {
   '/reservation/table-selection': reservationModal,
 };
 
-const router = () => {
+const router = async () => {
   const path = window.location.pathname;
   const route = routes[path];
   const app = document.querySelector('#app');
@@ -36,10 +37,13 @@ const router = () => {
   if (route) {
     if (app) {
       if (path === '/reservation/table-selection') {
-        if (!reservationSelectionCheck()) {
+        if (!reservationSelectionCheck() || !(await checkUserAuthentication())) {
           history.back();
           history.replaceState({}, '', '/reservation');
-          alert('You need to select all selections first');
+          alert(
+            "Don't try to cheat the system! You need to select restaurant, reservation size, time and day before proceeding! Also you need to be logged in! :)"
+          );
+          route();
           return;
         }
 

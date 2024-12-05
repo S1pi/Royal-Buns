@@ -1,4 +1,6 @@
 import {getRestaurants} from '../../utils/getRestaurants';
+import {reservationSelectionCheck} from '../../utils/reservationSelections';
+import {checkUserAuthentication} from '../authentication/AuthenticationService';
 
 // Type for 1 restaurant
 type Restaurant = {
@@ -49,9 +51,7 @@ const reservation = async () => {
 
   // Create the reservation title and style it
   const reservationTitleContainer = document.createElement('h1');
-  reservationTitleContainer.textContent = language('FI')
-    ? 'VARAA PÖYTÄ'
-    : 'BOOK A TABLE';
+  reservationTitleContainer.textContent = language('FI') ? 'VARAA PÖYTÄ' : 'BOOK A TABLE';
   reservationTitleContainer.classList.add(
     'flex',
     'text-h1', // Use custom h1 size from tailwind config
@@ -63,6 +63,14 @@ const reservation = async () => {
   // Append the title to the reservation container
   reservationContainer.appendChild(reservationTitleContainer);
 
+  const loginInfoContainer = document.createElement('div');
+  loginInfoContainer.classList.add('flex', 'justify-center', 'items-center', 'mt-10');
+  const loginInfo = document.createElement('p');
+  loginInfo.textContent = 'Pöydän varaaminen edellyttää että on kirjautunut sisään';
+  loginInfo.classList.add('text-center', 'text-secondary', 'text-sm');
+  loginInfoContainer.appendChild(loginInfo);
+  reservationContainer.appendChild(loginInfoContainer);
+
   // Create containter for selection buttons
   const selectionContainer = document.createElement('div');
   selectionContainer.classList.add(
@@ -70,9 +78,11 @@ const reservation = async () => {
     'justify-center',
     'items-center',
     'gap-2',
-    'mt-5',
-    'flex-row'
+    'mt-6',
+    'mb-4',
+    'flex-col'
   );
+
   reservationContainer.appendChild(selectionContainer);
 
   // Create the dropdown for restaurant selection
@@ -94,6 +104,7 @@ const reservation = async () => {
     'pr-10',
     'cursor-pointer'
   );
+
   restaurantDropdown.id = 'restaurantSelect';
   restaurantDropdown.name = 'restaurantSelect';
   restaurantDropdown.required = true;
@@ -168,12 +179,7 @@ const reservation = async () => {
   defaultOption.selected = true;
   peopleDropdown.appendChild(defaultOption);
   // Create the options for the dropdown
-  const options = [
-    '1-2 Henkilöä',
-    '3-4 Henkilöä',
-    '5-6 Henkilöä',
-    '7-8 Henkilöä',
-  ];
+  const options = ['1-2 Henkilöä', '3-4 Henkilöä', '5-6 Henkilöä', '7-8 Henkilöä'];
 
   options.forEach((option) => {
     const optionElement = document.createElement('option');
@@ -331,10 +337,7 @@ const reservation = async () => {
     const times: string[] = [];
 
     // Create reservation times every 30 minutes
-    while (
-      startHour < endHour ||
-      (startHour === endHour && startMinute <= endMinute)
-    ) {
+    while (startHour < endHour || (startHour === endHour && startMinute <= endMinute)) {
       // Add time into list as ex. "20:30"/"HH:MM"
       times.push(
         `${String(startHour).padStart(2, '0')}:${String(startMinute).padStart(2, '0')}`
@@ -427,7 +430,7 @@ const reservation = async () => {
     'w-1/4',
     'h-20',
     'mx-auto',
-    'mt-60',
+    'mt-10',
     'rounded-lg',
     'bg-primary',
     'text-red',
@@ -446,15 +449,23 @@ const reservation = async () => {
   // TODO: Implement changing to reservation modal and pass all data from inputs to modal
   // for table creation
   // Now it's just showing all data on console log
-  reservationButton.addEventListener('click', () => {
-    const restaurantId = restaurantDropdown.value;
-    const peopleAmount = peopleDropdown.value;
-    const reservationTime = timeSelection.value;
-    const reservationDate = dateSelection.value;
+  reservationButton.addEventListener('click', async () => {
+    // Check if user is logged in
+
+    const loggedIn = await checkUserAuthentication();
+    if (loggedIn && reservationSelectionCheck()) {
+      window.location.pathname += '/table-selection';
+    } else {
+      if (!loggedIn) {
+        alert('You need to be logged in to make a reservation');
+      } else {
+        alert(
+          'You need to select all the options before making a reservation. Please check the selections and try again.'
+        );
+      }
+    }
 
     // TODO: Selection check before going next path
-    window.location.pathname += '/table-selection';
-    console.log(restaurantId, peopleAmount, reservationTime, reservationDate);
   });
 };
 

@@ -26,8 +26,6 @@ const fetchRestaurantTablesAvailability = async (
                   t.restaurant_id = ?`;
 
   const params = [restaurantId, date, startTime, endTime, restaurantId];
-
-  console.log('Joo suoritetaan');
   try {
     const [result] = await promisePool.query<
       FetchResultForTableAvailability & QueryResult

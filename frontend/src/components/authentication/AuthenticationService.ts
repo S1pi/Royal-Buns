@@ -62,7 +62,9 @@ const checkUserAuthentication = async (): Promise<Boolean> => {
     return false; // No token
   }
   const options: RequestInit = {
+    method: 'GET',
     headers: {
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
   };
