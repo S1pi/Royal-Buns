@@ -1,8 +1,5 @@
 import {Request, Response} from 'express';
-import {
-  fetchRestaurant,
-  fetchRestaurantTablesAvailability,
-} from '../models/restaurant-model';
+import {fetchRestaurant} from '../models/restaurant-model';
 import {Restaurant} from '../types/restaurant';
 
 const getRestaurantById = async (req: Request, res: Response) => {

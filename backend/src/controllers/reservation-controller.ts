@@ -1,6 +1,6 @@
 import {FetchResultForTableAvailability} from '../types/restaurant';
 import {Request, Response} from 'express';
-import {fetchRestaurantTablesAvailability} from '../models/restaurant-model';
+import {fetchRestaurantTablesAvailability} from '../models/reservation-model';
 
 const getRestaurantTablesAvailability = async (req: Request, res: Response) => {
   const restaurantId = req.params.id as unknown as number;
