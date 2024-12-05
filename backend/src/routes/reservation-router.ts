@@ -1,12 +1,12 @@
 import express from 'express';
 import {validationErrorHandler} from '../middlewares/error-handler';
-import {body} from 'express-validator';
 import {getRestaurantById} from '../controllers/restaurant-controller';
 import {getRestaurantTablesAvailability} from '../controllers/reservation-controller';
 import {check, query} from 'express-validator';
 
 const reservationRouter = express.Router();
 
+// All reservations mahdollinen filtteröinti parametreillä
 reservationRouter.route('/').get();
 
 // Hankkii vapaana olevat pöydät tiettyyn ajankohtaan /restaurants/:id/free-tables
@@ -25,5 +25,13 @@ reservationRouter.route('/:id/free-tables').get(
   validationErrorHandler,
   getRestaurantTablesAvailability
 );
+// Single reservation by its id
+reservationRouter.route('/:id').get().put().delete();
+
+// All single users reservations
+reservationRouter.route('/users/:id').get();
+
+// Make reservation
+reservationRouter.route('/');
 
 export default reservationRouter;
