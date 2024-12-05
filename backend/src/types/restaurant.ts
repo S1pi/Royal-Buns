@@ -12,4 +12,12 @@ type Coordinates = {
   longitude: number;
 };
 
-export type {Restaurant, Coordinates};
+type TableAvailability = {
+  table_id: number;
+  seats: number;
+  is_free: boolean;
+};
+
+type FetchResultForTableAvailability = TableAvailability[];
+
+export type {Restaurant, Coordinates, FetchResultForTableAvailability};
