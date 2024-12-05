@@ -44,7 +44,6 @@ const userLogin = async (req: Request, res: Response) => {
       });
       res.json({...user, token});
     } else {
-      console.log('Täältä');
       res.sendStatus(401);
       return;
     }

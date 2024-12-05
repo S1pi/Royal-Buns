@@ -9,4 +9,6 @@ const getMe = async (req: Request, res: Response) => {
   }
 };
 
+// TODO (meaby): add user update and delete functions
+
 export {getMe};
