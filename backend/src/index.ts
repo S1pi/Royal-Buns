@@ -4,6 +4,7 @@ import {errorHandler, notFoundHandler} from './middlewares/error-handler';
 import authRouter from './routes/auth-router';
 import cors from 'cors';
 import restaurantRouter from './routes/restaurant-router';
+import reservationRouter from './routes/reservation-router';
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -28,7 +29,9 @@ app.use('/api/user', userRouter);
 
 app.use('/api/auth', authRouter);
 
-app.use('/api/restaurant', restaurantRouter);
+app.use('/api/restaurants', restaurantRouter);
+
+app.use('/api/reservations', reservationRouter);
 
 // if non of routes works uses this
 app.use(notFoundHandler);

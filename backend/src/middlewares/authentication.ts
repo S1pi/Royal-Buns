@@ -7,7 +7,7 @@ const tokenAuth = async (req: Request, res: Response, next: NextFunction) => {
   console.log('tokenAuth', req.headers);
   const authHead = req.headers['authorization'];
   const token = authHead && authHead.split(' ')[1];
-  console.log('Token: ', token);
+  // console.log('Token: ', token);
   if (!token) {
     res.sendStatus(401);
     return;

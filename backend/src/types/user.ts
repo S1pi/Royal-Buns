@@ -10,7 +10,7 @@ interface User {
 }
 
 type NewUser = Omit<User, 'id' | 'create_day' | 'favourite_bgr_id' | 'token'>;
-type UserReturn = Omit<User, 'passwrd' | 'token'>;
+type UserReturn = Omit<User, 'password' | 'token'>;
 
 type UserCreds = {username: string; password: string};
 

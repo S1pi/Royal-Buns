@@ -235,7 +235,9 @@ const gallery = () => {
   });
 
   setInterval(function () {
-    leftUpperCard.classList.toggle('flip');
+    if (window.location.pathname == '/gallery') {
+      leftUpperCard.classList.toggle('flip');
+    }
     console.log('Left upper card flipped');
 
     setTimeout(function () {
