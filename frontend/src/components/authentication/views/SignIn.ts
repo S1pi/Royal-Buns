@@ -92,7 +92,6 @@ const createSignInView = (): HTMLDivElement => {
     const formData = new FormData(form);
     const data: Record<string, string> = {};
     formData.forEach((value, key) => {
-      console.log('Value: ' + value, 'Key: ', key);
       if (value !== '') {
         data[key] = value as string;
       }
