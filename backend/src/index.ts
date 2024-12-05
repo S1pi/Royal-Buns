@@ -31,7 +31,7 @@ app.use('/api/auth', authRouter);
 
 app.use('/api/restaurants', restaurantRouter);
 
-app.use('/api/reservation', reservationRouter);
+app.use('/api/reservations', reservationRouter);
 
 // if non of routes works uses this
 app.use(notFoundHandler);

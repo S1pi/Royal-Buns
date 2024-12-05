@@ -8,10 +8,17 @@ import {
 
 const restaurantRouter = express.Router();
 
+// All restaurants example for reservation restaurant list:
+restaurantRouter.route('/').get();
+
+// Restaurant table capacity
+restaurantRouter.route('/table-capacity').get();
+
 // Hankkii tokenin avulla tiedot itsestään
 restaurantRouter.route('/:id').get(getRestaurantById);
 
 // Hankkii vapaana olevat pöydät tiettyyn ajankohtaan /restaurants/:id/free-tables
+// Siirrä ehkä kuitenkin toimimaan reservation-routerissa
 restaurantRouter.route('/:id/free-tables').get(
   check('id')
     .isInt({min: 1})
