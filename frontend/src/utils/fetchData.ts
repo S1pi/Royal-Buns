@@ -1,7 +1,7 @@
 const backendUrl = 'http://127.0.0.1:3000/api';
 
 const fetchData = async <T>(url: string, options: RequestInit): Promise<T> => {
-  console.log('Checking fetch');
+  console.log('Checking fetch...');
   const response = await fetch(backendUrl + url, options);
   if (!response.ok) {
     if (response.statusText === 'Unauthorized') {
@@ -27,7 +27,8 @@ const fetchData = async <T>(url: string, options: RequestInit): Promise<T> => {
     throw new Error('Error!!');
   }
 
-  console.log(response);
+  // Log response for debugging
+  // console.log(response);
   return await response.json();
 };
 
