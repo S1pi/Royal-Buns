@@ -13,6 +13,7 @@ export default {
         'warmer-brown': '#4B2E1D',
         'warm-brown': '#8C6E58',
         'olive-green': '#A4B787', // used for checkmark
+        'light-brown': '#BCA483', // used in profile page boxes
 
         background: {
           light: '#88745C',
