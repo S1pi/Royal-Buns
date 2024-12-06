@@ -2,7 +2,8 @@ import {
   InternalServerErrorResponse,
   SuccesfulAuthenticationResponse,
 } from '../../types/authentication';
-import {LoginError, User} from '../../types/user';
+import {ReservationInfo} from '../../types/reservation';
+import {LoginError, User, UserProfilePageData} from '../../types/user';
 import fetchData from '../../utils/fetchData';
 import {router} from '../navigation/router';
 
@@ -54,8 +55,7 @@ const sendLoginData = async (data: Record<string, string>) => {
       localStorage.setItem('user-token', response.token!);
 
       // After login pushes user to mainpage
-      history.replaceState({}, '', '/');
-      history.pushState({}, '', '/');
+      history.replaceState({}, '', '/login');
       router();
     } else {
       // Simple unauthorized
@@ -107,4 +107,48 @@ const checkUserAuthentication = async (): Promise<Boolean> => {
   }
 };
 
-export {sendRegisterationData, sendLoginData, checkUserAuthentication};
+// Type for getProfilePageData is Promise<UserProfilePageData> check type how it need to return
+// from user.ts
+const getProfilePageData = async (): Promise<UserProfilePageData> => {
+  console.log('Getting profile page data');
+  const token = localStorage.getItem('user-token');
+
+  const options: RequestInit = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const userProfileData: SuccesfulAuthenticationResponse = await fetchData(
+    '/user/me',
+    options
+  );
+  const userReservations: ReservationInfo[] = await fetchData(
+    '/reservations/user/all',
+    options
+  );
+
+  // Create user profile page data from user and reservation data
+  const profilePageData: UserProfilePageData = {
+    user_info: {
+      id: userProfileData.user.id,
+      username: userProfileData.user.username,
+      email: userProfileData.user.email,
+      phonenumber: userProfileData.user.phonenumber,
+      user_type: userProfileData.user.user_type,
+    },
+    reservations: userReservations,
+  };
+
+  console.log('Profile page data check from AuthService: ', profilePageData);
+  return profilePageData;
+};
+
+export {
+  sendRegisterationData,
+  sendLoginData,
+  checkUserAuthentication,
+  getProfilePageData,
+};

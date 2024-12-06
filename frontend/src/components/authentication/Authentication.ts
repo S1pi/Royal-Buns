@@ -1,4 +1,4 @@
-import {checkUserAuthentication} from './AuthenticationService';
+import {checkUserAuthentication, getProfilePageData} from './AuthenticationService';
 import {createProfileView} from './views/Profile';
 import {createSignInView} from './views/SignIn';
 import {createSignUpView} from './views/SignUp';
@@ -25,7 +25,9 @@ const authenticationComponent = async () => {
   const authenticated = await checkUserAuthentication();
 
   if (authenticated) {
-    const profileView = createProfileView();
+    const profilePageData = await getProfilePageData();
+    console.log('Profile page data before generating profile view: ', profilePageData);
+    const profileView = createProfileView(profilePageData);
     const profileContainer = document.createElement('div');
     profileContainer.classList.add(
       'cont',

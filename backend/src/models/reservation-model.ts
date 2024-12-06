@@ -66,6 +66,46 @@ const fetchReservationById = async (
   }
 };
 
+const fetchUserReservations = async (userId: number): Promise<ReservationData[]> => {
+  const sql = ` SELECT 
+                    r.id,
+                    r.user_id,
+                    r.reservation_date,
+                    r.start_time,
+                    r.end_time,
+                    r.table_id,
+                    r.restaurant_id,
+                    rs.res_name AS restaurant_name
+                  FROM 
+                    reservation r
+                  JOIN 
+                    restaurant rs
+                  ON 
+                    r.restaurant_id = rs.id
+                  WHERE 
+                    r.user_id = ?;
+                  `;
+
+  try {
+    const [result] = await promisePool.execute<ReservationData[] & QueryResult>(sql, [
+      userId,
+    ]);
+    return result.map((reservation) => {
+      return {
+        ...reservation,
+        reservation_date: new Date(reservation.reservation_date).toLocaleDateString(
+          'fi-FI'
+        ),
+        start_time: reservation.start_time.substring(0, 5),
+        end_time: reservation.end_time.substring(0, 5),
+      };
+    });
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
 const createReservation = async (
   userId: number,
   restaurant_id: number,
@@ -103,4 +143,9 @@ const createReservation = async (
   }
 };
 
-export {fetchRestaurantTablesAvailability, createReservation, fetchReservationById};
+export {
+  fetchRestaurantTablesAvailability,
+  createReservation,
+  fetchReservationById,
+  fetchUserReservations,
+};

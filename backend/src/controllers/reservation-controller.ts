@@ -4,6 +4,7 @@ import {
   createReservation,
   fetchReservationById,
   fetchRestaurantTablesAvailability,
+  fetchUserReservations,
 } from '../models/reservation-model';
 import {User, UserReturn} from '../types/user';
 import {fetchRestaurant} from '../models/restaurant-model';
@@ -117,4 +118,32 @@ const postReservation = async (req: Request, res: Response) => {
   }
 };
 
-export {getRestaurantTablesAvailability, postReservation, getReservationById};
+const getUserReservations = async (req: Request, res: Response) => {
+  const userId = req.user?.id as unknown as number;
+  try {
+    const userReservations = await fetchUserReservations(userId);
+
+    if (userReservations.length > 0) {
+      res.status(200).json(userReservations);
+    } else {
+      res.status(404).json({message: `User (id): ${userId} has no reservations`});
+    }
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error('Database connection error: ', err);
+      res
+        .status(503)
+        .json({message: 'Service unavailable: database error', status: 503, error: err});
+    } else {
+      console.error('Unknown error: ', err);
+      res.status(500).json({message: 'Unknown error', status: 500, error: err});
+    }
+  }
+};
+
+export {
+  getRestaurantTablesAvailability,
+  postReservation,
+  getReservationById,
+  getUserReservations,
+};

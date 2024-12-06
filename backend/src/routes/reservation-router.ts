@@ -4,6 +4,7 @@ import {getRestaurantById} from '../controllers/restaurant-controller';
 import {
   getReservationById,
   getRestaurantTablesAvailability,
+  getUserReservations,
   postReservation,
 } from '../controllers/reservation-controller';
 import {body, check, query} from 'express-validator';
@@ -45,7 +46,10 @@ reservationRouter
   .delete();
 
 // All single users reservations
-reservationRouter.route('/users/:id').get();
+// TODO: Handle validation with express-validator
+reservationRouter
+  .route('/user/all')
+  .get(tokenAuth, validationErrorHandler, getUserReservations);
 
 // Make reservation
 reservationRouter.route('/make-reservation').post(

@@ -1,3 +1,5 @@
+import {ReservationInfo} from './reservation';
+
 interface User {
   id: number;
   username: string;
@@ -14,4 +16,9 @@ type LoginError = {
   message: string;
 };
 
-export type {User, LoginError};
+type UserProfilePageData = {
+  user_info: Omit<User, 'token' | 'favourite_bgr_id'> & {favourite_bgr?: string};
+  reservations: Omit<ReservationInfo, 'user_id' | 'restaurant_id'>[];
+};
+
+export type {User, LoginError, UserProfilePageData};

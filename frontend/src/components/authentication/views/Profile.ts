@@ -1,10 +1,25 @@
+import {UserProfilePageData} from '../../../types/user';
+import {router} from '../../navigation/router';
+
 // Meaby get data as parameter and use it to fill the profile view
-const createProfileView = () => {
-  // TODO: Get user's information from backend
+const createProfileView = (pageData: UserProfilePageData) => {
+  console.log('Profile page data in createProfileView: ', pageData);
+  console.log('User info in createProfileView: ', pageData.user_info);
+  console.log('Reservations in createProfileView: ', pageData.reservations);
   // Handle the user's information here
+  // pageData.user_info has also user_type that can be used
+  // but for now we only show the user's information*
+
+  const {username, email, phonenumber, favourite_bgr} = pageData.user_info;
+  const reservations = pageData.reservations;
+
+  reservations.sort((a, b) => {
+    const dateA = new Date(a.reservation_date.split('.').reverse().join('-'));
+    const dateB = new Date(b.reservation_date.split('.').reverse().join('-'));
+    return dateA.getTime() - dateB.getTime();
+  });
 
   // Container for profile information
-
   const profileViewContainer = document.createElement('div');
   profileViewContainer.classList.add('flex', 'w-full', 'h-full', 'gap-10');
 
@@ -34,11 +49,11 @@ const createProfileView = () => {
   usernameLabel.textContent = 'Käyttäjänimi:';
   usernameLabel.classList.add('text-h5', 'font-bold', 'text-secondary');
 
-  const username = document.createElement('p');
+  const usernameText = document.createElement('p');
   // Change this to come from backend when user is authenticated
-  username.textContent = 'Käyttäjänimi';
-  username.classList.add('text-h5', 'text-primary');
-  usernameContainer.append(usernameLabel, username);
+  usernameText.textContent = username ? username : 'Käyttäjänimi ei saatavilla';
+  usernameText.classList.add('text-h5', 'text-primary');
+  usernameContainer.append(usernameLabel, usernameText);
 
   // Email container shows the user's email
   const emailContainer = document.createElement('div');
@@ -48,11 +63,11 @@ const createProfileView = () => {
   emailLabel.textContent = 'Sähköposti:';
   emailLabel.classList.add('text-h5', 'font-bold', 'text-secondary');
 
-  const email = document.createElement('p');
+  const emailText = document.createElement('p');
   // Change this to come from backend when user is authenticated
-  email.textContent = 'Sähköposti';
-  email.classList.add('text-h5', 'text-primary');
-  emailContainer.append(emailLabel, email);
+  emailText.textContent = email ? email : 'ilmoita sähköposti';
+  emailText.classList.add('text-h5', 'text-primary');
+  emailContainer.append(emailLabel, emailText);
 
   const phoneNumContainer = document.createElement('div');
   phoneNumContainer.classList.add('flex', 'gap-3');
@@ -63,7 +78,7 @@ const createProfileView = () => {
 
   const phoneNum = document.createElement('p');
   // Change this to come from backend when user is authenticated
-  phoneNum.textContent = 'Puhelinnumero';
+  phoneNum.textContent = phonenumber ? phonenumber : 'ilmoita puhelinnumero';
   phoneNum.classList.add('text-h5', 'text-primary');
   phoneNumContainer.append(phoneNumLabel, phoneNum);
 
@@ -76,7 +91,7 @@ const createProfileView = () => {
 
   const favouriteBurger = document.createElement('p');
   // Change this to come from backend when user is authenticated
-  favouriteBurger.textContent = 'Ei ilmoitettu';
+  favouriteBurger.textContent = favourite_bgr ? favourite_bgr : 'Ei valittu';
   favouriteBurger.classList.add('text-h5', 'text-primary');
 
   favouriteBurgerContainer.append(favouriteBurgerLabel, favouriteBurger);
@@ -84,6 +99,7 @@ const createProfileView = () => {
   const buttonContainer = document.createElement('div');
   buttonContainer.classList.add('flex', 'gap-10');
 
+  // Button for changing the user's password (Meaby change this to a: Change information button)
   const changePasswordButton = document.createElement('button');
   changePasswordButton.textContent = 'Vaihda salasana';
   changePasswordButton.classList.add(
@@ -113,6 +129,11 @@ const createProfileView = () => {
   );
 
   // Implement logout functionality for button.EventListener('click', logout)
+  logoutButton.addEventListener('click', () => {
+    localStorage.removeItem('user-token');
+    history.replaceState({}, '', '/login');
+    router();
+  });
 
   buttonContainer.append(changePasswordButton, logoutButton);
 
@@ -171,74 +192,149 @@ const createProfileView = () => {
     'rounded-2xl',
     'px-4',
     'py-0.5',
-    'w-1/2',
-    'text-center'
+    'w-1/2'
   );
 
-  // Implement reservation day selection functionality
-  // Add options to the select element
+  // Reservation day selection logic starts here
+  // First option is a placeholder
+  // firstSelection is used to disable the first option after user has selected a reservation
+  let firstSelection = null;
+
   const reservationDayOption = document.createElement('option');
   reservationDayOption.textContent = 'Valitse päivä';
   reservationDayOption.value = '0';
   reservationDaySelect.appendChild(reservationDayOption);
+  firstSelection = reservationDayOption;
+
+  // Add all the user's reservations to the select element
+  reservations.forEach((reservation) => {
+    const reservationDayOption = document.createElement('option');
+    reservationDayOption.textContent = reservation.reservation_date;
+    reservationDayOption.value = reservation.id.toString();
+    reservationDaySelect.appendChild(reservationDayOption);
+  });
 
   reservationDaySelectContainer.append(reservationDayLabel, reservationDaySelect);
 
-  // Make this meaby as select element (For now just show the user's current reservation time)
-  const reservationTimeContainer = document.createElement('div');
-  reservationTimeContainer.classList.add('flex', 'gap-3', 'mt-5');
+  // Reservation time, restaurant and table number changes based on the selected day value
+  // Value is the reservation id
 
-  const reservationTimeLabel = document.createElement('label');
-  reservationTimeLabel.textContent = 'Kellonaika:';
-  reservationTimeLabel.classList.add('text-h5', 'font-bold', 'text-secondary');
+  // Event listener for reservation day select
 
-  const reservationTime = document.createElement('p');
-  // Change this to come from backend when user is authenticated
-  reservationTime.textContent = 'Kellonaika';
-  reservationTime.classList.add('text-h5', 'text-primary');
-
-  reservationTimeContainer.append(reservationTimeLabel, reservationTime);
-
-  const reservationRestaurantContainer = document.createElement('div');
-  reservationRestaurantContainer.classList.add('flex', 'gap-3', 'mt-5');
-
-  const reservationRestaurantLabel = document.createElement('label');
-  reservationRestaurantLabel.textContent = 'Ravintola:';
-  reservationRestaurantLabel.classList.add('text-h5', 'font-bold', 'text-secondary');
-
-  const reservationRestaurant = document.createElement('p');
-  // Change this to come from backend when user is authenticated
-  reservationRestaurant.textContent = 'Royal Buns Espoo';
-  reservationRestaurant.classList.add('text-h5', 'text-primary');
-
-  reservationRestaurantContainer.append(
-    reservationRestaurantLabel,
-    reservationRestaurant
+  const reservationDataContainer = document.createElement('div');
+  reservationDataContainer.classList.add(
+    'flex',
+    'flex-col',
+    'items-center',
+    'justify-center',
+    'gap-5',
+    'mt-5',
+    'px-6',
+    'h-full',
+    'w-5/6',
+    'border-2',
+    'border-solid',
+    'border-warm-brown'
   );
 
-  const reservationTableContainer = document.createElement('div');
-  reservationTableContainer.classList.add('flex', 'gap-3', 'mt-5', 'mb-5');
+  const reservationDataInitial = document.createElement('p');
+  reservationDataInitial.textContent = 'Valitse varaus nähdäksesi tietoja';
+  reservationDataInitial.classList.add(
+    'text-h5',
+    'text-primary',
+    'font-semibold',
+    'text-center'
+  );
+  reservationDataContainer.append(reservationDataInitial);
 
-  const reservationTableLabel = document.createElement('label');
-  reservationTableLabel.textContent = 'Pöydän numero:';
-  reservationTableLabel.classList.add('text-h5', 'font-bold', 'text-secondary');
+  reservationDaySelect.addEventListener('change', (event) => {
+    // Disable the first option after user has selected a reservation
+    firstSelection.disabled = true;
 
-  const reservationTable = document.createElement('p');
-  // Change this to come from backend when user is authenticated
-  // Hehe 69 nice number for a table reservation ;)
-  reservationTable.textContent = '69';
-  reservationTable.classList.add('text-h5', 'text-primary');
+    // Remove previous reservation data
+    reservationDataContainer.innerHTML = '';
 
-  reservationTableContainer.append(reservationTableLabel, reservationTable);
+    reservationDataContainer.classList.remove('items-center');
+    reservationDataContainer.classList.add('pl-');
+
+    // Get the selected reservation id
+    const selectedReservationId = parseInt((event.target as HTMLSelectElement).value);
+
+    if (selectedReservationId === 0) return;
+
+    // Find the selected reservation from the reservations array
+    const selectedReservation = reservations.find(
+      (reservation) => reservation.id === selectedReservationId
+    );
+
+    if (!selectedReservation) {
+      reservationDataContainer.textContent = 'Valitulle varaukselle ei löytynyt tietoja';
+    }
+
+    // Make this meaby as select element (For now just show the user's current reservation time)
+    const reservationTimeContainer = document.createElement('div');
+    reservationTimeContainer.classList.add('flex', 'gap-3', 'mt-5');
+
+    const reservationTimeLabel = document.createElement('label');
+    reservationTimeLabel.textContent = 'Kellonaika:';
+    reservationTimeLabel.classList.add('text-h5', 'font-bold', 'text-secondary');
+
+    const reservationTimeElement = document.createElement('p');
+    // Change this to come from backend when user is authenticated
+    reservationTimeElement.textContent =
+      selectedReservation?.start_time + ' - ' + selectedReservation?.end_time ||
+      'Ei kellonaikaa saatavilla';
+    reservationTimeElement.classList.add('text-h5', 'text-primary');
+
+    reservationTimeContainer.append(reservationTimeLabel, reservationTimeElement);
+
+    const reservationRestaurantContainer = document.createElement('div');
+    reservationRestaurantContainer.classList.add('flex', 'gap-3', 'mt-5');
+
+    const reservationRestaurantLabel = document.createElement('label');
+    reservationRestaurantLabel.textContent = 'Ravintola:';
+    reservationRestaurantLabel.classList.add('text-h5', 'font-bold', 'text-secondary');
+
+    const reservationRestaurantElement = document.createElement('p');
+    // Change this to come from backend when user is authenticated
+    reservationRestaurantElement.textContent =
+      selectedReservation?.restaurant_name || 'Ei ravintolaa saatavilla';
+    reservationRestaurantElement.classList.add('text-h5', 'text-primary');
+
+    reservationRestaurantContainer.append(
+      reservationRestaurantLabel,
+      reservationRestaurantElement
+    );
+
+    const reservationTableContainer = document.createElement('div');
+    reservationTableContainer.classList.add('flex', 'gap-3', 'mt-5', 'mb-5');
+
+    const reservationTableLabel = document.createElement('label');
+    reservationTableLabel.textContent = 'Pöydän numero:';
+    reservationTableLabel.classList.add('text-h5', 'font-bold', 'text-secondary');
+
+    const reservationTableElement = document.createElement('p');
+    // Hehe 69 nice number for a table reservation ;)
+    reservationTableElement.textContent =
+      selectedReservation?.table_id.toString() || '69 :D';
+    reservationTableElement.classList.add('text-h5', 'text-primary');
+
+    reservationTableContainer.append(reservationTableLabel, reservationTableElement);
+
+    reservationDataContainer.append(
+      reservationTimeContainer,
+      reservationRestaurantContainer,
+      reservationTableContainer
+    );
+  });
 
   // Append all the elements to the reservation info container
   reservationInfoContainer.append(
     reservationInfoHeading,
     reservationDaySelectContainer,
-    reservationTimeContainer,
-    reservationRestaurantContainer,
-    reservationTableContainer
+    reservationDataContainer
   );
+
   // ***End of reservation info container***
 
   // If time allows, change this to a tablemap selection view
@@ -278,7 +374,7 @@ const createProfileView = () => {
 
   const restaurantPhone = document.createElement('p');
   // Hehe 69 nice number for a restaurant phone number ;)
-  restaurantPhone.textContent = '044 696 9696';
+  restaurantPhone.textContent = '044 6969 69';
   restaurantPhone.classList.add('text-h6', 'text-primary', 'font-semibold');
 
   restaurantPhoneContainer.append(restaurantPhoneLabel, restaurantPhone);
@@ -292,7 +388,7 @@ const createProfileView = () => {
   restaurantEmailLabel.classList.add('text-h6', 'font-bold', 'text-secondary');
 
   const restaurantEmail = document.createElement('p');
-  restaurantEmail.textContent = 'asiakaspalvelu@rb.fi';
+  restaurantEmail.textContent = 'asiakaspalvelu@royalbuns.fi';
   restaurantEmail.classList.add('text-h6', 'text-primary', 'font-semibold');
 
   restaurantEmailContainer.append(restaurantEmailLabel, restaurantEmail);
