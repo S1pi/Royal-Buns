@@ -23,7 +23,7 @@ CREATE TABLE users (
     email VARCHAR(255),
     phonenumber VARCHAR(255),
     user_type VARCHAR(50) NOT NULL,
-    token TEXT,
+    -- token TEXT, -- Tämä on turha, koska sitä ei käytetä (säilytetään varmuudeksi)
     create_day TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     favourite_brgr_id INT,
     FOREIGN KEY (favourite_brgr_id) REFERENCES burgers(id)
