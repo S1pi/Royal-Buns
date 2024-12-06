@@ -168,7 +168,7 @@ const restaurants = async () => {
     }).addTo(map);
 
     marker.bindPopup(
-      `<b>${res.res_name}</b><br>${res.openHours.weekdays} - ${res.openHours.weekends}`
+      `<b>${res.res_name}</b><br><br><b>Open Hours:</b> <br> Arkisin: ${res.openHours.weekdays} <br> Viikonloppuisin: ${res.openHours.weekends}`
     );
 
     restaurantSelectionButtons.addEventListener('click', () => {
