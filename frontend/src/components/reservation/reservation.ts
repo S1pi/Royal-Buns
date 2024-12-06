@@ -1,13 +1,7 @@
+import {Restaurant} from '../../types/restaurant';
 import {getRestaurants} from '../../utils/getRestaurants';
 import {reservationSelectionCheck} from '../../utils/reservationSelections';
 import {checkUserAuthentication} from '../authentication/AuthenticationService';
-
-// Type for 1 restaurant
-type Restaurant = {
-  id: number;
-  restaurantName: string;
-  openHours: {weekdays: string; weekends: string};
-};
 
 const reservation = async () => {
   // Select the #app div
@@ -144,7 +138,7 @@ const reservation = async () => {
   restaurants.forEach((restaurant) => {
     const optionElement = document.createElement('option');
     optionElement.value = restaurant.id.toString();
-    optionElement.textContent = restaurant.restaurantName;
+    optionElement.textContent = restaurant.res_name;
     restaurantDropdown.appendChild(optionElement);
   });
 
@@ -299,7 +293,7 @@ const reservation = async () => {
 
     const restaurant = restaurants.find(
       (restaurant) => restaurant.id === Number(restaurantId)
-    ) as Restaurant;
+    );
     console.log(restaurant);
     if (restaurant == undefined) alert('You need to select Restaurant');
     dateSelection.showPicker();
@@ -378,6 +372,7 @@ const reservation = async () => {
     return times;
   };
 
+  // Function to generate time selection based on the restaurant open hours
   const generateTimeSelection = (restaurant: Restaurant) => {
     timeSelection.innerHTML = '';
     const timeOption = document.createElement('option');
