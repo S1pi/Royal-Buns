@@ -2,9 +2,10 @@ import {Request, Response} from 'express';
 import {
   fetchAllRestaurants,
   fetchRestaurant,
+  fetchRestaurantOpenHours,
   fetchTableCapacity,
 } from '../models/restaurant-model';
-import {Restaurant, RestauratTableData} from '../types/restaurant';
+import {OpenHours, Restaurant, RestauratTableData} from '../types/restaurant';
 
 const getRestaurantById = async (req: Request, res: Response) => {
   const resId = req.params.id;
@@ -28,10 +29,41 @@ const getRestaurantById = async (req: Request, res: Response) => {
   }
 };
 
+// type Restaurant = {
+//   id: number;
+//   res_name: string;
+//   city: string;
+//   location: string;
+//   address: string;
+//   coordinates: coordinates;
+// };
+
 const getAllRestaurants = async (req: Request, res: Response) => {
   try {
-    const restaurants: Restaurant[] = await fetchAllRestaurants();
-    res.status(200).json(restaurants);
+    const restaurants = await fetchAllRestaurants();
+    const restaurantsOpenHours = await fetchRestaurantOpenHours();
+
+    const restaurantsWithOpenHours = restaurants.map((restaurant) => {
+      const openHours = restaurantsOpenHours.find(
+        (openHour) => openHour.restaurant_id === restaurant.id
+      ) as OpenHours | undefined;
+      if (!openHours) {
+        return null;
+      } else {
+        const {weekdays, weekends} = openHours;
+        return {
+          id: restaurant.id,
+          res_name: restaurant.res_name,
+          city: restaurant.city,
+          location: restaurant.location,
+          address: restaurant.address,
+          coordinates: restaurant.coordinates,
+          openHours: {weekdays, weekends},
+        };
+      }
+    });
+
+    res.status(200).json(restaurantsWithOpenHours);
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.error('Database connection error: ', err);

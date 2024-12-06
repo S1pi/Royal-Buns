@@ -1,5 +1,6 @@
 // TODO: Implement the restaurants to appear on the map page fron the getRestaurants mock data.
 // TODO: Improve to get the same data from the actual database backend.
+import {Restaurant} from '../../types/restaurant';
 import {getRestaurants} from '../../utils/getRestaurants';
 import L from 'leaflet';
 
@@ -47,8 +48,7 @@ const restaurants = async () => {
 
   const updateContent = () => {
     restaurantTitleContainer.textContent = translations[currentLanguage].title;
-    restaurantTextContainer.textContent =
-      translations[currentLanguage].selectRestaurant;
+    restaurantTextContainer.textContent = translations[currentLanguage].selectRestaurant;
   };
 
   // Create the container for the main content of the page
@@ -140,12 +140,12 @@ const restaurants = async () => {
   });
 
   // get restaurants from mock data
-  const restaurantNames = await getRestaurants();
+  const restaurants: Restaurant[] = await getRestaurants();
   //TODO: Implement the actual database fetch
   // Create buttons for restaurant selection
-  restaurantNames.forEach((restaurants) => {
+  restaurants.forEach((res) => {
     const restaurantSelectionButtons = document.createElement('button');
-    restaurantSelectionButtons.textContent = restaurants.restaurantName;
+    restaurantSelectionButtons.textContent = res.res_name;
     restaurantSelectionButtons.classList.add(
       'flex',
       'flex-col',
@@ -163,18 +163,19 @@ const restaurants = async () => {
       'rounded-lg'
     );
 
-    const marker = L.marker([restaurants.latitude, restaurants.longitude], {
+    const marker = L.marker([res.coordinates.latitude, res.coordinates.longitude], {
       icon: customIcon,
     }).addTo(map);
 
     marker.bindPopup(
-      `<b>${restaurants.restaurantName}</b><br>${restaurants.openHours.weekdays} - ${restaurants.openHours.weekends}`
+      `<b>${res.res_name}</b><br>${res.openHours.weekdays} - ${res.openHours.weekends}`
     );
 
     restaurantSelectionButtons.addEventListener('click', () => {
-      map.setView([restaurants.latitude, restaurants.longitude], 16);
+      map.setView([res.coordinates.latitude, res.coordinates.longitude], 16);
       marker.openPopup();
-      console.log(restaurants.latitude, restaurants.longitude);
+      // Log the coordinates to the console for debugging
+      // console.log(res.coordinates.latitude, res.coordinates.longitude);
     });
 
     restaurantSelectionContainer.appendChild(restaurantSelectionButtons);
@@ -182,8 +183,7 @@ const restaurants = async () => {
 
   // Restaurant selection info
   const restaurantTextContainer = document.createElement('p');
-  restaurantTextContainer.textContent =
-    translations[currentLanguage].selectRestaurant;
+  restaurantTextContainer.textContent = translations[currentLanguage].selectRestaurant;
   restaurantTextContainer.classList.add(
     'flex',
     'mx-auto',

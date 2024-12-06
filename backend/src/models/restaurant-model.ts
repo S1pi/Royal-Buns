@@ -1,5 +1,5 @@
 import {RowDataPacket} from 'mysql2';
-import {Restaurant, RestauratTableData} from '../types/restaurant';
+import {OpenHours, Restaurant, RestauratTableData} from '../types/restaurant';
 import promisePool from '../utils/database';
 
 const fetchRestaurant = async (id: number): Promise<Restaurant | null> => {
@@ -28,6 +28,30 @@ const fetchAllRestaurants = async (): Promise<Restaurant[]> => {
   }
 };
 
+// If you want to fetch only one restaurant's open hours
+const fetchRestaurantOpenHoursById = async (id: number): Promise<OpenHours> => {
+  const sql = 'SELECT weekdays, weekends FROM open_hours WHERE restaurant_id = ?';
+  try {
+    const [result] = await promisePool.execute<OpenHours & RowDataPacket[]>(sql, [id]);
+    return result;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+// If you want to fetch all restaurants open hours
+const fetchRestaurantOpenHours = async (): Promise<OpenHours[]> => {
+  const sql = 'SELECT * FROM open_hours';
+  try {
+    const [result] = await promisePool.execute<OpenHours[] & RowDataPacket[]>(sql);
+    return result;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
 const fetchTableCapacity = async (id: number): Promise<RestauratTableData[] | null> => {
   const sql = 'SELECT * FROM res_table WHERE restaurant_id = ?';
   try {
@@ -48,4 +72,10 @@ const fetchTableCapacity = async (id: number): Promise<RestauratTableData[] | nu
   }
 };
 
-export {fetchRestaurant, fetchAllRestaurants, fetchTableCapacity};
+export {
+  fetchRestaurant,
+  fetchAllRestaurants,
+  fetchTableCapacity,
+  fetchRestaurantOpenHours,
+  fetchRestaurantOpenHoursById,
+};

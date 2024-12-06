@@ -25,6 +25,12 @@ type RestauratTableData = {
   reserved: boolean;
 };
 
+type OpenHours = {
+  restaurant_id: number;
+  weekdays: string;
+  weekends: string;
+};
+
 type TableDataBySeats = {};
 
 type FetchResultForTableAvailability = TableAvailability[];
@@ -35,4 +41,5 @@ export type {
   FetchResultForTableAvailability,
   TableAvailability,
   RestauratTableData,
+  OpenHours,
 };
