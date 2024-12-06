@@ -1,8 +1,15 @@
+import {ReservationInfo} from '../../types/reservation';
 import {Table} from '../../types/restaurant';
-import fetchTableMap from './fetchTableMap';
+import {fetchTableMap, handleReservation} from './reservationService';
 
 // Reservation modal
 const reservationModal = async () => {
+  // Check if the reservation was successful and clear the session
+  if (sessionStorage.getItem('reservationResultModalOpened') === 'true') {
+    sessionStorage.clear();
+    window.location.href = '/'; // Ohjaa käyttäjä pois, jolloin modaalit eivät tule uudelleen näkyviin
+  }
+
   // Select the #app div
   const appDiv = document.querySelector('#app') as HTMLElement;
 
@@ -83,20 +90,6 @@ const reservationModal = async () => {
   legendContainer.append(reservedLegend, availableLegend, selectedLegend);
   reservationContainer.append(legendContainer);
 
-  //Create table map
-  // const tableMap = document.createElement('div');
-  // tableMap.classList.add(
-  //   'grid',
-  //   'grid-cols-8',
-  //   'gap-4',
-  //   'bg-white',
-  //   'p-4',
-  //   'rounded-lg',
-  //   'border-solid',
-  //   'border-2',
-  //   'border-black'
-  // );
-
   const mainContainer = document.createElement('div');
   mainContainer.classList.add(
     'grid',
@@ -142,8 +135,20 @@ const reservationModal = async () => {
   // Append the grids to main container
   mainContainer.append(largeTableGrid, mediumTableGrid, smallTableGrid);
   reservationContainer.append(mainContainer);
+
   // Create a modal for successful reservation
-  const createSuccessModal = () => {
+  const createSuccessModal = (reservationInformation: ReservationInfo) => {
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+
+    console.log(
+      'createSuccessModal -> reservationInformation: ',
+      reservationInformation.reservation_date,
+      reservationInformation.start_time,
+      reservationInformation.end_time,
+      reservationInformation.table_id,
+      reservationInformation.restaurant_name
+    );
+
     const modalContainer = document.createElement('div');
     modalContainer.classList.add(
       'fixed',
@@ -154,7 +159,158 @@ const reservationModal = async () => {
       'items-center',
       'justify-center',
       'hidden',
-      'z-50'
+      'z-50',
+      'scroll-m-0'
+    );
+    const modalContent = document.createElement('div');
+    modalContent.classList.add(
+      'bg-primary',
+      'rounded-lg',
+      'p-10',
+      'text-center',
+      'min-w-96',
+      'shadow-lg'
+    );
+
+    const successMessage = document.createElement('h2');
+    successMessage.textContent = 'Varaus onnistui!';
+    successMessage.classList.add('text-h2', 'font-bold', 'mb-6', 'text-warm-brown');
+    const succesIcon = document.createElement('i');
+    succesIcon.classList.add(
+      'fa-regular',
+      'fa-check-circle',
+      'text-3xl',
+      'mb-2',
+      'ml-2',
+      'text-olive-green'
+    );
+    successMessage.appendChild(succesIcon);
+    modalContent.appendChild(successMessage);
+
+    // Create a container for the reservation information title
+    const reservationInfoContainer = document.createElement('div');
+    reservationInfoContainer.classList.add(
+      'mb-4',
+      'border-y-2',
+      'border-warm-brown',
+      'py-4'
+    );
+
+    const reservationInfoTitle = document.createElement('h4');
+    reservationInfoTitle.textContent = 'Varauksen tiedot:';
+    reservationInfoTitle.classList.add(
+      'text-h4',
+      'font-semibold',
+      'mb-4',
+      'text-warmer-brown'
+    );
+    reservationInfoContainer.appendChild(reservationInfoTitle);
+
+    // Create a container for the reservation information
+    const reservationInfo = document.createElement('div');
+    reservationInfo.classList.add('flex', 'flex-col', 'text-left');
+
+    // Create a section for the restaurant name
+    const restaurantName = document.createElement('p');
+    restaurantName.textContent = `Ravintola: ${reservationInformation.restaurant_name}`;
+    restaurantName.classList.add('text-base', 'mb-2', 'text-warmer-brown');
+    const restaurantIcon = document.createElement('i');
+    restaurantIcon.classList.add('fas', 'fa-utensils', 'mr-3', 'text-warmer-brown');
+    restaurantName.prepend(restaurantIcon);
+
+    // Create a section for the reservation date
+    const reservationDate = document.createElement('p');
+    reservationDate.textContent = `Päivämäärä: ${reservationInformation.reservation_date}`;
+    reservationDate.classList.add('text-base', 'mb-2', 'text-warmer-brown');
+    const calendarIcon = document.createElement('i');
+    calendarIcon.classList.add('far', 'fa-calendar-alt', 'mr-3', 'text-warmer-brown');
+    reservationDate.prepend(calendarIcon);
+
+    // Create a section for the reservation time
+    const reservationTime = document.createElement('p');
+    reservationTime.textContent = `Aika: ${reservationInformation.start_time} - ${reservationInformation.end_time}`;
+    reservationTime.classList.add('text-base', 'mb-2', 'text-warmer-brown');
+    const clockIcon = document.createElement('i');
+    clockIcon.classList.add('far', 'fa-clock', 'mr-3', 'text-warmer-brown');
+    reservationTime.prepend(clockIcon);
+
+    // Create a section for the table number
+    const reservationTable = document.createElement('p');
+    reservationTable.textContent = `Pöydän numero: ${reservationInformation.table_id}`;
+    reservationTable.classList.add('text-base', 'mb-2', 'text-warmer-brown');
+    const tableIcon = document.createElement('i');
+    tableIcon.classList.add('fas', 'fa-chair', 'mr-3', 'text-warmer-brown');
+    reservationTable.prepend(tableIcon);
+
+    // Append all reservation information to the reservation info container
+    reservationInfo.append(
+      restaurantName,
+      reservationDate,
+      reservationTime,
+      reservationTable
+    );
+
+    // Append the reservation info container to the modal content
+    reservationInfoContainer.appendChild(reservationInfo);
+    modalContent.appendChild(reservationInfoContainer);
+
+    const reservationInfoInProfile = document.createElement('p');
+    reservationInfoInProfile.textContent = 'Näet varauksesi profiilissasi.';
+    reservationInfoInProfile.classList.add(
+      'text-sm',
+      'italic',
+      'mt-2',
+      'mb-6',
+      'text-warmer-brown'
+    );
+    modalContent.appendChild(reservationInfoInProfile);
+
+    const successDescription = document.createElement('p');
+    successDescription.innerHTML =
+      'Kiitos varauksestasi! <br/> Tervetuloa ravintolaamme!';
+    successDescription.classList.add('text-lg', 'mb-4', 'text-warmer-brown');
+    modalContent.appendChild(successDescription);
+
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Sulje';
+    closeButton.classList.add(
+      'bg-warmer-brown',
+      'text-primary',
+      'px-4',
+      'py-2',
+      'rounded',
+      'pop-out-animation',
+      'cursor-pointer'
+    );
+    closeButton.addEventListener('click', () => {
+      window.location.href = '/';
+      sessionStorage.clear();
+      selectedTable = null;
+
+      document.body.style.overflow = 'auto'; // Enable scrolling
+    });
+
+    modalContent.appendChild(closeButton);
+    modalContainer.appendChild(modalContent);
+    document.body.appendChild(modalContainer);
+    return modalContainer;
+  };
+
+  const createErrorModal = () => {
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+
+    const modalContainer = document.createElement('div');
+    modalContainer.classList.add(
+      'fixed',
+      'inset-0',
+      'bg-black',
+      'bg-opacity-50',
+      'flex',
+      'items-center',
+      'justify-center',
+      'hidden',
+      'z-50',
+      'scroll-m-0'
     );
     const modalContent = document.createElement('div');
     modalContent.classList.add(
@@ -165,34 +321,32 @@ const reservationModal = async () => {
       'w-80',
       'shadow-lg'
     );
-    const successMessage = document.createElement('p');
-    successMessage.textContent = 'Reservation successful!';
-    successMessage.classList.add('text-lg', 'font-semibold', 'mb-4', 'text-green-600');
-    modalContent.appendChild(successMessage);
+    const errorMessage = document.createElement('h3');
+    errorMessage.textContent = 'Varaus epäonnistui!';
+    errorMessage.classList.add('text-h3', 'font-semibold', 'mb-4', 'text-red-600');
+    modalContent.appendChild(errorMessage);
+    const errorDescription = document.createElement('p');
+    errorDescription.innerHTML =
+      'Pöydän varaaminen epäonnistui. <br/> Palaa takaisin ja yritä uudelleen.';
+    errorDescription.classList.add('text-base', 'mb-4');
+    modalContent.appendChild(errorDescription);
     const closeButton = document.createElement('button');
-    closeButton.textContent = 'Close';
+    closeButton.textContent = 'Sulje';
     closeButton.classList.add(
       'bg-red',
       'text-black',
       'px-4',
       'py-2',
       'rounded',
-      'hover:bg-primary-dark',
       'pop-out-animation',
       'cursor-pointer'
     );
     closeButton.addEventListener('click', () => {
-      window.location.href = '/';
-      sessionStorage.removeItem('reservation-day');
-      sessionStorage.removeItem('reservation-size');
-      sessionStorage.removeItem('reservation-time');
-      sessionStorage.removeItem('restaurant');
-      sessionStorage.removeItem('selected-table');
+      window.location.href = '/reservation';
+      sessionStorage.clear();
+      selectedTable = null;
 
-      //TODO show the modal ONLY if the backend returns a successful response
-      //TODO hide the modal after a few seconds
-      //TODO make close button navigate the user back to home page
-      // Close the modal and navigate to the home page
+      document.body.style.overflow = 'auto'; // Enable scrolling
     });
 
     modalContent.appendChild(closeButton);
@@ -200,8 +354,157 @@ const reservationModal = async () => {
     document.body.appendChild(modalContainer);
     return modalContainer;
   };
-  const successModal = createSuccessModal();
 
+  // Create a modal for confirming the reservation
+  const createReservationConfirmationModal = (
+    selectionDay: string,
+    selectionStartTime: string,
+    selectionEndTime: string,
+    selectedTable: number,
+    selectionRestaurant: number
+  ) => {
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+
+    // Create the modal container
+    const modalContainer = document.createElement('div');
+    modalContainer.classList.add(
+      'fixed',
+      'inset-0',
+      'bg-black',
+      'bg-opacity-50',
+      'flex',
+      'items-center',
+      'justify-center',
+      'hidden',
+      'z-50',
+      'scroll-m-0'
+    );
+
+    // Create the modal content
+    const modalContent = document.createElement('div');
+    modalContent.classList.add(
+      'bg-primary',
+      'rounded-lg',
+      'p-6',
+      'text-center',
+      'w-80',
+      'shadow-lg'
+    );
+
+    // Create the confirmation message
+    const confirmationMessage = document.createElement('h3');
+    confirmationMessage.textContent = 'Vahvista varaus';
+    confirmationMessage.classList.add('text-h3', 'font-semibold', 'mb-4', 'text-red-600');
+    modalContent.appendChild(confirmationMessage);
+    const confirmationDescription = document.createElement('p');
+
+    // Improvement idea: Make reservation cancellation possible and change the description text accordingly
+    confirmationDescription.innerHTML =
+      'Haluatko varmasti varata tämän pöydän? <br/> <br/> <b>Varaus on sitova.</b>';
+    confirmationDescription.classList.add('text-base', 'mb-4');
+    modalContent.appendChild(confirmationDescription);
+
+    // Create a confirm button for the modal
+    const confirmButton = document.createElement('button');
+    confirmButton.textContent = 'Vahvista';
+    confirmButton.classList.add(
+      'bg-olive-green',
+      'text-black',
+      'px-4',
+      'py-2',
+      'mx-4',
+      'rounded',
+      'pop-out-animation',
+      'cursor-pointer'
+    );
+
+    // Add event listener to the confirm button to handle the reservation
+    confirmButton.addEventListener('click', async () => {
+      // Handle the reservation and show the success or error modal
+      // TODO: Move this into confirmation modal
+      const successfullReservation = await handleReservation(
+        selectionDay,
+        selectionStartTime,
+        selectionEndTime,
+        selectedTable,
+        selectionRestaurant
+      );
+
+      if (!successfullReservation) {
+        const errorModal = createErrorModal(); // Create the error modal
+        // updateContent(); // Update the content of the error modal // TODO: Implement this
+        errorModal.classList.remove('hidden'); // Show the error modal
+        sessionStorage.setItem('reservationResultModalOpened', 'true');
+        setTimeout(() => {
+          window.location.href = '/reservation'; // Ohjaa käyttäjä takaisin varausnäkymään muutaman sekunnin kuluttua
+          sessionStorage.clear();
+        }, 10000);
+      } else {
+        const successModal = createSuccessModal(successfullReservation); // Create the success modal
+        successModal.classList.remove('hidden'); // Show the success modal
+        sessionStorage.setItem('reservationResultModalOpened', 'true');
+
+        // Väliaikaisesti aika on pidennetty 60 sekuntiin, testausta varten
+
+        setTimeout(() => {
+          window.location.href = '/'; // Ohjaa käyttäjä takaisin etusivulle muutaman sekunnin kuluttua
+          sessionStorage.clear();
+        }, 30000);
+      }
+    });
+
+    // Create a close button for the modal
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Peruuta';
+    closeButton.classList.add(
+      'bg-red',
+      'text-black',
+      'px-4',
+      'py-2',
+      'rounded',
+      'pop-out-animation',
+      'cursor-pointer'
+    );
+
+    // Add event listener to the close button to close the modal
+    closeButton.addEventListener('click', () => {
+      modalContainer.classList.add('hidden');
+      document.body.style.overflow = 'auto'; // Enable scrolling
+      document.body.removeChild(modalContainer);
+    });
+
+    // Append the buttons to the modal content
+    modalContent.appendChild(confirmButton);
+    modalContent.appendChild(closeButton);
+
+    // Append the modal content to the modal container
+    modalContainer.appendChild(modalContent);
+    document.body.appendChild(modalContainer);
+
+    return modalContainer;
+  };
+
+  // Get the reservation information from session storage
+  const selectionSize = sessionStorage.getItem('reservation-size') as number | null;
+  const selectionDay = sessionStorage.getItem('reservation-day');
+  const selectionRestaurant = sessionStorage.getItem('restaurant') as number | null;
+  const selectionStartTime = sessionStorage.getItem('reservation-time');
+  let [hour, minute, seconds] = selectionStartTime?.split(':') as string[];
+  // Add 2 hours to the reservation time
+  hour = (parseInt(hour) + 2).toString();
+
+  // Backup plan for handling closing hour reservations
+  // so backend can handle them correctly
+  if (hour === '24') {
+    hour = '00';
+  } else if (hour === '25') {
+    hour = '01';
+  }
+
+  const selectionEndTime = `${hour}:${minute}:${seconds}`;
+  let selectedTable: number | null = null;
+
+  // Create a submit button for the reservation to send the reservation to the backend
   const submitButton = document.createElement('button');
   submitButton.textContent = 'VARAA';
   submitButton.classList.add(
@@ -218,8 +521,29 @@ const reservationModal = async () => {
   );
 
   reservationContainer.appendChild(submitButton);
-  submitButton.addEventListener('click', () => {
-    successModal.classList.remove('hidden'); // Show the success modal
+  submitButton.addEventListener('click', async () => {
+    if (
+      !selectionDay ||
+      !selectionStartTime ||
+      !selectionEndTime ||
+      !selectedTable ||
+      !selectionRestaurant
+    ) {
+      console.error('Missing reservation information');
+      return;
+    }
+
+    // TODO: Implement reservation confirmation modal
+
+    const reservationConfirmationModal = createReservationConfirmationModal(
+      selectionDay,
+      selectionStartTime,
+      selectionEndTime,
+      selectedTable,
+      selectionRestaurant
+    );
+
+    reservationConfirmationModal.classList.remove('hidden');
   });
 
   const updateContent = () => {
@@ -236,10 +560,15 @@ const reservationModal = async () => {
       translations[currentLanguage].selectedLegend + ' ';
     // Update the submit button text
     submitButton.textContent = translations[currentLanguage].title;
-    successModal.childNodes[0].childNodes[0].textContent =
-      translations[currentLanguage].successMessage;
-    successModal.childNodes[0].childNodes[1].textContent =
-      translations[currentLanguage].closeButton;
+
+    // This fucked up the modal, so I commented it out!!!
+    // Remake the success modal translation!!!
+    // if (successModal) {
+    //   successModal.childNodes[0].childNodes[0].textContent =
+    //     translations[currentLanguage].successMessage;
+    //   successModal.childNodes[0].childNodes[1].textContent =
+    //     translations[currentLanguage].closeButton;
+    // }
   };
 
   // Translation functionality for the page.
@@ -278,18 +607,6 @@ const reservationModal = async () => {
     });
   });
 
-  // Get the reservation information from session storage
-  const selectionSize = sessionStorage.getItem('reservation-size') as number | null;
-  const selectionDay = sessionStorage.getItem('reservation-day');
-  const selectionRestaurant = sessionStorage.getItem('restaurant') as number | null;
-  const selectionStartTime = sessionStorage.getItem('reservation-time');
-  let [hour, minute, seconds] = selectionStartTime?.split(':') as string[];
-  // Add 2 hours to the reservation time
-  hour = (parseInt(hour) + 2).toString();
-  const selectionEndTime = `${hour}:${minute}:${seconds}`;
-  console.log('Selction end time: ', selectionEndTime);
-
-  let selectedTable: number | null;
   let tableElements: HTMLButtonElement[] = [];
 
   // Create table mock data
@@ -307,33 +624,7 @@ const reservationModal = async () => {
       selectionStartTime,
       selectionEndTime
     );
-    // console.log('Tables: ', tables);
   }
-
-  console.log('Tables: ', tables);
-  // const mocktables = [
-  //   {id: 1, restaurantId: 1, seats: 8, reserved: false},
-  //   {id: 2, restaurantId: 1, seats: 8, reserved: false},
-  //   {id: 3, restaurantId: 1, seats: 8, reserved: false},
-  //   {id: 4, restaurantId: 1, seats: 6, reserved: false},
-  //   {id: 5, restaurantId: 1, seats: 6, reserved: false},
-  //   {id: 6, restaurantId: 1, seats: 6, reserved: false},
-  //   {id: 7, restaurantId: 1, seats: 6, reserved: false},
-  //   {id: 8, restaurantId: 1, seats: 2, reserved: true},
-  //   {id: 9, restaurantId: 1, seats: 2, reserved: true},
-  //   {id: 10, restaurantId: 1, seats: 2, reserved: true},
-  //   {id: 11, restaurantId: 1, seats: 2, reserved: true},
-  //   {id: 12, restaurantId: 1, seats: 2, reserved: false},
-  //   {id: 13, restaurantId: 1, seats: 2, reserved: false},
-  //   {id: 14, restaurantId: 1, seats: 2, reserved: false},
-  //   {id: 15, restaurantId: 1, seats: 2, reserved: false},
-  //   {id: 16, restaurantId: 1, seats: 2, reserved: true},
-  //   {id: 17, restaurantId: 1, seats: 6, reserved: true},
-  //   {id: 18, restaurantId: 1, seats: 6, reserved: false},
-  //   {id: 19, restaurantId: 1, seats: 8, reserved: true},
-  //   {id: 20, restaurantId: 1, seats: 8, reserved: true},
-  //   {id: 21, restaurantId: 1, seats: 2, reserved: false},
-  // ];
 
   // loop through the tables and create table elements
   tables.forEach((table) => {
@@ -380,23 +671,6 @@ const reservationModal = async () => {
         // button to pass reservation to backend
         submitButton.classList.remove('hidden');
       }
-      // create modal for informing the user of having booked successfully
-      submitButton.addEventListener('click', () => {
-        const reservationInfoModal = document.createElement('div');
-        reservationInfoModal.classList.add(
-          'bg-white',
-          'p-5',
-          'rounded-lg',
-          'border-2',
-          'border-black',
-          'absolute',
-          'top-1/2',
-          'left-1/2',
-          'transform',
-          '-translate-x-1/2',
-          '-translate-y-1/2'
-        );
-      });
       tableElements.push(tableButton);
     });
   });

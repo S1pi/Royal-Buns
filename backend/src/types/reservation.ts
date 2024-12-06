@@ -8,4 +8,8 @@ type ReservationData = {
   restaurant_id: number;
 };
 
-export type {ReservationData};
+type ReservationInfo = ReservationData & {
+  restaurant_name: string;
+};
+
+export type {ReservationData, ReservationInfo};

@@ -9,7 +9,7 @@ import {Restaurant, RestauratTableData} from '../types/restaurant';
 const getRestaurantById = async (req: Request, res: Response) => {
   const resId = req.params.id;
   try {
-    const restaurant: Restaurant | null = await fetchRestaurant(resId);
+    const restaurant: Restaurant | null = await fetchRestaurant(Number(resId));
     if (!restaurant) {
       res.status(404).json({message: 'Restaurant not found'});
       return;

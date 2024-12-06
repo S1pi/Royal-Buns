@@ -63,13 +63,34 @@ const reservation = async () => {
   // Append the title to the reservation container
   reservationContainer.appendChild(reservationTitleContainer);
 
-  const loginInfoContainer = document.createElement('div');
-  loginInfoContainer.classList.add('flex', 'justify-center', 'items-center', 'mt-10');
+  const ReservationInfoContainer = document.createElement('div');
+  ReservationInfoContainer.classList.add(
+    'flex',
+    'justify-center',
+    'items-center',
+    'mt-10'
+  );
   const loginInfo = document.createElement('p');
   loginInfo.textContent = 'Pöydän varaaminen edellyttää että on kirjautunut sisään';
-  loginInfo.classList.add('text-center', 'text-secondary', 'text-sm');
-  loginInfoContainer.appendChild(loginInfo);
-  reservationContainer.appendChild(loginInfoContainer);
+  loginInfo.classList.add(
+    'text-center',
+    'text-secondary',
+    'text-sm',
+    'font-semibold',
+    'mb-4'
+  );
+  ReservationInfoContainer.appendChild(loginInfo);
+  reservationContainer.appendChild(ReservationInfoContainer);
+  const reservationTimeInfo = document.createElement('p');
+  reservationTimeInfo.textContent =
+    'Kaikki varaukset ovat voimassa 2 tuntia varausajasta alkaen.';
+  reservationTimeInfo.classList.add('text-center', 'text-secondary', 'text-sm', 'mb-1');
+  reservationContainer.appendChild(reservationTimeInfo);
+  const reservationClosingInfo = document.createElement('p');
+  reservationClosingInfo.textContent =
+    'Illan viimeiset varaukset loppuvat 30 minuuttia ovien sulkemisen jälkeen.';
+  reservationClosingInfo.classList.add('text-center', 'text-secondary', 'text-sm');
+  reservationContainer.appendChild(reservationClosingInfo);
 
   // Create containter for selection buttons
   const selectionContainer = document.createElement('div');
@@ -345,6 +366,10 @@ const reservation = async () => {
       // Adds 30 minute
       startMinute += 30;
       if (startMinute >= 60) {
+        // Needs to stop when time is 2 hours before closing
+        if (startHour === endHour - 2) {
+          break;
+        }
         startMinute -= 60;
         startHour += 1;
       }

@@ -10,6 +10,9 @@ export default {
         green: '#7B8B42',
         red: '#8B3A3A',
         'hover-green': '#6B7C3E',
+        'warmer-brown': '#4B2E1D',
+        'warm-brown': '#8C6E58',
+        'olive-green': '#A4B787', // used for checkmark
 
         background: {
           light: '#88745C',

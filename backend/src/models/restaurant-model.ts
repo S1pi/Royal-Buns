@@ -2,7 +2,7 @@ import {RowDataPacket} from 'mysql2';
 import {Restaurant, RestauratTableData} from '../types/restaurant';
 import promisePool from '../utils/database';
 
-const fetchRestaurant = async (id: string): Promise<Restaurant | null> => {
+const fetchRestaurant = async (id: number): Promise<Restaurant | null> => {
   const sql = 'SELECT * FROM restaurant WHERE id = ?';
   try {
     const [result] = await promisePool.execute<Restaurant[] & RowDataPacket[]>(sql, [id]);

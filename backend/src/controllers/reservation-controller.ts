@@ -6,6 +6,8 @@ import {
   fetchRestaurantTablesAvailability,
 } from '../models/reservation-model';
 import {User, UserReturn} from '../types/user';
+import {fetchRestaurant} from '../models/restaurant-model';
+import {ReservationInfo} from '../types/reservation';
 
 const getRestaurantTablesAvailability = async (req: Request, res: Response) => {
   const {reservation_date, start_time, end_time} = req.query as {
@@ -88,7 +90,20 @@ const postReservation = async (req: Request, res: Response) => {
       end_time
     );
 
-    res.status(201).json({message: 'Reservation created', reservation_info: reservation});
+    const restaurant = await fetchRestaurant(restaurant_id);
+    if (!restaurant) {
+      res.status(404).json({message: 'Restaurant not found'});
+      return;
+    }
+
+    const reservationInfo: ReservationInfo = {
+      ...reservation,
+      restaurant_name: restaurant.res_name,
+    };
+
+    res
+      .status(201)
+      .json({message: 'Reservation created', reservation_info: reservationInfo});
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.error('Database connection error: ', err);

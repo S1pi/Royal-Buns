@@ -92,6 +92,7 @@ const createReservation = async (
     );
     const reservationId = result.insertId;
     const reservation: ReservationData | null = await fetchReservationById(reservationId);
+
     if (!reservation) {
       throw new Error('Error fetching reservation after creation');
     }
