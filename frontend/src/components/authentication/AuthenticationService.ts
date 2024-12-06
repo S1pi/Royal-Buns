@@ -1,5 +1,6 @@
 import {
   InternalServerErrorResponse,
+  RegisterResponse,
   SuccesfulAuthenticationResponse,
 } from '../../types/authentication';
 import {ReservationInfo} from '../../types/reservation';
@@ -18,8 +19,14 @@ const sendRegisterationData = async (data: Record<string, string>) => {
     };
 
     // Implement response handling?
-    const response = await fetchData('/auth/register', options);
-    // console.log(response);
+    const response: RegisterResponse = await fetchData('/auth/register', options);
+    console.log(response);
+    if (response.code === 201) {
+      alert('Rekisteröinti onnistui! Voit nyt kirjautua sisään.');
+      router();
+    } else {
+      alert('Rekisteröinti epäonnistui: ' + response.message);
+    }
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.error(

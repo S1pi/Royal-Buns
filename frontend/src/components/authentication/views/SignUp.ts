@@ -52,6 +52,15 @@ const createSignUpView = (): HTMLDivElement => {
     input.type = data.type;
     input.name = data.name;
     if (data.name === 'username' || data.name === 'password') input.required = true;
+
+    // Miika12345!;
+    if (data.name === 'password') {
+      // Salasanan tulee sisältää vähintään 8 merkkiä, joista vähintään yksi iso kirjain ja yksi numero ja yksi erikoismerkki
+      input.pattern = '^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$';
+      input.title =
+        'Salasanan tulee sisältää vähintään 8 merkkiä, joista vähintään yksi iso kirjain ja yksi numero ja yksi erikoismerkki';
+    }
+
     input.placeholder = data.placeholder;
     input.classList.add(
       'bg-slate-200',

@@ -22,8 +22,14 @@ type InternalServerErrorResponse = {
   message: string;
 };
 
+type RegisterResponse = {
+  message: string;
+  code: number;
+};
+
 export type {
   SuccesfulAuthenticationResponse,
   ForbiddenResponse,
   InternalServerErrorResponse,
+  RegisterResponse,
 };

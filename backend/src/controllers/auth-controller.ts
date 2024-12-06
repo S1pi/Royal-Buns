@@ -3,6 +3,7 @@ import {NewUser} from '../types/user';
 import {createUser, selectUserByCreds} from '../models/user-model';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
+import {stat} from 'fs';
 
 const postUser = async (req: Request, res: Response): Promise<void> => {
   const {username, password, email, phonenumber} = req.body;
@@ -17,7 +18,10 @@ const postUser = async (req: Request, res: Response): Promise<void> => {
 
   try {
     const userId = await createUser(newUser);
-    res.status(201).json({message: `User: ${username} created succesfully`, id: userId});
+    if (!userId) {
+      throw new Error('Error in user creation');
+    }
+    res.status(201).json({message: `User: ${username} created succesfully`, code: 201});
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.error('postUser', err.message);
