@@ -1,4 +1,7 @@
-import {SuccesfulAuthenticationResponse} from '../../types/authentication';
+import {
+  InternalServerErrorResponse,
+  SuccesfulAuthenticationResponse,
+} from '../../types/authentication';
 import {LoginError, User} from '../../types/user';
 import fetchData from '../../utils/fetchData';
 import {router} from '../navigation/router';
@@ -95,6 +98,7 @@ const checkUserAuthentication = async (): Promise<Boolean> => {
     '/user/me',
     options
   );
+  // Authentication check for debugging
   // console.log('Authentication: ', authentication);
   if (authentication.message === 'token ok') {
     return true;

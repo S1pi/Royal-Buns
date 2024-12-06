@@ -16,4 +16,14 @@ type ForbiddenResponse = {
   message: string;
 };
 
-export type {SuccesfulAuthenticationResponse, ForbiddenResponse};
+type InternalServerErrorResponse = {
+  status: number;
+  errorText: string;
+  message: string;
+};
+
+export type {
+  SuccesfulAuthenticationResponse,
+  ForbiddenResponse,
+  InternalServerErrorResponse,
+};

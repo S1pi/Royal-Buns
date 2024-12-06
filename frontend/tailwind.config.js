@@ -14,6 +14,8 @@ export default {
         'warm-brown': '#8C6E58',
         'olive-green': '#A4B787', // used for checkmark
         'light-brown': '#BCA483', // used in profile page boxes
+        'dark-red': '#8B0000',
+        'hover-brown': '#5A3D2A',
 
         background: {
           light: '#88745C',
