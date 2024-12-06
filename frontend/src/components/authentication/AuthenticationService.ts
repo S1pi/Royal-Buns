@@ -5,8 +5,6 @@ import {router} from '../navigation/router';
 
 const sendRegisterationData = async (data: Record<string, string>) => {
   try {
-    console.log(data);
-
     const options: RequestInit = {
       method: 'POST',
       headers: {
@@ -15,10 +13,21 @@ const sendRegisterationData = async (data: Record<string, string>) => {
       body: JSON.stringify(data),
     };
 
+    // Implement response handling?
     const response = await fetchData('/auth/register', options);
-    console.log(response);
-  } catch (err) {
-    console.error('Virhe käsitellessä formia: ', err);
+    // console.log(response);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(
+        'Virhe käsitellessä formia: ',
+        'stack: ' + err.stack,
+        'message: ' + err.message,
+        'name: ' + err.name
+      );
+      if (err.message === 'Failed to fetch') {
+        alert('Rekisteröinti epäonnistui: palvelin ei vastaa');
+      }
+    }
   }
 };
 
@@ -49,15 +58,29 @@ const sendLoginData = async (data: Record<string, string>) => {
       // Simple unauthorized
       alert(`${response.status}: ${response.errorText} --> ${response.message}`);
     }
-  } catch (err) {
-    console.error('Virhe käsitellessä formia: ', err);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(
+        'Virhe käsitellessä formia: ',
+        'stack: ' + err.stack,
+        'message: ' + err.message,
+        'name: ' + err.name
+      );
+      if (err.message === 'Failed to fetch') {
+        alert('Kirajutuminen epäonnistui: palvelin ei vastaa');
+      }
+    } else {
+      console.error('Unknown error: ', err);
+      alert('Unknown error: ' + err);
+    }
   }
 };
 
 const checkUserAuthentication = async (): Promise<Boolean> => {
   console.log('Checking user authentication');
   const token = localStorage.getItem('user-token');
-  console.log('Token: ', token);
+  // Token check for debugging
+  // console.log('Token: ', token);
   if (!token) {
     return false; // No token
   }
