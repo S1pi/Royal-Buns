@@ -13,11 +13,13 @@ const createProfileView = (pageData: UserProfilePageData) => {
   const {username, email, phonenumber, favourite_bgr} = pageData.user_info;
   const reservations = pageData.reservations;
 
-  reservations.sort((a, b) => {
-    const dateA = new Date(a.reservation_date.split('.').reverse().join('-'));
-    const dateB = new Date(b.reservation_date.split('.').reverse().join('-'));
-    return dateA.getTime() - dateB.getTime();
-  });
+  if (reservations.length > 0) {
+    reservations.sort((a, b) => {
+      const dateA = new Date(a.reservation_date.split('.').reverse().join('-'));
+      const dateB = new Date(b.reservation_date.split('.').reverse().join('-'));
+      return dateA.getTime() - dateB.getTime();
+    });
+  }
 
   // Container for profile information
   const profileViewContainer = document.createElement('div');
@@ -207,12 +209,21 @@ const createProfileView = (pageData: UserProfilePageData) => {
   firstSelection = reservationDayOption;
 
   // Add all the user's reservations to the select element
-  reservations.forEach((reservation) => {
+  if (reservations.length > 0) {
+    reservations.forEach((reservation) => {
+      const reservationDayOption = document.createElement('option');
+      reservationDayOption.textContent =
+        reservation.reservation_date + ' Varaus: ' + reservation.id;
+      reservationDayOption.value = reservation.id.toString();
+      reservationDaySelect.appendChild(reservationDayOption);
+    });
+  } else {
     const reservationDayOption = document.createElement('option');
-    reservationDayOption.textContent = reservation.reservation_date;
-    reservationDayOption.value = reservation.id.toString();
+    reservationDayOption.textContent = 'Ei varauksia';
+    reservationDayOption.value = '0';
+    reservationDayOption.disabled = true;
     reservationDaySelect.appendChild(reservationDayOption);
-  });
+  }
 
   reservationDaySelectContainer.append(reservationDayLabel, reservationDaySelect);
 
@@ -255,7 +266,6 @@ const createProfileView = (pageData: UserProfilePageData) => {
     reservationDataContainer.innerHTML = '';
 
     reservationDataContainer.classList.remove('items-center');
-    reservationDataContainer.classList.add('pl-');
 
     // Get the selected reservation id
     const selectedReservationId = parseInt((event.target as HTMLSelectElement).value);
