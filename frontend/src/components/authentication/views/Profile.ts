@@ -1,5 +1,6 @@
 import {UserProfilePageData} from '../../../types/user';
 import {router} from '../../navigation/router';
+import '../../../styles/profile.css';
 
 // Meaby get data as parameter and use it to fill the profile view
 const createProfileView = (pageData: UserProfilePageData) => {
@@ -28,11 +29,12 @@ const createProfileView = (pageData: UserProfilePageData) => {
   // Container for left side of the profile view that shows user's information
   const profileInfoContainer = document.createElement('div');
   profileInfoContainer.classList.add(
+    'testi',
     'flex',
     'flex-col',
     'justify-between',
     'items-center',
-    'bg-light-brown',
+    // 'bg-light-brown',
     'rounded-2xl',
     'p-10',
     'w-1/2',
@@ -238,14 +240,18 @@ const createProfileView = (pageData: UserProfilePageData) => {
     'flex-col',
     'items-center',
     'justify-center',
-    'gap-5',
+    // 'gap-5',
     'mt-5',
     'px-6',
+    // 'h-[90%]', // This is so container won't go out of the parent container
     'h-full',
     'w-5/6',
     'border-2',
     'border-solid',
-    'border-warm-brown'
+    'border-warm-brown',
+    'sm:h-[50%]', // Temporary fix for the container height using tailwind for responsiveness change this to css @jimpohjansaro
+    'sm:w-full',
+    'sm:overflow-y-auto'
   );
 
   const reservationDataInitial = document.createElement('p');
@@ -283,7 +289,7 @@ const createProfileView = (pageData: UserProfilePageData) => {
 
     // Make this meaby as select element (For now just show the user's current reservation time)
     const reservationTimeContainer = document.createElement('div');
-    reservationTimeContainer.classList.add('flex', 'gap-3', 'mt-5');
+    reservationTimeContainer.classList.add('flex', 'gap-3', 'mt-5', 'sm:mt-0', 'sm:mb-0');
 
     const reservationTimeLabel = document.createElement('label');
     reservationTimeLabel.textContent = 'Kellonaika:';
@@ -299,7 +305,13 @@ const createProfileView = (pageData: UserProfilePageData) => {
     reservationTimeContainer.append(reservationTimeLabel, reservationTimeElement);
 
     const reservationRestaurantContainer = document.createElement('div');
-    reservationRestaurantContainer.classList.add('flex', 'gap-3', 'mt-5');
+    reservationRestaurantContainer.classList.add(
+      'flex',
+      'gap-3',
+      'mt-5',
+      'sm:mt-0',
+      'sm:mb-0'
+    );
 
     const reservationRestaurantLabel = document.createElement('label');
     reservationRestaurantLabel.textContent = 'Ravintola:';
@@ -317,7 +329,14 @@ const createProfileView = (pageData: UserProfilePageData) => {
     );
 
     const reservationTableContainer = document.createElement('div');
-    reservationTableContainer.classList.add('flex', 'gap-3', 'mt-5', 'mb-5');
+    reservationTableContainer.classList.add(
+      'flex',
+      'gap-3',
+      'mt-5',
+      'mb-5',
+      'sm:mt-0',
+      'sm:mb-0'
+    );
 
     const reservationTableLabel = document.createElement('label');
     reservationTableLabel.textContent = 'Pöydän numero:';

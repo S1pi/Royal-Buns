@@ -24,6 +24,7 @@ export default {
       },
       fontSize: {
         h1: '3rem',
+        // h1: '4vw', Responsive font size if needed
         h2: '2.25rem',
         h3: '1.875rem',
         h4: '1.5rem',
