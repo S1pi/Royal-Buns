@@ -1,10 +1,11 @@
-CREATE DATABASE royal_buns;
+SET NAMES 'utf8mb4';
+SET CHARACTER SET 'utf8mb4';
+SET COLLATION_CONNECTION = 'utf8mb4_unicode_ci';
+
+CREATE DATABASE royal_buns CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE royal_buns;
 
-SET NAMES 'utf8mb4';
-SET CHARACTER SET 'utf8mb4';
-SET COLLATION_CONNECTION = 'utf8mb4_0900_ai_ci';
 
 CREATE TABLE burgers (
     id INT AUTO_INCREMENT PRIMARY KEY,
