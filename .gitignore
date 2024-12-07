@@ -27,3 +27,9 @@ dist-ssr
 .env
 uploads/*
 !uploads/.gitkeep
+
+# Testing stuff
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
