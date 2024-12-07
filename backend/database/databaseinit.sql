@@ -104,7 +104,7 @@ INSERT INTO open_hours (restaurant_id, weekdays, weekends)
            (3, '12:00-20:00', '12:00-23:00'),
            (4, '12:00-20:00', '12:00-23:00');
 
-INSERT INTO res_table (table_id, restaurant_id, seats, reserved)
+INSERT INTO res_table (table_id, restaurant_id, seats)
     VALUES
     -- Ravintola 1
           (1, 1, 2), (2, 1, 2), (3, 1, 2), (4, 1, 2), (5, 1, 2),
@@ -130,4 +130,4 @@ INSERT INTO res_table (table_id, restaurant_id, seats, reserved)
           (74, 4, 6), (75, 4, 6), (76, 4, 6), (77, 4, 6), (78, 4, 6), (79, 4, 6),
           (80, 4, 8), (81, 4, 8), (82, 4, 8), (83, 4, 8), (84, 4, 8);
 
-    
+
