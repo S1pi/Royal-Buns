@@ -92,6 +92,14 @@ CREATE TABLE sides (
     photo VARCHAR(255)
 );
 
+CREATE TABLE contact_info (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    email VARCHAR(255),
+    message VARCHAR(255),
+);
+
+
 INSERT INTO restaurant (id, res_name, city, location, address, coordinates)
     VALUES (1, "Royal Buns Helsinki", "Helsinki", "Sisäänkäynti sisäpihan puolella", "Annankatu 8",'{"longitude": 24.94079, "latitude": 60.16407}'),
            (2, "Royal Buns Espoo", "Espoo", "Kauppakeskus Sello 3. Kerros", "Leppävaarankatu 3",'{"longitude": 24.81083, "latitude": 60.21834}'),
