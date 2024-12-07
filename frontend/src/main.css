@@ -4,6 +4,36 @@
 * {
   box-sizing: border-box;
 }
+header {
+  z-index: 3;
+}
+
+.hamburgerMenu {
+  display: none;
+}
+
+.hamburgerMenuDisplay {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  height: 100vh;
+  width: 60%;
+  min-width: 300px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition:
+    right 0.5s ease-in-out,
+    opacity 0.5s ease-in-out;
+}
+
+.hamburgerMenuDisplay.show {
+  right: 0;
+  opacity: 1;
+}
 
 .scene {
   perspective: 1000px;
@@ -82,24 +112,6 @@ input {
   display: none;
 }
 
-@keyframes pop-out {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.1);
-  }
-}
-
-@keyframes pop-in {
-  0% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
 /* Log in & Sign up */
 
 .sign-in {
@@ -173,4 +185,109 @@ input {
 
 .cont.active .toggleRight {
   transform: translateX(200%);
+}
+
+@keyframes pop-out {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/*Tabletti*/
+@media (max-width: 1024px) {
+  .hamburgerMenu {
+    display: flex;
+  }
+  #navBar > ul > li {
+    display: none;
+  }
+  .logoContainer {
+    display: none;
+  }
+  .languageContainer {
+    display: none;
+  }
+  .vitunSepari {
+    display: none;
+  }
+  .carouselArrowContainer {
+    height: calc(100vh - 80px);
+  }
+  /* Pidä logIn painike näkyvissä */
+  .loginButton {
+    display: flex !important;
+  }
+}
+/*Puhelin*/
+@media (max-width: 768px) {
+  /* MAIN PAGE */
+
+  .mainView {
+    height: calc(50vh - 80px) !important;
+    min-height: calc(500px - 80px);
+  }
+  .videoBg {
+    height: 50vh;
+    min-height: 500px;
+  }
+  .carouselArrowContainer {
+    height: calc(50vh - 80px);
+  }
+  .restInfoContainer {
+    padding: 0px;
+    height: 50vh;
+    min-height: 500px;
+  }
+  .infoTextElement {
+    width: 80%;
+    font-size: 16px;
+    padding-bottom: 0;
+  }
+  .infoBtnContainer {
+    margin-bottom: 40px;
+  }
+  .tableTextElement {
+    width: 80%;
+    font-size: 16px;
+    padding-bottom: 0;
+  }
+
+  /*FOOTER*/
+  .footerTextContainer {
+    flex-direction: column;
+    justify-content: start;
+  }
+}
+
+@media (max-width: 450px) {
+  .infoHeading {
+    font-size: 2rem;
+  }
+  .restInfoContainer {
+    height: auto;
+  }
+  .tabelResContainer {
+    height: auto;
+  }
+}
+
+@media (max-width: 450px) {
+  .carouselContainer {
+    display: none;
+  }
+  .carouselArrowContainer {
+    display: none;
+  }
 }

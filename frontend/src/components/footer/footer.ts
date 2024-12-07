@@ -16,25 +16,26 @@ const footer = () => {
 
   // LOGO to footer
 
-  const logoContainer = document.createElement('div');
-  logoContainer.classList.add('w-3/6', 'h-20');
+  // const logoContainer = document.createElement('div');
+  // logoContainer.classList.add('w-3/6', 'h-20');
 
-  const logo = document.createElement('img');
-  logo.src = '/img/rb-logo.png';
-  logo.alt = 'Logo';
-  logo.classList.add('h-full', 'w-auto', 'ml-2');
+  // const logo = document.createElement('img');
+  // logo.src = '/img/rb-logo.png';
+  // logo.alt = 'Logo';
+  // logo.classList.add('h-full', 'w-auto', 'ml-2');
 
-  logoContainer.appendChild(logo);
+  // logoContainer.appendChild(logo);
 
   // TEXT container to footer
 
   const textContainer = document.createElement('div');
   textContainer.classList.add(
     'flex',
-    'justify-between',
+    'justify-center',
     'w-3/6',
     'h-2/3',
-    'pt-4'
+    'pt-4',
+    'footerTextContainer'
   );
 
   // Text and links for footer
@@ -107,7 +108,7 @@ const footer = () => {
     textContainer.append(tableContainer);
   });
 
-  footerContainer.append(logoContainer, textContainer);
+  footerContainer.append(textContainer);
 
   // Footer to body
 
