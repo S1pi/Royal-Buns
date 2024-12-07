@@ -93,6 +93,24 @@ test("navigate to business", async ({ page }) => {
 //test against a provided screenshot of excpected result
 
 test("test provided view against screenshot", async ({ page }) => {
-  await page.goto("http://localhost:5173/menu");
-  await expect(page).toHaveScreenshot("menu.png");
+    await page.goto('http://localhost:5173/menu');
+    await expect(page).toHaveScreenshot();
+  });
+
+//test the login process
+test("login", async ({ page }) => {
+  await page.goto("http://localhost:5173/login", { waitUntil: "load" });
+
+  // WAIT FOR SELECTOR
+  await page.waitForSelector('input[name="username"]');
+  await page.waitForSelector('input[name="password"]');
+  // Fill the login form.
+  await page.fill('input[name="username"]',"playwright" );
+  await page.fill('input[name="password"]', "Test123!");
+  await page.click('button:has-text("KIRJAUDU")');
+  await page.waitForNavigation({waitUntil: 'networkidle'});
+  await expect(page).toHaveURL("http://localhost:5173/login");
+  await expect(page.locator('h2')).toHaveText("PROFIILI");
+  
 });
+
