@@ -27,7 +27,6 @@ const authenticationComponent = async () => {
   if (authenticated) {
     const profilePageData = await getProfilePageData();
     console.log('Profile page data before generating profile view: ', profilePageData);
-    const profileView = createProfileView(profilePageData);
     const profileContainer = document.createElement('div');
     profileContainer.classList.add(
       'cont',
@@ -41,7 +40,10 @@ const authenticationComponent = async () => {
       'h-5/6'
     );
 
-    profileContainer.appendChild(profileView);
+    // Temporary createProfileView is stored in profileView variable if needed later
+    // now it just creates the view and appends it to background
+    const profileView = createProfileView(profilePageData, profileContainer);
+    // profileContainer.appendChild(profileView);
     background.appendChild(profileContainer);
   } else {
     history.replaceState({}, '', '/login');

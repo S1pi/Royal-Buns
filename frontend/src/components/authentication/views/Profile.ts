@@ -1,9 +1,13 @@
 import {UserProfilePageData} from '../../../types/user';
 import {router} from '../../navigation/router';
+import createAdminView from './Admin';
 import '../../../styles/profile.css';
 
 // Meaby get data as parameter and use it to fill the profile view
-const createProfileView = (pageData: UserProfilePageData) => {
+const createProfileView = (
+  pageData: UserProfilePageData,
+  profileContainer: HTMLDivElement
+) => {
   console.log('Profile page data in createProfileView: ', pageData);
   console.log('User info in createProfileView: ', pageData.user_info);
   console.log('Reservations in createProfileView: ', pageData.reservations);
@@ -11,7 +15,7 @@ const createProfileView = (pageData: UserProfilePageData) => {
   // pageData.user_info has also user_type that can be used
   // but for now we only show the user's information*
 
-  const {username, email, phonenumber, favourite_bgr} = pageData.user_info;
+  const {username, email, phonenumber, favourite_bgr, user_type} = pageData.user_info;
   const reservations = pageData.reservations;
 
   if (reservations.length > 0) {
@@ -36,7 +40,8 @@ const createProfileView = (pageData: UserProfilePageData) => {
     'items-center',
     'bg-light-brown',
     'rounded-2xl',
-    'p-10',
+    'py-8',
+    'px-5',
     'w-1/2',
     'h-full'
   );
@@ -101,19 +106,42 @@ const createProfileView = (pageData: UserProfilePageData) => {
   favouriteBurgerContainer.append(favouriteBurgerLabel, favouriteBurger);
 
   const buttonContainer = document.createElement('div');
-  buttonContainer.classList.add('flex', 'gap-10');
+  buttonContainer.classList.add('flex', 'gap-4', 'w-full', 'justify-center');
+
+  // TODO: Check if user is admin and show admin panel button
+
+  if (user_type === 'admin') {
+    const adminViewButton = document.createElement('button');
+    adminViewButton.textContent = 'Admin Panel';
+    adminViewButton.classList.add(
+      'text-base',
+      'font-bold',
+      'text-primary',
+      'bg-secondary',
+      'hover:bg-hover-brown',
+      'py-2',
+      'px-4',
+      'rounded-2xl'
+    );
+
+    adminViewButton.addEventListener('click', () => {
+      createAdminView(profileContainer);
+    });
+
+    buttonContainer.appendChild(adminViewButton);
+  }
 
   // Button for changing the user's password (Meaby change this to a: Change information button)
-  const changePasswordButton = document.createElement('button');
-  changePasswordButton.textContent = 'Vaihda salasana';
-  changePasswordButton.classList.add(
+  const changeInfoButton = document.createElement('button');
+  changeInfoButton.textContent = 'Muuta tietoja';
+  changeInfoButton.classList.add(
     'text-base',
     'font-bold',
     'text-primary',
     'bg-secondary',
     'hover:bg-hover-brown',
     'py-2',
-    'px-6',
+    'px-4',
     'rounded-2xl'
   );
 
@@ -128,7 +156,7 @@ const createProfileView = (pageData: UserProfilePageData) => {
     'bg-red',
     'hover:bg-dark-red',
     'py-2',
-    'px-6',
+    'px-4',
     'rounded-2xl'
   );
 
@@ -139,7 +167,7 @@ const createProfileView = (pageData: UserProfilePageData) => {
     router();
   });
 
-  buttonContainer.append(changePasswordButton, logoutButton);
+  buttonContainer.append(changeInfoButton, logoutButton);
 
   // Append all the elements to the profile info container
   profileInfoContainer.append(
@@ -429,6 +457,6 @@ const createProfileView = (pageData: UserProfilePageData) => {
   rightSideContainer.append(reservationInfoContainer, restaurantContactContainer);
   profileViewContainer.append(profileInfoContainer, rightSideContainer);
 
-  return profileViewContainer;
+  profileContainer.appendChild(profileViewContainer);
 };
 export {createProfileView};
