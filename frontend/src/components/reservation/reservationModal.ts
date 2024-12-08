@@ -33,7 +33,7 @@ const reservationModal = async () => {
     'mx-auto', // Center the container horizontally
     'm-10', // Margin top for spacing
     'bg-primary',
-    'h-3/4',
+    'h-full', // Full height of the container
     'w-3/4', // Minimum height of the container
     'flex',
     'flex-col',
