@@ -1,10 +1,62 @@
-import {menu} from '../../menu/menu';
+import {header} from '../../header/header';
 import {getProfilePageData} from '../AuthenticationService';
 import {createProfileView} from './Profile';
+
+const translations = {
+  FI: {
+    profileInfo: {
+      header: 'Profiili',
+      name: 'Nimi',
+      email: 'Sähköposti',
+      phone: 'Puhelinnumero',
+      favBurger: 'Lempihampurilainen',
+    },
+    reeservationInfo: {
+      header: 'Varaukset',
+      date: 'Päivä',
+      selectDay: 'Valitse päivä',
+      reservationText: 'Varaus',
+      time: 'Kellonaika',
+      restaurant: 'Ravintola',
+      tableNumber: 'Pöytänumero',
+    },
+    restaurantContactInfo: {
+      header: 'Ravintolan yhteystiedot',
+      customerservice: 'Osoite',
+      email: 'Sähköposti',
+    },
+  },
+  EN: {
+    profileInfo: {
+      header: 'Profile',
+      name: 'Name',
+      email: 'Email',
+      phone: 'Phone',
+      favBurger: 'Favorite Burger',
+    },
+    reeservationInfo: {
+      header: 'Reservations',
+      date: 'Date',
+      selectDay: 'Select day',
+      reservationText: 'Reservation',
+      time: 'Time',
+      restaurant: 'Restaurant',
+      tableNumber: 'Table number',
+    },
+    restaurantContactInfo: {
+      header: 'Restaurant contact information',
+      customerservice: 'Address',
+      email: 'Email',
+    },
+  },
+};
 
 const createAdminView = async (profileContainer: HTMLDivElement) => {
   // Clear profileContainer from profile view
   profileContainer.innerHTML = '';
+
+  profileContainer.classList.add('relative', 'w-full', 'h-full', 'my-4');
+  // profileContainer.classList
 
   // Create overall container for admin view
   const adminViewContainer = document.createElement('div');
@@ -59,6 +111,7 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
   // basic event listener for back button
   backButton.addEventListener('click', () => {
     profileContainer.innerHTML = '';
+    profileContainer.classList.remove('relative', 'w-full', 'h-full', 'my-4');
     createProfileView(profilePageData, profileContainer);
   });
 
@@ -107,15 +160,56 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
   // TODO: Create selection for what menu item to change
   // CODE HERE @S1pi
   const menuChangeSelectionContainer = document.createElement('div');
-  menuChangeSelectionContainer.classList.add('flex', 'flex-col', 'w-full');
+  menuChangeSelectionContainer.classList.add('flex', 'w-full');
+
+  // Create menu category selection
+
+  const categoryContainer = document.createElement('div');
+  categoryContainer.classList.add('flex', 'flex-col', 'w-full', 'p-2', 'mb-2');
+  const menuCategorySelectionLabel = document.createElement('label');
+  menuCategorySelectionLabel.classList.add('text-label', 'mb-2', 'font-semibold');
+  menuCategorySelectionLabel.textContent = 'Valitse menu kategoria:';
+  const menuCategorySelection = document.createElement('select');
+  menuCategorySelection.classList.add('w-full', 'p-2', 'mb-2');
+
+  // Define language type
+  type Language = 'FI' | 'EN';
+
+  // Define translations for menu categories and types
+  const categoryLang: {
+    FI: string[];
+    EN: string[];
+  } = {
+    FI: ['Hampurilaiset', 'Sliderit', 'Lisukkeet', 'Juomat'],
+    EN: ['Burgers', 'Sliders', 'Sides', 'Drinks'],
+  };
+
+  let language = (localStorage.getItem('language') as Language) || 'FI';
+
+  categoryLang[language].forEach((category) => {
+    const option = document.createElement('option');
+    option.value = category;
+    option.textContent = category;
+    menuCategorySelection.appendChild(option);
+  });
+
+  categoryContainer.append(menuCategorySelectionLabel, menuCategorySelection);
+  // Append selection options to menuCategorySelection
+  // CODE HERE @S1pi
+
+  const menuItemChangeContainer = document.createElement('div');
+  menuItemChangeContainer.classList.add('flex', 'flex-col', 'w-full', 'p-2', 'mb-2');
   const menuChangeSelectionLabel = document.createElement('label');
   menuChangeSelectionLabel.classList.add('text-label', 'mb-2', 'font-semibold');
   menuChangeSelectionLabel.textContent = 'Valitse muutettava menu itemi:';
   const menuChangeSelection = document.createElement('select');
-  menuChangeSelection.classList.add('w-1/2', 'p-2', 'mb-2');
+  menuChangeSelection.classList.add('w-full', 'p-2', 'mb-2');
+
+  menuItemChangeContainer.append(menuChangeSelectionLabel, menuChangeSelection);
+
   // Append selection options to menuChangeSelection
   // CODE HERE @S1pi
-  menuChangeSelectionContainer.append(menuChangeSelectionLabel, menuChangeSelection);
+  menuChangeSelectionContainer.append(categoryContainer, menuItemChangeContainer);
 
   // TODO: Create form for changing menu item
   // CODE HERE @S1pi

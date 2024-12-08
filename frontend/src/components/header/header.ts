@@ -227,6 +227,15 @@ const header = () => {
   const en = document.createElement('button');
   en.textContent = 'EN';
 
+  fin.addEventListener('click', () => {
+    localStorage.setItem('language', 'FI');
+    router();
+  });
+  en.addEventListener('click', () => {
+    localStorage.setItem('language', 'EN');
+    router();
+  });
+
   languageContainer.append(fin, en);
 
   //ADD: HamburgerMenu to here

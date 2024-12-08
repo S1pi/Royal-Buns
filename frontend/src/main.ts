@@ -7,8 +7,6 @@ import './styles/reservation.css';
 // routing on every state change
 window.addEventListener('popstate', router);
 
-localStorage.setItem('language', 'FI');
-
 // Call header and footer on the DOM and after that call router to handle routing on the page
 header();
 footer();
