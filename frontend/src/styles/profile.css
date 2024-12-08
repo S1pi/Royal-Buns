@@ -1,1 +1,5 @@
-
+@media (max-width: 1024px) {
+  .daySelector {
+    padding-left: 6px;
+  }
+}

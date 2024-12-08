@@ -191,12 +191,14 @@ const createProfileView = (pageData: UserProfilePageData) => {
 
   const reservationDaySelect = document.createElement('select');
   reservationDaySelect.classList.add(
+    'daySelector',
     'text-h5',
     'text-secondary',
     'rounded-2xl',
-    'px-4',
+    'px-3',
     'py-0.5',
-    'w-1/2'
+    'w-1/2',
+    'min-w-56'
   );
 
   // Reservation day selection logic starts here
