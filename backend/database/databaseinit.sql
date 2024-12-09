@@ -92,6 +92,15 @@ CREATE TABLE sides (
     photo VARCHAR(255)
 );
 
+CREATE TABLE sliders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    diets VARCHAR(255),
+    price VARCHAR(50),
+    name VARCHAR(255),
+    description VARCHAR(255),
+    photo VARCHAR(255),
+);
+
 CREATE TABLE contact_info (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
@@ -140,3 +149,21 @@ INSERT INTO res_table (table_id, restaurant_id, seats)
           (80, 4, 8), (81, 4, 8), (82, 4, 8), (83, 4, 8), (84, 4, 8);
 
 
+
+-- All burgers are inserted into the database
+-- Need still to add the photos to the database
+INSERT INTO burgers (id, diets, price, name, description, photo, day)
+VALUES
+  (1, 'G,L', '14.50', 'Royal Smash', '{"FI": "Smash-tyylinen hampurilainen rapeilla reunoilla, kaksoispihvit, sulatettu cheddar ja kotitekoinen kirpeä kastike.", "EN": "Smash-style burger with crispy edges, double beef patties, melted cheddar, and house-made tangy sauce."}', 'royalSmash.jpeg', 'everyday'),
+  (2, 'G', '13.90', 'Bacon BBQ Delight', '{"FI": "Mehevä naudanlihapihvi, savustettu BBQ-kastike, rapea pekoni ja rouskuvat sipulirenkaat.", "EN": "Juicy beef patty, smoky BBQ sauce, crispy bacon, and crunchy onion rings."}', 'BBQ.jpeg', 'everyday'),
+  (3, 'L', '12.90', 'Crispy Chicken Classic', '{"FI": "Rapea kanafilee, salaatti, tomaatti ja kermaista valkosipulimajoneesia.", "EN": "Crispy chicken fillet, lettuce, tomato, and a creamy garlic mayo."}', 'crispyChicken.jpeg', 'everyday'),
+  (4, 'G', '14.90', 'Blue BBQ Chicken', '{"FI": "Grillattu kanafilee, joka on päällystetty vahvalla sinihomejuustolla, BBQ-kastikkeella ja tuoreella rucolalla.", "EN": "Grilled chicken fillet topped with tangy blue cheese, BBQ sauce, and fresh arugula."}', 'blueCheese.jpeg', 'everyday'),
+  (5, 'V', '12.50', 'Veggie Garden Delight', '{"FI": "Mehevä kasvisburgeri grillatulla kasvispihvillä, tuoreilla vihanneksilla ja basilika-aiolilla.", "EN": "A hearty vegetarian burger with a grilled veggie patty, fresh greens, and basil aioli."}', 'vege.jpeg', 'everyday'),
+  (6, 'V,G', '13.90', 'Grilled Halloumi Burger', '{"FI": "Grillattua halloumi-juustoa, aurinkokuivattuja tomaatteja, avokadoa ja balsamico-glaseerausta.", "EN": "Grilled halloumi cheese, sun-dried tomatoes, avocado, and a balsamic glaze."}', 'halloumi.jpeg', 'everyday'),
+  (7, 'G,L', '13.50', 'Rustic Rye Burger', '{"FI": "Mehevä ruisburgeri naudanlihapihvillä, karamellisoiduilla sipuleilla, säilötyllä kurkulla ja sinappimajoneesilla.", "EN": "A hearty rye burger with a beef patty, caramelized onions, pickled cucumber, and mustard mayo."}', '', 'monday'),
+  (8, 'G,L', '14.90', 'Crispy Fish Delight', '{"FI": "Kultaisella paneroinnilla paistettua kalafileetä, salaattia, tartaarkastiketta ja tuoretta tilliä briossileivällä.", "EN": "Golden-battered fish fillet with lettuce, tartar sauce, and fresh dill on a brioche bun."}', '', 'tuesday'),
+  (9, 'G,L', '15.90', 'Double Bacon Smash', '{"FI": "Kaksi rapeapintaista smash-pihviä, tupla cheddar-juustoa, rapeaa pekonia ja savustettua BBQ-majoneesia.", "EN": "Two crispy-edged smash patties, double cheddar, crispy bacon, and smoky BBQ mayo."}', '', 'wednesday'),
+  (10, 'G,L', '13.90', 'Chicken Avocado Bliss', '{"FI": "Grillattu kanafilee, kermaista avokadoa, salaattia, tomaattia ja valkosipulimajoneesia.", "EN": "Grilled chicken breast, creamy avocado slices, lettuce, tomato, and garlic aioli."}', '', 'thursday'),
+  (11, 'L', '14.50', 'Japanese Panko Chicken', '{"FI": "Rapea panko-muroilla kuorrutettu kana, kiinalaista kaalia, makeaa chili-kastiketta ja seesamimajoneesia.", "EN": "Crispy panko-breaded chicken, Chinese cabbage, sweet chili sauce, and sesame mayo."}', '', 'friday'),
+  (12, 'G', '14.90', 'Smokey BBQ Burger', '{"FI": "Naudanlihapihvi, marinoitu punasipuli, savustettu BBQ-kastike ja sulatettua gouda-juustoa.", "EN": "Beef patty with marinated red onions, smoky BBQ sauce, and melted gouda cheese."}', '', 'saturday'),
+  (13, 'G,L', '13.90', 'Sunday Roast Burger', '{"FI": "Hitaasti paistettua naudanrintaa, piparjuurimajoneesia, karamellisoituja sipuleita ja rucolaa paahdetulla briossileivällä.", "EN": "Slow-roasted beef brisket, horseradish mayo, caramelized onions, and arugula on a toasted brioche bun."}', '', 'sunday');
