@@ -19,6 +19,7 @@ const translations = {
       dietsLabel: 'Erityisruokavaliot: ',
       priceLabel: 'Hinta: ',
       photoLabel: 'Kuva: ',
+      dailyBurgerLabel: 'Viikonpäivä: ',
       namePlaceholder: 'Valitse annos',
       submit: 'Lähetä',
     },
@@ -39,6 +40,7 @@ const translations = {
       dietsLabel: 'Diets: ',
       priceLabel: 'Price: ',
       photoLabel: 'Photo: ',
+      dailyBurgerLabel: 'Day of the week: ',
       namePlaceholder: 'Select item',
       submit: 'Submit',
     },
@@ -58,7 +60,7 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
     router();
   }
 
-  profileContainer.classList.add('relative', 'w-full', 'h-full', 'my-4');
+  profileContainer.classList.add('relative', 'w-full', 'h-full', 'my-4', 'p-4');
   // profileContainer.classList
 
   // Create overall container for admin view
@@ -114,7 +116,7 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
   // basic event listener for back button
   backButton.addEventListener('click', () => {
     profileContainer.innerHTML = '';
-    profileContainer.classList.remove('relative', 'w-full', 'h-full', 'my-4');
+    profileContainer.classList.remove('relative', 'w-full', 'h-full', 'my-4', 'p-4');
     createProfileView(profilePageData, profileContainer);
   });
 
@@ -244,6 +246,43 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
     initialSelectionItem.disabled = false;
     menuChangeSelection.selectedIndex = 0;
 
+    if (menuCategorySelection.value === 'Burgers') {
+      const dailyBurgerContainer = document.createElement('div');
+      dailyBurgerContainer.classList.add(
+        'flex',
+        'w-2/5',
+        'p-2',
+        'mb-2',
+        'dailyBurgerContainer'
+      );
+      const dailyBurgerLabel = document.createElement('label');
+      dailyBurgerLabel.textContent = translations[language].menuChange.dailyBurgerLabel;
+      dailyBurgerLabel.classList.add(
+        'text-label',
+        'font-semibold',
+        'self-center',
+        'mr-1'
+      );
+      const dailyBurgerInput = document.createElement('input');
+      dailyBurgerInput.type = 'text';
+      dailyBurgerInput.placeholder = "EX. 'Monday'";
+      dailyBurgerInput.classList.add(
+        'dailyBurgerInput',
+        'w-full',
+        'p-2',
+        'rounded-md',
+        'border',
+        'border-secondary'
+      );
+      dailyBurgerContainer.append(dailyBurgerLabel, dailyBurgerInput);
+      photoAndDailyInputContainer.insertBefore(dailyBurgerContainer, photoContainer);
+    } else {
+      const dailyBurgerContainer = document.querySelector('.dailyBurgerContainer');
+      if (dailyBurgerContainer) {
+        dailyBurgerContainer.remove();
+      }
+    }
+
     categoryItems.forEach((item) => {
       const option = document.createElement('option');
       option.value = item.id.toString();
@@ -274,8 +313,33 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
     initialSelectionItem.disabled = true;
     menuItemData = categoryItems[menuChangeSelection.selectedIndex - 1];
 
-    nameInput.type = 'text';
+    // Fill the form fields with the selected menu item data
     nameInput.value = menuItemData.name;
+    descriptionInput.value = menuItemData.description[language];
+    priceInput.value = menuItemData.price.toString();
+    // Checkboxes for diets
+    if (menuItemData.diets.includes('gluten')) {
+      glutenCheckbox.checked = true;
+    }
+    if (menuItemData.diets.includes('lactose')) {
+      lactoseCheckbox.checked = true;
+    }
+    if (menuItemData.diets.includes('vegan')) {
+      veganCheckbox.checked = true;
+    }
+
+    const dailyBurgerInput = document.querySelector(
+      '.dailyBurgerInput'
+    ) as HTMLInputElement;
+
+    if (dailyBurgerInput) {
+      // Daily burger input
+      if ('day' in menuItemData) {
+        dailyBurgerInput.value = menuItemData.day;
+      }
+    }
+
+    // Photo input
   });
 
   menuItemChangeContainer.append(menuChangeSelectionLabel, menuChangeSelection);
@@ -298,7 +362,7 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
     'border',
     'border-secondary',
     'rounded-md',
-    'p-4'
+    'p-2'
   );
 
   const menuChangeFormHeader = document.createElement('h4');
@@ -344,15 +408,26 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
   );
   descriptionInput.placeholder = translations[language].menuChange.descriptionLabel;
 
-  const photoInputContainer = document.createElement('div');
-  photoInputContainer.classList.add('flex', 'w-full', 'p-2', 'mb-2');
+  const photoAndDailyInputContainer = document.createElement('div');
+  photoAndDailyInputContainer.classList.add('flex', 'w-full', 'p-2', 'mb-2');
+  const photoContainer = document.createElement('div');
+  photoContainer.classList.add(
+    'flex',
+    'items-center',
+    'w-2/3',
+    'px-2',
+    'rounded-md',
+    'border',
+    'border-secondary'
+  );
   const photoInputLabel = document.createElement('label');
   photoInputLabel.textContent = translations[language].menuChange.photoLabel;
   photoInputLabel.classList.add('text-label', 'font-semibold', 'self-center', 'mr-2');
   const photoInput = document.createElement('input');
-  photoInput.classList.add('w-full', 'p-2', 'rounded-md', 'border', 'border-secondary');
+  photoInput.classList.add('w-full', 'p-2', 'border-none');
   photoInput.type = 'file';
-  photoInputContainer.append(photoInputLabel, photoInput);
+  photoContainer.append(photoInputLabel, photoInput);
+  photoAndDailyInputContainer.append(photoContainer);
 
   const dietsAndPriceContainer = document.createElement('div');
   // dietsAndPriceContainer class for responsive styling if needed @jimpohjansaro
@@ -426,7 +501,7 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
   menuChangeForm.append(
     nameInputContainer,
     descriptionInputContainer,
-    photoInputContainer,
+    photoAndDailyInputContainer,
     dietsAndPriceContainer
   );
 
