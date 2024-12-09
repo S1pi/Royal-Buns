@@ -1,4 +1,5 @@
-const backendUrl = 'http://127.0.0.1:3000/api';
+// const backendUrl = 'http://127.0.0.1:3000/api'; // Development backend url
+const backendUrl = 'royalbuns.northeurope.cloudapp.azure.com/api'; // Deployment backend url
 
 const fetchData = async <T>(url: string, options: RequestInit): Promise<T> => {
   console.log('Checking fetch...');
