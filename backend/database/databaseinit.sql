@@ -2,6 +2,8 @@ SET NAMES 'utf8mb4';
 SET CHARACTER SET 'utf8mb4';
 SET COLLATION_CONNECTION = 'utf8mb4_unicode_ci';
 
+DROP DATABASE IF EXISTS royal_buns;
+
 CREATE DATABASE royal_buns CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE royal_buns;
@@ -98,14 +100,14 @@ CREATE TABLE sliders (
     price VARCHAR(50),
     name VARCHAR(255),
     description VARCHAR(255),
-    photo VARCHAR(255),
+    photo VARCHAR(255)
 );
 
 CREATE TABLE contact_info (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
     email VARCHAR(255),
-    message VARCHAR(255),
+    message VARCHAR(255)
 );
 
 
