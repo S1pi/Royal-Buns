@@ -170,6 +170,7 @@ const restaurants = async () => {
       res.coordinates.latitude,
       res.coordinates.longitude
     );
+
     const marker = L.marker([res.coordinates.latitude, res.coordinates.longitude], {
       icon: customIcon,
     }).addTo(map);

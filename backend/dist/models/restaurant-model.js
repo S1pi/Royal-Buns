@@ -32,10 +32,21 @@ const fetchRestaurant = (id) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.fetchRestaurant = fetchRestaurant;
 const fetchAllRestaurants = () => __awaiter(void 0, void 0, void 0, function* () {
-    const sql = 'SELECT * FROM restaurant';
+    const sql = "SELECT id, res_name, city, location, address, JSON_EXTRACT(coordinates, '$.longitude') AS longitude, JSON_EXTRACT(coordinates, '$.latitude') AS latitude FROM restaurant";
     try {
         const [result] = yield database_1.default.execute(sql);
-        return result;
+        const restaurants = result.map((row) => ({
+            id: row.id,
+            res_name: row.res_name,
+            city: row.city,
+            location: row.location,
+            address: row.address,
+            coordinates: {
+                longitude: parseFloat(row.longitude),
+                latitude: parseFloat(row.latitude),
+            },
+        }));
+        return restaurants;
     }
     catch (err) {
         console.error(err);
