@@ -1,5 +1,30 @@
 import {router} from './router';
 
+type translations = {
+  [language: string]: {
+    [key: string]: string;
+  };
+};
+
+const translations = {
+  FI: {
+    main: 'Etusivu',
+    menu: 'Menu',
+    reservation: 'Varaa Pöytä',
+    restaurants: 'Ravintolat',
+    gallery: 'Galleria',
+    business: 'Yrityksille',
+  },
+  EN: {
+    main: 'Home',
+    menu: 'Menu',
+    reservation: 'Book a Table',
+    restaurants: 'Restaurants',
+    gallery: 'Gallery',
+    business: 'Business reservations',
+  },
+};
+
 const navigation = () => {
   const headerLinks = document.createElement('ul');
   headerLinks.classList.add(
@@ -13,10 +38,15 @@ const navigation = () => {
     'text-primary'
   );
 
-  const hamburgerMenuContent = document.querySelector('.hamMenuContent');
+  let language = localStorage.getItem('language') as 'FI' | 'EN';
+  if (language !== 'FI' && language !== 'EN') {
+    localStorage.setItem('language', 'FI');
+    router();
+  }
 
-  // Created all items for navbar
-  const links = [
+
+  const hamburgerMenuContent = document.querySelector('.hamMenuContent');
+  const finLinks = [
     {name: 'Etusivu', value: 'main', href: '/'},
     {name: 'Menu', value: 'menu', href: '/menu'},
     {name: 'Varaa pöytä', value: 'reservation', href: '/reservation'},
@@ -24,6 +54,25 @@ const navigation = () => {
     {name: 'Galleria', value: 'gallery', href: '/gallery'},
     {name: 'Yrityksille', value: 'business', href: '/business'}, // Väliaikaisesti about us
   ];
+
+  const enLinks = [
+    {name: 'Home', value: 'main', href: '/'},
+    {name: 'Menu', value: 'menu', href: '/menu'},
+    {name: 'Book a Table', value: 'reservation', href: '/reservation'},
+    {name: 'Restaurants', value: 'restaurants', href: '/restaurants'},
+    {name: 'Gallery', value: 'gallery', href: '/gallery'},
+    {name: 'Business reservations', value: 'business', href: '/business'},
+  ];
+  console.log(language);
+  let links = [];
+  if (language  === 'FI') {
+    links = finLinks;
+    console.log(language);
+  } else {
+    links = enLinks;
+    console.log(language);
+  }
+  // Created all items for navbar
 
   // Iterating through list and adding them to DOM
   links.forEach((item) => {

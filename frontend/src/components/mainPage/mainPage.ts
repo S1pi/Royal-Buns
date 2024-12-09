@@ -1,5 +1,10 @@
 //data
 
+import { info, table } from "console";
+
+
+  
+// todo: replace with actual data from the database
 const carouselData = [
   {
     id: 1,

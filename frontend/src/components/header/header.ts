@@ -1,33 +1,6 @@
+import { handleLanguageChange } from '../../utils/handleLanguageChange';
 import {navigation} from '../navigation/navigation';
 import {router} from '../navigation/router';
-
-const translations: {[key: string]: {[key: string]: string}} = {
-  FI: {
-    main: 'Etusivu',
-    menu: 'Menu',
-    reservation: 'Varaa Pöytä',
-    restaurants: 'Ravintolat',
-    gallery: 'Galleria',
-    business: 'Yrityksille',
-  },
-  EN: {
-    main: 'Home',
-    menu: 'Menu',
-    reservation: 'Book a Table',
-    restaurants: 'Restaurants',
-    gallery: 'Gallery',
-    business: 'Business reservations',
-  },
-};
-
-const pages: {[key: string]: string} = {
-  main: '/',
-  menu: '/menu',
-  reservation: '/reservation',
-  restaurants: '/restaurants',
-  gallery: '/gallery',
-  business: '/business',
-};
 
 const logos = [
   {
@@ -50,7 +23,13 @@ const logos = [
 const header = () => {
   const body = document.querySelector('body') as HTMLBodyElement;
   const header = document.createElement('header');
+  // Get the language from the session storage
+  let language = localStorage.getItem('language') as 'FI' | 'EN';
 
+  if (language !== 'FI' && language !== 'EN') {
+    localStorage.setItem('language', 'FI');
+    router();
+  }
   // Annetaan tailwind css luokkia
   header.classList.add('bg-secondary', 'h-20', 'flex', 'justify-between');
 
@@ -62,7 +41,7 @@ const header = () => {
   let touchEndX = 0; // Kosketuksen lopetuspaikka
   const swipeThreshold = 50;
 
-  // LUODAAN HAMPPARIMENU:
+  // Hamburger menu creation:
   const hamburgerMenuDisplay = document.createElement('div');
   hamburgerMenuDisplay.classList.add('hamburgerMenuDisplay', 'bg-primary');
   document.body.appendChild(hamburgerMenuDisplay);
@@ -103,15 +82,13 @@ const header = () => {
 
   hamburgerMenuDisplayCloseCont.addEventListener('click', () => {
     console.log('Miika töihin');
-    const menuDisplay = document.querySelector(
-      '.hamburgerMenuDisplay'
-    ) as HTMLDivElement;
+    const menuDisplay = document.querySelector('.hamburgerMenuDisplay') as HTMLDivElement;
 
     if (menuDisplay) {
-      // Togglaa "show"-luokka
+      // toggle "show" class
       menuDisplay.classList.toggle('show');
 
-      // Togglaa body:n overflow
+      // toggle body overflow
       if (menuDisplay.classList.contains('show')) {
         document.body.style.overflow = 'hidden';
       } else {
@@ -140,10 +117,7 @@ const header = () => {
     }
   });
 
-  hamburgerMenuDisplay.append(
-    hamburgerMenuDisplayCloseCont,
-    hamburgerMenuContent
-  );
+  hamburgerMenuDisplay.append(hamburgerMenuDisplayCloseCont, hamburgerMenuContent);
 
   // Navbar Royal-buns logo creation and vertical separator for navbar and link logos
   const rbLogo = document.createElement('div');
@@ -213,6 +187,14 @@ const header = () => {
   const en = document.createElement('button');
   en.textContent = 'EN';
 
+  fin.addEventListener('click', () => {
+   handleLanguageChange('FI');
+  });
+
+  en.addEventListener('click', () => {
+    handleLanguageChange('EN');
+  });
+
   languageContainer.append(fin, en);
 
   //ADD: HamburgerMenu to here
@@ -234,9 +216,7 @@ const header = () => {
 
   hamburgerMenuContainer.addEventListener('click', () => {
     console.log('Miika töihin');
-    const menuDisplay = document.querySelector(
-      '.hamburgerMenuDisplay'
-    ) as HTMLDivElement;
+    const menuDisplay = document.querySelector('.hamburgerMenuDisplay') as HTMLDivElement;
 
     if (menuDisplay) {
       // Togglaa "show"-luokka
@@ -251,33 +231,8 @@ const header = () => {
     }
   });
 
-  // !!! Language selection needs to be re-implemented
-  // // language update function for links
-  // const updateLanguage = (lang: 'FI' | 'EN') => {
-  //   links.forEach((item) => {
-  //     const linkElement = headerLinks.querySelector(
-  //       `li[data-value="${item.value}"] button`
-  //     ) as HTMLButtonElement;
-  //     const key = item.value.toLowerCase();
-  //     linkElement.textContent = translations[lang][key];
-  //   });
-  // };
-
-  // // Event listeners for language buttons
-  // fin.addEventListener('click', () => {
-  //   updateLanguage('FI');
-  //   console.log('töihin');
-  // });
-
-  // en.addEventListener('click', () => updateLanguage('EN'));
-
   // Adding all elements created to the header
-  nav.append(
-    divSeperator,
-    logoContainer,
-    languageContainer,
-    hamburgerMenuContainer
-  );
+  nav.append(divSeperator, logoContainer, languageContainer, hamburgerMenuContainer);
 
   hamburgerMenuDisplay.append(hamburgerMenuDisplayCloseCont);
   header.append(rbLogo, nav);

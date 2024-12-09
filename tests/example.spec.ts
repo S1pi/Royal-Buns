@@ -97,6 +97,10 @@ test("test provided view against screenshot", async ({ page }) => {
     await expect(page).toHaveScreenshot();
   });
 
+const loginTest = async ({ page, language }) => {
+  
+};
+
 //test the login process
 test("login", async ({ page }) => {
   await page.goto("http://localhost:5173/login", { waitUntil: "load" });
