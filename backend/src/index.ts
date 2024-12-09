@@ -5,6 +5,7 @@ import authRouter from './routes/auth-router';
 import cors from 'cors';
 import restaurantRouter from './routes/restaurant-router';
 import reservationRouter from './routes/reservation-router';
+import menuRouter from './routes/menu-router';
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -13,7 +14,7 @@ const app = express();
 app.use(
   cors({
     origin: 'http://localhost:5173',
-    methods: 'GET,POST,PUT,DELETE,OPTIONS',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
   })
 );
 
@@ -32,6 +33,8 @@ app.use('/api/auth', authRouter);
 app.use('/api/restaurants', restaurantRouter);
 
 app.use('/api/reservations', reservationRouter);
+
+app.use('/api/menu', menuRouter);
 
 // if non of routes works uses this
 app.use(notFoundHandler);

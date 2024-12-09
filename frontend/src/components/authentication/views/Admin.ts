@@ -201,7 +201,7 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
   menuItemChangeContainer.classList.add('flex', 'flex-col', 'w-full', 'p-2', 'mb-2');
   const menuChangeSelectionLabel = document.createElement('label');
   menuChangeSelectionLabel.classList.add('text-label', 'mb-2', 'font-semibold');
-  menuChangeSelectionLabel.textContent = 'Valitse muutettava menu itemi:';
+  menuChangeSelectionLabel.textContent = 'Valitse muutettava annos:';
   const menuChangeSelection = document.createElement('select');
   menuChangeSelection.classList.add('w-full', 'p-2', 'mb-2');
 
