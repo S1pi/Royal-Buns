@@ -72,7 +72,7 @@ const translations = {
     buttons: {
       adminPanel: 'Admin Panel',
       changeInfo: 'Change information',
-      logout: 'Logout',
+      logout: 'Log out',
     },
   },
 };

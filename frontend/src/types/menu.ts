@@ -13,7 +13,7 @@ type Burger = {
   day: string;
 };
 
-type otherMenuItems = {
+type OtherMenuItems = {
   id: number;
   diets: string;
   price: number;
@@ -24,4 +24,4 @@ type otherMenuItems = {
 
 type AllBurgersResponse = Burger[];
 
-export type {Burger, Description, AllBurgersResponse, otherMenuItems};
+export type {Burger, Description, AllBurgersResponse, OtherMenuItems};
