@@ -11,7 +11,7 @@ const getRestaurants = async (): Promise<Restaurant[]> => {
   const restaurants = await fetchData<Restaurant[]>('/restaurants', options);
 
   // Log for debugging
-  // console.log('Restaurants: ', restaurants);
+  console.log('Restaurants: ', restaurants);
   if (!restaurants) {
     throw new Error('Failed to fetch restaurants');
   }
