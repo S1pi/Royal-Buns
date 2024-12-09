@@ -42,7 +42,7 @@ const authenticationComponent = async () => {
 
     // Temporary createProfileView is stored in profileView variable if needed later
     // now it just creates the view and appends it to background
-    const profileView = createProfileView(profilePageData, profileContainer);
+    createProfileView(profilePageData, profileContainer);
     // profileContainer.appendChild(profileView);
     background.appendChild(profileContainer);
   } else {

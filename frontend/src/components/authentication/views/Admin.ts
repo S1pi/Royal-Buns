@@ -1,6 +1,5 @@
 import {Burger, OtherMenuItems} from '../../../types/menu';
 import {getAllBurgers} from '../../../utils/getMenuItems';
-import {menu} from '../../menu/menu';
 import {router} from '../../navigation/router';
 import {getProfilePageData} from '../AuthenticationService';
 import {createProfileView} from './Profile';

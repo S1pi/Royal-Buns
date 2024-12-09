@@ -2,7 +2,6 @@ import {UserProfilePageData} from '../../../types/user';
 import {router} from '../../navigation/router';
 import createAdminView from './Admin';
 import '../../../styles/profile.css';
-import {getAllBurgers, getBurgersByDay} from '../../../utils/getMenuItems';
 
 const translations = {
   FI: {
