@@ -20,6 +20,8 @@ const logos = [
   },
 ];
 
+let headerLoginElement = null as HTMLAnchorElement | null;
+
 const header = () => {
   const body = document.querySelector('body') as HTMLBodyElement;
   const header = document.createElement('header');
@@ -63,6 +65,10 @@ const header = () => {
   const hamburgerMenuCloseIcon = document.createElement('i');
   hamburgerMenuCloseIcon.classList.add('fa-solid', 'fa-x', 'text-4xl');
   hamburgerMenuDisplayCloseCont.appendChild(hamburgerMenuCloseIcon);
+
+  // Still need to add the logo to the hamburger menu
+  // And implement the functionality for the links
+  const hamburgerMenuLoginLogo = document.createElement('div');
 
   const hamburgerMenuContent = document.createElement('ul');
   hamburgerMenuContent.classList.add(
@@ -118,6 +124,7 @@ const header = () => {
   });
 
   hamburgerMenuDisplay.append(hamburgerMenuDisplayCloseCont, hamburgerMenuContent);
+  hamburgerMenuDisplay.append(hamburgerMenuDisplayCloseCont, hamburgerMenuContent);
 
   // Navbar Royal-buns logo creation and vertical separator for navbar and link logos
   const rbLogo = document.createElement('div');
@@ -136,8 +143,19 @@ const header = () => {
     'mx-3'
   );
 
-  // List of logos and their attributes (Logos comes from fontawesome)
+  // Hamburger menu container for login and hamburger icon
+  const hamburgerMenuContainer = document.createElement('div');
+  hamburgerMenuContainer.classList.add(
+    'flex',
+    'justify-center',
+    'items-center',
+    'gap-1',
+    'ml-6',
+    'text-primary',
+    'hamburgerMenu'
+  );
 
+  // List of logos and their attributes (Logos comes from fontawesome)
   const logoContainer = document.createElement('div');
   logoContainer.classList.add('flex', 'logoContainer');
 
@@ -167,6 +185,8 @@ const header = () => {
 
     if (item.logoName === 'logIn') {
       link.classList.add('loginButton');
+      const loginClone = link.cloneNode(true) as HTMLAnchorElement;
+      hamburgerMenuContainer.appendChild(loginClone);
     }
   });
 
@@ -199,23 +219,12 @@ const header = () => {
 
   //ADD: HamburgerMenu to here
 
-  const hamburgerMenuContainer = document.createElement('div');
-  hamburgerMenuContainer.classList.add(
-    'flex',
-    'justify-center',
-    'items-center',
-    'gap-1',
-    'ml-6',
-    'text-primary',
-    'hamburgerMenu'
-  );
-
   const hamburgerIcon = document.createElement('i');
-  hamburgerIcon.classList.add('fa-solid', 'fa-bars', 'text-4xl');
-  hamburgerMenuContainer.appendChild(hamburgerIcon);
+  hamburgerIcon.classList.add('fa-solid', 'fa-bars', 'text-4xl', 'cursor-pointer');
+
+  hamburgerMenuContainer.append(hamburgerIcon);
 
   hamburgerMenuContainer.addEventListener('click', () => {
-    console.log('Miika töihin');
     const menuDisplay = document.querySelector('.hamburgerMenuDisplay') as HTMLDivElement;
 
     if (menuDisplay) {

@@ -54,6 +54,7 @@ const restaurants = async () => {
   // Create the container for the main content of the page
   const restaurantsMainContainer = document.createElement('div');
   restaurantsMainContainer.classList.add(
+    'container2',
     'mx-auto',
     'bg-primary',
     'h-[80vh]', // 80% viewport height

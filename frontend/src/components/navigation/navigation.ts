@@ -168,9 +168,7 @@ const navigation = () => {
         link.classList.remove('text-yellow', 'font-bold');
       });
 
-      const correspondingHeaderLink = headerLinks.querySelector(
-        `a[href="${item.href}"]`
-      );
+      const correspondingHeaderLink = headerLinks.querySelector(`a[href="${item.href}"]`);
       correspondingHeaderLink?.classList.add('text-yellow', 'font-bold');
 
       // Sulje hampurilaisvalikko
@@ -190,9 +188,7 @@ const navigation = () => {
   });
 
   const currentPath = window.location.pathname || '/';
-  const activeHeaderLink = headerLinks.querySelector(
-    `a[href="${currentPath}"]`
-  );
+  const activeHeaderLink = headerLinks.querySelector(`a[href="${currentPath}"]`);
   activeHeaderLink?.classList.add('text-yellow', 'font-bold');
 
   const activeHamburgerLink = hamburgerMenuContent?.querySelector(

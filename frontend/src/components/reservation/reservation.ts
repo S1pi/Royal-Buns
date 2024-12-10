@@ -58,6 +58,7 @@ const reservation = async () => {
   // Creates the reservation container and styles it
   const reservationContainer = document.createElement('div');
   reservationContainer.classList.add(
+    'contentContainer',
     'mx-auto',
     'm-10',
     'bg-primary',
@@ -173,7 +174,13 @@ const reservation = async () => {
   });
   // Create a container for dropdown and replacement icon
   const restDropdownContainer = document.createElement('div');
-  restDropdownContainer.classList.add('relative', 'inline-block', 'w-1/4');
+  restDropdownContainer.classList.add(
+    'relative',
+    'inline-block',
+    'w-full',
+    'max-w-96',
+    'resDropContainer'
+  );
   const restaurantIcon = document.createElement('i');
   restaurantIcon.classList.add(
     'fa-solid',
@@ -254,7 +261,13 @@ const reservation = async () => {
     }
   });
   const peopleDropdownContainer = document.createElement('div');
-  peopleDropdownContainer.classList.add('w-1/4', 'relative', 'inline-block');
+  peopleDropdownContainer.classList.add(
+    'relative',
+    'inline-block',
+    'w-full',
+    'max-w-96',
+    'resDropContainer'
+  );
   const peopleIcon = document.createElement('i');
   peopleIcon.classList.add(
     'fa-solid',
@@ -311,7 +324,13 @@ const reservation = async () => {
 
   // Create a container for date selection
   const dateContainer = document.createElement('div');
-  dateContainer.classList.add('relative', 'inline-block', 'w-1/4');
+  dateContainer.classList.add(
+    'relative',
+    'inline-block',
+    'w-full',
+    'max-w-96',
+    'resDropContainer'
+  );
 
   // Append the date selection input to the container
   dateContainer.append(dateSelection, calendarButton);
@@ -361,7 +380,13 @@ const reservation = async () => {
 
   // Create a container for time selection and replacement icon
   const timeContainer = document.createElement('div');
-  timeContainer.classList.add('relative', 'inline-block', 'w-1/4');
+  timeContainer.classList.add(
+    'relative',
+    'inline-block',
+    'w-4/5',
+    'max-w-96',
+    'resDropContainer'
+  );
 
   const timeIcon = document.createElement('i');
   timeIcon.classList.add(
@@ -498,7 +523,10 @@ const reservation = async () => {
     'justify-center',
     'items-center',
     'p-5',
-    'pop-out-animation'
+    'pop-out-animation',
+    'max-w-96',
+    'w-4/5',
+    'resReserveBtn'
   );
   reservationButton.id = 'reservationButton';
   reservationContainer.appendChild(reservationButton);

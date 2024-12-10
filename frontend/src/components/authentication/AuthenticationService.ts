@@ -1,5 +1,4 @@
 import {
-  InternalServerErrorResponse,
   RegisterResponse,
   SuccesfulAuthenticationResponse,
 } from '../../types/authentication';

@@ -34,7 +34,7 @@ const createProfileView = (pageData: UserProfilePageData) => {
     'flex-col',
     'justify-between',
     'items-center',
-    // 'bg-light-brown',
+    'bg-light-brown',
     'rounded-2xl',
     'p-10',
     'w-1/2',
@@ -240,18 +240,14 @@ const createProfileView = (pageData: UserProfilePageData) => {
     'flex-col',
     'items-center',
     'justify-center',
-    // 'gap-5',
+    'gap-6',
     'mt-5',
     'px-6',
-    // 'h-[90%]', // This is so container won't go out of the parent container
     'h-full',
     'w-5/6',
     'border-2',
     'border-solid',
-    'border-warm-brown',
-    'sm:h-[50%]', // Temporary fix for the container height using tailwind for responsiveness change this to css @jimpohjansaro
-    'sm:w-full',
-    'sm:overflow-y-auto'
+    'border-warm-brown'
   );
 
   const reservationDataInitial = document.createElement('p');

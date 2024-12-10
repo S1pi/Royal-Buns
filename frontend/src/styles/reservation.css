@@ -1,0 +1,15 @@
+@media (max-width: 768px) {
+  .contentContainer {
+    width: 100%;
+  }
+  .resDropContainer {
+    max-width: 330px;
+  }
+  .resReserveBtn {
+    max-width: 288px;
+  }
+}
+
+/* .contentContainer {
+  width: 100%;
+} */
