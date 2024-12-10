@@ -67,23 +67,23 @@ const menuNavigation = (
       // Load the appropriate content based on the button clicked
       switch (text) {
         case 'BURGERS':
-          burgers(menuDataContainer, menuSelectionButton);
+          burgers(menuDataContainer);
           break;
         case 'SLIDERS':
-          sliders(menuDataContainer, menuSelectionButton);
+          sliders(menuDataContainer);
           break;
         case 'SIDES':
-          sides(menuDataContainer, menuSelectionButton);
+          sides(menuDataContainer);
           break;
         case 'DRINKS':
-          drinks(menuDataContainer, menuSelectionButton);
+          drinks(menuDataContainer);
           break;
       }
     });
 
     // Add burger menu to show first
     if (text == 'BURGERS') {
-      burgers(menuDataContainer, menuSelectionButton);
+      burgers(menuDataContainer);
       menuSelectionButton.classList.add('bg-hover-green'); // Set default active button
     }
   });
