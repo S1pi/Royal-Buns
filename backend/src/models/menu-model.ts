@@ -96,7 +96,7 @@ const changeBurgerData = async (burger: Burger) => {
 
 const fetchAllDrinks = async () => {
   const sql =
-    "SELECT id, diets, price, name, JSON_EXTRACT(description, '$.FI') as 'descriptionFI', JSON_EXTRACT(description, '$.EN') as 'descriptionEN', photo FROM DRINKS";
+    "SELECT id, diets, price, name, JSON_EXTRACT(description, '$.FI') as 'descriptionFI', JSON_EXTRACT(description, '$.EN') as 'descriptionEN', photo FROM drinks";
   const [result] = await promisePool.query<RowDataPacket[]>(sql);
 
   const drinks = result.map((row: any) => ({

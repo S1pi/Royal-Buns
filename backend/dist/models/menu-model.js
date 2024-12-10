@@ -85,7 +85,7 @@ exports.changeBurgerData = changeBurgerData;
 //   day: row.day,
 // }));
 const fetchAllDrinks = () => __awaiter(void 0, void 0, void 0, function* () {
-    const sql = "SELECT id, diets, price, name, JSON_EXTRACT(description, '$.FI') as 'descriptionFI', JSON_EXTRACT(description, '$.EN') as 'descriptionEN', photo FROM DRINKS";
+    const sql = "SELECT id, diets, price, name, JSON_EXTRACT(description, '$.FI') as 'descriptionFI', JSON_EXTRACT(description, '$.EN') as 'descriptionEN', photo FROM drinks";
     const [result] = yield database_1.default.query(sql);
     const drinks = result.map((row) => ({
         id: row.id,
