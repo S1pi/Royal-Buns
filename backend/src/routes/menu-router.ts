@@ -1,6 +1,13 @@
 import express from 'express';
 import {body, param} from 'express-validator';
-import {getAllBurgers, getBurgersByDay, postBurger} from '../controllers/menu-controller';
+import {
+  getAllBurgers,
+  getAllDrinks,
+  getAllSides,
+  getAllSliders,
+  getBurgersByDay,
+  postBurger,
+} from '../controllers/menu-controller';
 import {validationErrorHandler} from '../middlewares/error-handler';
 import {tokenAuth} from '../middlewares/authentication';
 
@@ -34,5 +41,9 @@ menuRouter
     validationErrorHandler,
     getBurgersByDay
   );
+
+menuRouter.route('/drinks').get(getAllDrinks);
+menuRouter.route('/sliders').get(getAllSliders);
+menuRouter.route('/sides').get(getAllSides);
 
 export default menuRouter;

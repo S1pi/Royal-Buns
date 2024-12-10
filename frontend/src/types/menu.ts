@@ -28,10 +28,13 @@ type SuccesfullBurgerPost = {
 
 type AllBurgersResponse = Burger[];
 
+type OtherMenuItemsResponse = OtherMenuItems[];
+
 export type {
   Burger,
   Description,
   AllBurgersResponse,
   OtherMenuItems,
   SuccesfullBurgerPost,
+  OtherMenuItemsResponse,
 };

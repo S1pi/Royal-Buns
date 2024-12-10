@@ -81,4 +81,84 @@ const changeBurgerData = async (burger: Burger) => {
   }
 };
 
-export {fetchAllBurgers, fetchBurgersByDay, changeBurgerData};
+// const burgers: Burger[] = result.map((row: any) => ({
+//   id: row.id,
+//   diets: row.diets,
+//   price: row.price,
+//   name: row.name,
+//   description: {
+//     FI: row.descriptionFI,
+//     EN: row.descriptionEN,
+//   },
+//   photo: row.photo,
+//   day: row.day,
+// }));
+
+const fetchAllDrinks = async () => {
+  const sql =
+    "SELECT id, diets, price, name, JSON_EXTRACT(description, '$.FI') as 'descriptionFI', JSON_EXTRACT(description, '$.EN') as 'descriptionEN', photo FROM DRINKS";
+  const [result] = await promisePool.query<RowDataPacket[]>(sql);
+
+  const drinks = result.map((row: any) => ({
+    id: row.id,
+    diets: row.diets,
+    price: row.price,
+    name: row.name,
+    description: {
+      FI: row.descriptionFI,
+      EN: row.descriptionEN,
+    },
+    photo: row.photo,
+  }));
+
+  return drinks;
+};
+
+const fetchAllSliders = async () => {
+  const sql =
+    "SELECT id, diets, price, name, JSON_EXTRACT(description, '$.FI') as 'descriptionFI', JSON_EXTRACT(description, '$.EN') as 'descriptionEN', photo FROM sliders";
+  const [result] = await promisePool.query<RowDataPacket[]>(sql);
+
+  const sliders = result.map((row: any) => ({
+    id: row.id,
+    diets: row.diets,
+    price: row.price,
+    name: row.name,
+    description: {
+      FI: row.descriptionFI,
+      EN: row.descriptionEN,
+    },
+    photo: row.photo,
+  }));
+
+  return sliders;
+};
+
+const fetchAllSides = async () => {
+  const sql =
+    "SELECT id, diets, price, name, JSON_EXTRACT(description, '$.FI') as 'descriptionFI', JSON_EXTRACT(description, '$.EN') as 'descriptionEN', photo FROM sides";
+  const [result] = await promisePool.query<RowDataPacket[]>(sql);
+
+  const sides = result.map((row: any) => ({
+    id: row.id,
+    diets: row.diets,
+    price: row.price,
+    name: row.name,
+    description: {
+      FI: row.descriptionFI,
+      EN: row.descriptionEN,
+    },
+    photo: row.photo,
+  }));
+
+  return sides;
+};
+
+export {
+  fetchAllBurgers,
+  fetchBurgersByDay,
+  changeBurgerData,
+  fetchAllDrinks,
+  fetchAllSliders,
+  fetchAllSides,
+};

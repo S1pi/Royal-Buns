@@ -1,51 +1,65 @@
-const sliders = (menuDataContainer: HTMLDivElement, slidersButton: HTMLButtonElement) => {
+import {getAllSliders} from '../../../utils/getMenuItems';
+import {router} from '../../navigation/router';
+
+const sliders = async (
+  menuDataContainer: HTMLDivElement,
+  slidersButton: HTMLButtonElement
+) => {
   // slidersButton.classList.toggle('border-b-primary');
   //Mock data for menu items
   //TODO: replace with actual data from the database
-  const menuItems = [
-    {
-      id: 1,
-      name: 'Mini Classic Slider',
-      description: 'Juicy beef patty with cheddar cheese, lettuce, and tomato.',
-      image: 'img/classicSlider.jpeg',
-      price: '5.99',
-    },
-    {
-      id: 2,
-      name: 'Spicy Mini Fiesta',
-      description: 'A zesty slider with jalapeños, spicy sauce, and pepper jack cheese.',
-      image: 'img/spicySlider.jpeg',
-      price: '6.49',
-    },
-    {
-      id: 3,
-      name: 'BBQ Mini Bliss',
-      description: 'BBQ beef patty with smoked cheese and caramelized onions.',
-      image: 'img/bbqSlider.jpeg',
-      price: '6.99',
-    },
-    {
-      id: 4,
-      name: 'Veggie Delight Slider',
-      description: 'A healthy veggie patty with fresh lettuce and tomato.',
-      image: 'img/veggieSlider.jpeg',
-      price: '5.49',
-    },
-    {
-      id: 5,
-      name: 'Chicken Little Slider',
-      description: 'Crispy chicken patty with mayo and pickles.',
-      image: 'img/chickenSlider.jpeg',
-      price: '6.49',
-    },
-    {
-      id: 6,
-      name: 'Cheese Lover Slider',
-      description: 'A slider with double cheese and a juicy beef patty.',
-      image: 'img/cheeseSlider.jpeg',
-      price: '6.99',
-    },
-  ];
+  // const menuItems = [
+  //   {
+  //     id: 1,
+  //     name: 'Mini Classic Slider',
+  //     description: 'Juicy beef patty with cheddar cheese, lettuce, and tomato.',
+  //     image: 'img/classicSlider.jpeg',
+  //     price: '5.99',
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Spicy Mini Fiesta',
+  //     description: 'A zesty slider with jalapeños, spicy sauce, and pepper jack cheese.',
+  //     image: 'img/spicySlider.jpeg',
+  //     price: '6.49',
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'BBQ Mini Bliss',
+  //     description: 'BBQ beef patty with smoked cheese and caramelized onions.',
+  //     image: 'img/bbqSlider.jpeg',
+  //     price: '6.99',
+  //   },
+  //   {
+  //     id: 4,
+  //     name: 'Veggie Delight Slider',
+  //     description: 'A healthy veggie patty with fresh lettuce and tomato.',
+  //     image: 'img/veggieSlider.jpeg',
+  //     price: '5.49',
+  //   },
+  //   {
+  //     id: 5,
+  //     name: 'Chicken Little Slider',
+  //     description: 'Crispy chicken patty with mayo and pickles.',
+  //     image: 'img/chickenSlider.jpeg',
+  //     price: '6.49',
+  //   },
+  //   {
+  //     id: 6,
+  //     name: 'Cheese Lover Slider',
+  //     description: 'A slider with double cheese and a juicy beef patty.',
+  //     image: 'img/cheeseSlider.jpeg',
+  //     price: '6.99',
+  //   },
+  // ];
+
+  const language = localStorage.getItem('language') as 'EN' | 'FI';
+  if (language !== 'EN' && language !== 'FI') {
+    localStorage.setItem('language', 'FI');
+    router();
+  }
+
+  const menuItems = await getAllSliders();
 
   // Menu grid container creation
   const menuGridContainer = document.createElement('div');
@@ -104,7 +118,7 @@ const sliders = (menuDataContainer: HTMLDivElement, slidersButton: HTMLButtonEle
     );
 
     const itemPhoto = document.createElement('img');
-    itemPhoto.src = item.image;
+    itemPhoto.src = item.photo;
     itemPhoto.alt = `Photo for ${item.name}`;
     itemPhoto.classList.add('w-4/5', 'h-4/5', 'object-contain', 'menuPhoto');
 
@@ -133,7 +147,7 @@ const sliders = (menuDataContainer: HTMLDivElement, slidersButton: HTMLButtonEle
     );
 
     const itemDescriptionText = document.createElement('div');
-    itemDescriptionText.textContent = item.description;
+    itemDescriptionText.textContent = item.description[language];
 
     itemDescription.appendChild(itemDescriptionText);
 

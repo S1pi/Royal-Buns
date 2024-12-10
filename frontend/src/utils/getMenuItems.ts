@@ -1,4 +1,4 @@
-import {AllBurgersResponse} from '../types/menu';
+import {AllBurgersResponse, OtherMenuItems, OtherMenuItemsResponse} from '../types/menu';
 import fetchData from './fetchData';
 
 const getAllBurgers = async () => {
@@ -37,4 +37,58 @@ const getBurgersByDay = async (day: string) => {
   return response;
 };
 
-export {getAllBurgers, getBurgersByDay};
+const getAllDrinks = async () => {
+  const options: RequestInit = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const response: OtherMenuItemsResponse = await fetchData('/menu/drinks', options);
+
+  console.log('Drinks: ', response);
+
+  if (!response) {
+    throw new Error('Failed to fetch drinks');
+  }
+
+  return response;
+};
+
+const getAllSliders = async () => {
+  const options: RequestInit = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const response: OtherMenuItemsResponse = await fetchData('/menu/sliders', options);
+
+  console.log('Sliders: ', response);
+
+  if (!response) {
+    throw new Error('Failed to fetch sliders');
+  }
+
+  return response;
+};
+
+const getAllSides = async () => {
+  const options: RequestInit = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const response: OtherMenuItemsResponse = await fetchData('/menu/sides', options);
+
+  console.log('Sides: ', response);
+
+  if (!response) {
+    throw new Error('Failed to fetch sides');
+  }
+
+  return response;
+};
+
+export {getAllBurgers, getBurgersByDay, getAllDrinks, getAllSliders, getAllSides};

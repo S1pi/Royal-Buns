@@ -1,5 +1,12 @@
 import {Request, Response} from 'express';
-import {changeBurgerData, fetchAllBurgers, fetchBurgersByDay} from '../models/menu-model';
+import {
+  changeBurgerData,
+  fetchAllBurgers,
+  fetchAllDrinks,
+  fetchAllSides,
+  fetchAllSliders,
+  fetchBurgersByDay,
+} from '../models/menu-model';
 
 const getAllBurgers = async (req: Request, res: Response) => {
   try {
@@ -69,4 +76,62 @@ const postBurger = async (req: Request, res: Response) => {
   }
 };
 
-export {getAllBurgers, getBurgersByDay, postBurger};
+const getAllDrinks = async (req: Request, res: Response) => {
+  try {
+    const drinks = await fetchAllDrinks();
+    res.status(200).json(drinks);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error('Database connection error: ', err);
+      res
+        .status(503)
+        .json({message: 'Service unavailable: database error', status: 503, error: err});
+    } else {
+      console.error('Unknown error: ', err);
+      res.status(500).json({message: 'Unknown error', status: 500, error: err});
+    }
+  }
+};
+
+const getAllSliders = async (req: Request, res: Response) => {
+  try {
+    const sliders = await fetchAllSliders();
+    res.status(200).json(sliders);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error('Database connection error: ', err);
+      res
+        .status(503)
+        .json({message: 'Service unavailable: database error', status: 503, error: err});
+    } else {
+      console.error('Unknown error: ', err);
+      res.status(500).json({message: 'Unknown error', status: 500, error: err});
+    }
+  }
+};
+
+const getAllSides = async (req: Request, res: Response) => {
+  try {
+    const sides = await fetchAllSides();
+    res.status(200).json(sides);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error('Database connection error: ', err);
+      res
+        .status(503)
+        .json({message: 'Service unavailable: database error', status: 503, error: err});
+    } else {
+      console.error('Unknown error: ', err);
+      res.status(500).json({message: 'Unknown error', status: 500, error: err});
+    }
+  }
+};
+
+export {
+  getAllBurgers,
+  getBurgersByDay,
+  postBurger,
+  getAllDrinks,
+  getAllSliders,
+  getAllSides,
+};
