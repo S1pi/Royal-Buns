@@ -1,5 +1,6 @@
 import {Burger, OtherMenuItems} from '../../../types/menu';
 import {getAllBurgers} from '../../../utils/getMenuItems';
+import {sendBurgerMenuItem} from '../../../utils/sendMenuItems';
 import {router} from '../../navigation/router';
 import {getProfilePageData} from '../AuthenticationService';
 import {createProfileView} from './Profile';
@@ -239,6 +240,19 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
 
     // Empty all form fields
     nameInput.value = '';
+    descriptionInput.value = '';
+    priceInput.value = '';
+    glutenCheckbox.checked = false;
+    lactoseCheckbox.checked = false;
+    veganCheckbox.checked = false;
+
+    const dailyBurgerInput = document.querySelector(
+      '.dailyBurgerInput'
+    ) as HTMLInputElement;
+
+    if (dailyBurgerInput) {
+      dailyBurgerInput.value = '';
+    }
 
     initialSelectionItem.textContent = translations[language].menuChange.menuItemsInitial;
     menuChangeSelection.appendChild(initialSelectionItem);
@@ -273,6 +287,7 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
         'border',
         'border-secondary'
       );
+      dailyBurgerInput.disabled = true;
       dailyBurgerContainer.append(dailyBurgerLabel, dailyBurgerInput);
       photoAndDailyInputContainer.insertBefore(dailyBurgerContainer, photoContainer);
     } else {
@@ -312,18 +327,23 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
     initialSelectionItem.disabled = true;
     menuItemData = categoryItems[menuChangeSelection.selectedIndex - 1];
 
+    glutenCheckbox.checked = false;
+    lactoseCheckbox.checked = false;
+    veganCheckbox.checked = false;
+
     // Fill the form fields with the selected menu item data
     nameInput.value = menuItemData.name;
     descriptionInput.value = menuItemData.description[language];
     priceInput.value = menuItemData.price.toString();
+
     // Checkboxes for diets
-    if (menuItemData.diets.includes('gluten')) {
+    if (menuItemData.diets.includes('G')) {
       glutenCheckbox.checked = true;
     }
-    if (menuItemData.diets.includes('lactose')) {
+    if (menuItemData.diets.includes('L')) {
       lactoseCheckbox.checked = true;
     }
-    if (menuItemData.diets.includes('vegan')) {
+    if (menuItemData.diets.includes('V')) {
       veganCheckbox.checked = true;
     }
 
@@ -489,7 +509,7 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
   priceLabel.textContent = translations[language].menuChange.priceLabel;
   priceLabel.classList.add('text-label', 'font-semibold', 'self-center', 'mr-2');
   const priceInput = document.createElement('input');
-  priceInput.type = 'number';
+  priceInput.type = 'text';
   priceInput.classList.add('w-2/3', 'p-1', 'rounded-md', 'border', 'border-secondary');
   priceContainer.append(priceLabel, priceInput);
 
@@ -516,6 +536,70 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
     'mb-4'
   );
   menuChangeForm.appendChild(menuChangeSubmitButton);
+
+  menuChangeSubmitButton.addEventListener('click', async (e) => {
+    e.preventDefault();
+    console.log('Submit button clicked');
+    console.log('Form data: ', {
+      name: nameInput.value,
+      description: descriptionInput.value,
+      price: priceInput.value,
+      gluten: glutenCheckbox.checked,
+      lactose: lactoseCheckbox.checked,
+      vegan: veganCheckbox.checked,
+    });
+
+    // Check if all required fields are filled
+    if (
+      nameInput.value === '' ||
+      descriptionInput.value === '' ||
+      priceInput.value === ''
+    ) {
+      alert('Fill all information before submitting');
+      return;
+    }
+
+    // Check if item is a burger
+    if (menuCategorySelection.value === 'Burgers') {
+      const name = nameInput.value;
+      const description = {
+        FI: descriptionInput.value,
+        EN: descriptionInput.value,
+      };
+      const price = priceInput.value;
+      const dietsArray = [
+        glutenCheckbox.checked ? 'G' : '',
+        lactoseCheckbox.checked ? 'L' : '',
+        veganCheckbox.checked ? 'V' : '',
+      ].filter(Boolean);
+      const diets = dietsArray.join(',');
+
+      const dailyBurgerInput = document.querySelector(
+        '.dailyBurgerInput'
+      ) as HTMLInputElement;
+      const day = dailyBurgerInput.value;
+      const id = menuItemData.id;
+
+      // console.log('Burger data: ', {id, diets, price, name, description, day});
+      // Send the form data to backend
+      const burgerChangeMessage = await sendBurgerMenuItem(
+        id,
+        diets,
+        price,
+        name,
+        description,
+        day
+      );
+      if (burgerChangeMessage) {
+        alert(burgerChangeMessage);
+      } else {
+        alert('Failed to update burger');
+      }
+    }
+
+    // Send the form data to backend
+    // CODE HERE @S1pi
+  });
 
   // Append menuChangeSelectionContainer and menuChangeForm to menuChangeContainer
   menuChangeContainer.append(menuChangeSelectionContainer, menuChangeForm);

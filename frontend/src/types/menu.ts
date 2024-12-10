@@ -22,6 +22,16 @@ type OtherMenuItems = {
   photo: string;
 };
 
+type SuccesfullBurgerPost = {
+  message: string;
+};
+
 type AllBurgersResponse = Burger[];
 
-export type {Burger, Description, AllBurgersResponse, OtherMenuItems};
+export type {
+  Burger,
+  Description,
+  AllBurgersResponse,
+  OtherMenuItems,
+  SuccesfullBurgerPost,
+};

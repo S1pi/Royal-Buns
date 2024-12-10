@@ -1,14 +1,20 @@
 import express from 'express';
 import {body, param} from 'express-validator';
-import {getAllBurgers, getBurgersByDay} from '../controllers/menu-controller';
+import {getAllBurgers, getBurgersByDay, postBurger} from '../controllers/menu-controller';
 import {validationErrorHandler} from '../middlewares/error-handler';
+import {tokenAuth} from '../middlewares/authentication';
 
 const menuRouter = express.Router();
 
 // Meby add some routes here for posting new menu items
 // menuRouter.route('/').post();
 
-menuRouter.route('/burgers').get(getAllBurgers);
+const validateBurger = [];
+
+menuRouter
+  .route('/burgers')
+  .get(getAllBurgers)
+  .post(tokenAuth, validationErrorHandler, postBurger);
 
 const validDays = [
   'monday',
