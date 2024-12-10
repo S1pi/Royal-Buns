@@ -1,10 +1,7 @@
 import {getAllBurgers} from '../../../utils/getMenuItems';
 import {router} from '../../navigation/router';
 
-const burgers = async (
-  menuDataContainer: HTMLDivElement,
-  burgersButton: HTMLButtonElement
-) => {
+const burgers = async (menuDataContainer: HTMLDivElement) => {
   // TODO: SISÄLLYTÄ TÄMÄ https://www.youtube.com/watch?v=4qRZmFYdozY
   // const daySpecial = document.createElement('div');
   // daySpecial.classList.add(

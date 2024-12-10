@@ -1,4 +1,4 @@
-import {AllBurgersResponse, OtherMenuItems, OtherMenuItemsResponse} from '../types/menu';
+import {AllBurgersResponse, OtherMenuItemsResponse} from '../types/menu';
 import fetchData from './fetchData';
 
 const getAllBurgers = async () => {

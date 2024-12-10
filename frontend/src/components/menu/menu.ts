@@ -1,4 +1,3 @@
-import {Burger} from '../../types/menu';
 import {getBurgersByDay} from '../../utils/getMenuItems';
 import {menuNavigation} from './menuNavigation';
 

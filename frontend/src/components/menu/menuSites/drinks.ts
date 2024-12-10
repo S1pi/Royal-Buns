@@ -1,10 +1,7 @@
 import {getAllDrinks} from '../../../utils/getMenuItems';
 import {router} from '../../navigation/router';
 
-const drinks = async (
-  menuDataContainer: HTMLDivElement,
-  drinksButton: HTMLButtonElement
-) => {
+const drinks = async (menuDataContainer: HTMLDivElement) => {
   // drinksButton.classList.toggle('border-b-primary');
 
   //Mock data for menu items TODO: Drinks mockdata

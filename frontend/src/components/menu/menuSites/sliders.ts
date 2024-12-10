@@ -1,10 +1,7 @@
 import {getAllSliders} from '../../../utils/getMenuItems';
 import {router} from '../../navigation/router';
 
-const sliders = async (
-  menuDataContainer: HTMLDivElement,
-  slidersButton: HTMLButtonElement
-) => {
+const sliders = async (menuDataContainer: HTMLDivElement) => {
   // slidersButton.classList.toggle('border-b-primary');
   //Mock data for menu items
   //TODO: replace with actual data from the database

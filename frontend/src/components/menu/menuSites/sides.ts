@@ -1,10 +1,7 @@
 import {getAllSides} from '../../../utils/getMenuItems';
 import {router} from '../../navigation/router';
 
-const sides = async (
-  menuDataContainer: HTMLDivElement,
-  sidesButton: HTMLButtonElement
-) => {
+const sides = async (menuDataContainer: HTMLDivElement) => {
   // sidesButton.classList.toggle('border-b-primary');
 
   //Mock data for menu items

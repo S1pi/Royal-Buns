@@ -1,34 +1,6 @@
-import { handleLanguageChange } from '../../utils/handleLanguageChange';
+import {handleLanguageChange} from '../../utils/handleLanguageChange';
 import {navigation} from '../navigation/navigation';
 import {router} from '../navigation/router';
-
-const translations: {[key: string]: {[key: string]: string}} = {
-  FI: {
-    main: 'Etusivu',
-    menu: 'Menu',
-    reservation: 'Varaa Pöytä',
-    restaurants: 'Ravintolat',
-    gallery: 'Galleria',
-    business: 'Yrityksille',
-  },
-  EN: {
-    main: 'Home',
-    menu: 'Menu',
-    reservation: 'Book a Table',
-    restaurants: 'Restaurants',
-    gallery: 'Gallery',
-    business: 'Business reservations',
-  },
-};
-
-const pages: {[key: string]: string} = {
-  main: '/',
-  menu: '/menu',
-  reservation: '/reservation',
-  restaurants: '/restaurants',
-  gallery: '/gallery',
-  business: '/business',
-};
 
 const logos = [
   {
@@ -66,10 +38,6 @@ const header = () => {
   const nav = document.createElement('nav');
   nav.id = 'navBar';
   nav.classList.add('flex', 'mr-10');
-
-  let touchStartX = 0; // Kosketuksen aloituspaikka
-  let touchEndX = 0; // Kosketuksen lopetuspaikka
-  const swipeThreshold = 50;
 
   // Hamburger menu creation:
   const hamburgerMenuDisplay = document.createElement('div');
@@ -216,7 +184,7 @@ const header = () => {
   en.textContent = 'EN';
 
   fin.addEventListener('click', () => {
-   handleLanguageChange('FI');
+    handleLanguageChange('FI');
   });
 
   en.addEventListener('click', () => {
