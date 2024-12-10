@@ -2,7 +2,7 @@ import {Restaurant} from '../../types/restaurant';
 import {getRestaurants} from '../../utils/getRestaurants';
 import {reservationSelectionCheck} from '../../utils/reservationSelections';
 import {checkUserAuthentication} from '../authentication/AuthenticationService';
-import { router } from '../navigation/router';
+import {router} from '../navigation/router';
 
 // translations for the page
 const translations = {
@@ -10,7 +10,8 @@ const translations = {
     reservationTitleContainer: 'VARAA PÖYTÄ',
     loginInfo: 'Pöydän varaus vaatii kirjautumisen sisään',
     reservationTimeInfo: 'Kaikki varaukset ovat voimassa 2 tuntia varausajasta alkaen.',
-    reservationClosingInfo: 'Illan viimeiset varaukset loppuvat 30 minuuttia ovien sulkemisen jälkeen.',
+    reservationClosingInfo:
+      'Illan viimeiset varaukset loppuvat 30 minuuttia ovien sulkemisen jälkeen.',
     restaurantOption: 'Valitse ravintola',
     defaultOption: 'Valitse henkilömäärä',
     options: ['1-2 Henkilöä', '3-4 Henkilöä', '5-6 Henkilöä', '7-8 Henkilöä'],
@@ -19,16 +20,17 @@ const translations = {
   EN: {
     reservationTitleContainer: 'BOOK A TABLE',
     loginInfo: 'Booking a table requires you to be logged in',
-    reservationTimeInfo: 'All reservations are valid for 2 hours from the start of the reservation time.',
-    reservationClosingInfo: 'The last reservations of the evening end 30 minutes after the doors are closed.',
+    reservationTimeInfo:
+      'All reservations are valid for 2 hours from the start of the reservation time.',
+    reservationClosingInfo:
+      'The last reservations of the evening end 30 minutes after the doors are closed.',
     restaurantOption: 'Select a restaurant',
     defaultOption: 'Select amount of people',
     options: ['1-2 People', '3-4 People', '5-6 People', '7-8 People'],
     reservationButton: 'Book a table',
-  }
+  },
 };
 const reservation = async () => {
-  
   // Select the #app div
   const appDiv = document.querySelector('#app') as HTMLElement;
 
@@ -68,7 +70,8 @@ const reservation = async () => {
 
   // Create the reservation title and style it
   const reservationTitleContainer = document.createElement('h1');
-  reservationTitleContainer.textContent = translations[language].reservationTitleContainer;
+  reservationTitleContainer.textContent =
+    translations[language].reservationTitleContainer;
   reservationTitleContainer.classList.add(
     'flex',
     'text-h1', // Use custom h1 size from tailwind config
@@ -99,13 +102,11 @@ const reservation = async () => {
   ReservationInfoContainer.appendChild(loginInfo);
   reservationContainer.appendChild(ReservationInfoContainer);
   const reservationTimeInfo = document.createElement('p');
-  reservationTimeInfo.textContent =
-    translations[language].reservationTimeInfo;
+  reservationTimeInfo.textContent = translations[language].reservationTimeInfo;
   reservationTimeInfo.classList.add('text-center', 'text-secondary', 'text-sm', 'mb-1');
   reservationContainer.appendChild(reservationTimeInfo);
   const reservationClosingInfo = document.createElement('p');
-  reservationClosingInfo.textContent =
-    translations[language].reservationClosingInfo;
+  reservationClosingInfo.textContent = translations[language].reservationClosingInfo;
   reservationClosingInfo.classList.add('text-center', 'text-secondary', 'text-sm');
   reservationContainer.appendChild(reservationClosingInfo);
 
@@ -230,13 +231,25 @@ const reservation = async () => {
   peopleDropdown.addEventListener('change', () => {
     console.log(peopleDropdown.value);
     // Change the value to the selected value to match table sizes in database
-    if (peopleDropdown.value === '1-2 Henkilöä' || peopleDropdown.value === '1-2 People') {
+    if (
+      peopleDropdown.value === '1-2 Henkilöä' ||
+      peopleDropdown.value === '1-2 People'
+    ) {
       sessionStorage.setItem('reservation-size', '2');
-    } else if (peopleDropdown.value === '3-4 Henkilöä' || peopleDropdown.value === '3-4 People') {
+    } else if (
+      peopleDropdown.value === '3-4 Henkilöä' ||
+      peopleDropdown.value === '3-4 People'
+    ) {
       sessionStorage.setItem('reservation-size', '6');
-    } else if (peopleDropdown.value === '5-6 Henkilöä' || peopleDropdown.value === '5-6 People') {
+    } else if (
+      peopleDropdown.value === '5-6 Henkilöä' ||
+      peopleDropdown.value === '5-6 People'
+    ) {
       sessionStorage.setItem('reservation-size', '6');
-    } else if (peopleDropdown.value === '7-8 Henkilöä' || peopleDropdown.value === '7-8 People') {
+    } else if (
+      peopleDropdown.value === '7-8 Henkilöä' ||
+      peopleDropdown.value === '7-8 People'
+    ) {
       sessionStorage.setItem('reservation-size', '8');
     }
   });
@@ -343,6 +356,8 @@ const reservation = async () => {
     'pr-12', // Increase right padding to make space for the icon
     'cursor-pointer'
   );
+  timeSelection.id = 'timeDropdown'; // Ensure a unique ID
+  timeSelection.setAttribute('data-testid', 'timeDropdown'); // Add a data attribute for easier selection
 
   // Create a container for time selection and replacement icon
   const timeContainer = document.createElement('div');
@@ -485,6 +500,7 @@ const reservation = async () => {
     'p-5',
     'pop-out-animation'
   );
+  reservationButton.id = 'reservationButton';
   reservationContainer.appendChild(reservationButton);
   bgContainer.appendChild(reservationContainer);
   appDiv.appendChild(bgContainer);
@@ -507,8 +523,6 @@ const reservation = async () => {
         );
       }
     }
-
-    // TODO: Selection check before going next path
   });
 };
 
