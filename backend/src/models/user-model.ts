@@ -2,6 +2,22 @@ import promisePool from '../utils/database';
 import {NewUser, User, UserCreds, UserReturn} from '../types/user';
 import {FieldPacket, ResultSetHeader, RowDataPacket} from 'mysql2';
 
+
+/**
+ * Custom error class for handling duplicate entries.
+ * @class DuplicateEntryError
+ * @extends {Error}
+ * @param {string} message - The error message.
+ * @constructor
+ */
+
+export class DuplicateEntryError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'DuplicateEntryError';
+  }
+}
+
 /**
  * @api {post} /users Create a new user
  * @apiName CreateUser
@@ -18,7 +34,7 @@ import {FieldPacket, ResultSetHeader, RowDataPacket} from 'mysql2';
  * @apiSuccess {Number} id The ID of the newly created user.
  *
  * @apiError 500 Internal Server Error Error inserting new user into the database.
- */
+ */ 
 const createUser = async (newUser: NewUser): Promise<number> => {
   const sql = `INSERT INTO users (username, passwrd, email, phonenumber, user_type) VALUES (?, ?, ?, ?, ?)`;
 
@@ -39,7 +55,11 @@ const createUser = async (newUser: NewUser): Promise<number> => {
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.error('createUser', err.message);
-      throw new Error('Error inserting new user into db');
+      if (err.message.includes('Duplicate entry')) {
+        throw new DuplicateEntryError('Username or email already exists');
+      } else {
+        throw new Error('Error inserting new user into db');
+      }
     } else {
       console.error('Unknown error occured');
       throw new Error('Unknown error occured');

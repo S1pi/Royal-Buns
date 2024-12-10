@@ -1,9 +1,86 @@
 import {UserProfilePageData} from '../../../types/user';
 import {router} from '../../navigation/router';
+import createAdminView from './Admin';
 import '../../../styles/profile.css';
 
+const translations = {
+  FI: {
+    profileInfo: {
+      header: 'PROFIILI',
+      name: 'Nimi: ',
+      email: 'Sähköposti: ',
+      phone: 'Puhelinnumero: ',
+      favBurger: 'Lempihampurilainen: ',
+      notSelected: 'Ei valittu',
+      missingPhone: 'ilmoita puhelinnumero',
+      missingEmail: 'ilmoita sähköposti',
+    },
+    reservationInfo: {
+      header: 'VARAUKSET',
+      date: 'Päivä: ',
+      selectDay: 'Valitse päivä',
+      noReservations: 'Ei varauksia',
+      reservationText: 'Varaus',
+      time: 'Kellonaika: ',
+      restaurant: 'Ravintola: ',
+      tableNumber: 'Pöytänumero: ',
+      initialText: 'Valitse varaus nähdäksesi tietoja',
+      timeError: 'Kellonaikaa ei saatavilla',
+      restaurantError: 'Ravintolaa ei saatavilla',
+    },
+    restaurantContactInfo: {
+      header: 'Ravintolan yhteystiedot',
+      customerservice: 'Asiakaspalvelu: ',
+      email: 'Sähköposti: ',
+    },
+    buttons: {
+      adminPanel: 'Admin Panel',
+      changeInfo: 'Muuta tietoja',
+      logout: 'Kirjaudu ulos',
+    },
+  },
+  EN: {
+    profileInfo: {
+      header: 'PROFILE',
+      name: 'Name: ',
+      email: 'Email: ',
+      phone: 'Phone: ',
+      favBurger: 'Favorite Burger: ',
+      notSelected: 'Not selected',
+      missingPhone: 'Missing phone number',
+      missingEmail: 'Missing email',
+    },
+    reservationInfo: {
+      header: 'RESERVATIONS',
+      date: 'Date: ',
+      selectDay: 'Select day',
+      noReservations: 'No reservations',
+      reservationText: 'Reservation',
+      time: 'Time: ',
+      restaurant: 'Restaurant: ',
+      tableNumber: 'Table number: ',
+      initialText: 'Select a reservation to see details',
+      timeError: 'Time not available',
+      restaurantError: 'Restaurant not available',
+    },
+    restaurantContactInfo: {
+      header: 'Restaurant contact information',
+      customerservice: 'Customerservice: ',
+      email: 'Email: ',
+    },
+    buttons: {
+      adminPanel: 'Admin Panel',
+      changeInfo: 'Change information',
+      logout: 'Log out',
+    },
+  },
+};
+
 // Meaby get data as parameter and use it to fill the profile view
-const createProfileView = (pageData: UserProfilePageData) => {
+const createProfileView = (
+  pageData: UserProfilePageData,
+  profileContainer: HTMLDivElement
+) => {
   console.log('Profile page data in createProfileView: ', pageData);
   console.log('User info in createProfileView: ', pageData.user_info);
   console.log('Reservations in createProfileView: ', pageData.reservations);
@@ -11,8 +88,13 @@ const createProfileView = (pageData: UserProfilePageData) => {
   // pageData.user_info has also user_type that can be used
   // but for now we only show the user's information*
 
-  const {username, email, phonenumber, favourite_bgr} = pageData.user_info;
+  const {username, email, phonenumber, favourite_bgr, user_type} = pageData.user_info;
   const reservations = pageData.reservations;
+  let language = localStorage.getItem('language') as 'FI' | 'EN';
+  if (language !== 'FI' && language !== 'EN') {
+    localStorage.setItem('language', 'FI');
+    router();
+  }
 
   if (reservations.length > 0) {
     reservations.sort((a, b) => {
@@ -36,13 +118,29 @@ const createProfileView = (pageData: UserProfilePageData) => {
     'items-center',
     'bg-light-brown',
     'rounded-2xl',
-    'p-10',
+    'py-8',
+    'px-5',
     'w-1/2',
     'h-full'
   );
 
+  // Only a prototype, not used in the projects
+  // const language = localStorage.getItem('language') as 'FI' | 'EN';
+
+  // if (!language) {
+  //   localStorage.setItem('language', 'FI');
+  // }
+
+  // const translations = handleTranslations(language, 'profile');
+  // console.log('Translations in createProfileView: ', translations);
+
+  // if (!translations) {
+  //   return;
+  // }
+  // ***Prototype ends here***
+
   const heading = document.createElement('h2');
-  heading.textContent = 'PROFIILI';
+  heading.textContent = translations[language].profileInfo.header;
   heading.classList.add('text-h2', 'font-bold', 'text-secondary');
 
   // Username container shows the user's username
@@ -50,7 +148,7 @@ const createProfileView = (pageData: UserProfilePageData) => {
   usernameContainer.classList.add('flex', 'gap-3');
 
   const usernameLabel = document.createElement('label');
-  usernameLabel.textContent = 'Käyttäjänimi:';
+  usernameLabel.textContent = translations[language].profileInfo.name;
   usernameLabel.classList.add('text-h5', 'font-bold', 'text-secondary');
 
   const usernameText = document.createElement('p');
@@ -64,12 +162,12 @@ const createProfileView = (pageData: UserProfilePageData) => {
   emailContainer.classList.add('flex', 'gap-3');
 
   const emailLabel = document.createElement('label');
-  emailLabel.textContent = 'Sähköposti:';
+  emailLabel.textContent = translations[language].profileInfo.email;
   emailLabel.classList.add('text-h5', 'font-bold', 'text-secondary');
 
   const emailText = document.createElement('p');
   // Change this to come from backend when user is authenticated
-  emailText.textContent = email ? email : 'ilmoita sähköposti';
+  emailText.textContent = email ? email : translations[language].profileInfo.missingEmail;
   emailText.classList.add('text-h5', 'text-primary');
   emailContainer.append(emailLabel, emailText);
 
@@ -77,12 +175,14 @@ const createProfileView = (pageData: UserProfilePageData) => {
   phoneNumContainer.classList.add('flex', 'gap-3');
 
   const phoneNumLabel = document.createElement('label');
-  phoneNumLabel.textContent = 'Puhelinnumero:';
+  phoneNumLabel.textContent = translations[language].profileInfo.phone;
   phoneNumLabel.classList.add('text-h5', 'font-bold', 'text-secondary');
 
   const phoneNum = document.createElement('p');
   // Change this to come from backend when user is authenticated
-  phoneNum.textContent = phonenumber ? phonenumber : 'ilmoita puhelinnumero';
+  phoneNum.textContent = phonenumber
+    ? phonenumber
+    : translations[language].profileInfo.missingPhone;
   phoneNum.classList.add('text-h5', 'text-primary');
   phoneNumContainer.append(phoneNumLabel, phoneNum);
 
@@ -90,37 +190,62 @@ const createProfileView = (pageData: UserProfilePageData) => {
   favouriteBurgerContainer.classList.add('flex', 'gap-3', 'mb-10');
 
   const favouriteBurgerLabel = document.createElement('label');
-  favouriteBurgerLabel.textContent = 'Lempihampurilainen:';
+  favouriteBurgerLabel.textContent = translations[language].profileInfo.favBurger;
   favouriteBurgerLabel.classList.add('text-h5', 'font-bold', 'text-secondary');
 
   const favouriteBurger = document.createElement('p');
   // Change this to come from backend when user is authenticated
-  favouriteBurger.textContent = favourite_bgr ? favourite_bgr : 'Ei valittu';
+  favouriteBurger.textContent = favourite_bgr
+    ? favourite_bgr
+    : translations[language].profileInfo.notSelected;
   favouriteBurger.classList.add('text-h5', 'text-primary');
 
   favouriteBurgerContainer.append(favouriteBurgerLabel, favouriteBurger);
 
   const buttonContainer = document.createElement('div');
-  buttonContainer.classList.add('flex', 'gap-10');
+  buttonContainer.classList.add('flex', 'gap-4', 'w-full', 'justify-center');
+
+  // TODO: Check if user is admin and show admin panel button
+
+  if (user_type === 'admin') {
+    const adminViewButton = document.createElement('button');
+    adminViewButton.textContent = translations[language].buttons.adminPanel;
+    adminViewButton.classList.add(
+      'text-base',
+      'font-bold',
+      'text-primary',
+      'bg-secondary',
+      'hover:bg-hover-brown',
+      'py-2',
+      'px-4',
+      'rounded-2xl'
+    );
+
+    adminViewButton.addEventListener('click', async () => {
+      createAdminView(profileContainer);
+    });
+
+    buttonContainer.appendChild(adminViewButton);
+  }
 
   // Button for changing the user's password (Meaby change this to a: Change information button)
-  const changePasswordButton = document.createElement('button');
-  changePasswordButton.textContent = 'Vaihda salasana';
-  changePasswordButton.classList.add(
+  const changeInfoButton = document.createElement('button');
+  changeInfoButton.textContent = translations[language].buttons.changeInfo;
+  changeInfoButton.classList.add(
     'text-base',
     'font-bold',
     'text-primary',
     'bg-secondary',
     'hover:bg-hover-brown',
     'py-2',
-    'px-6',
+    'px-4',
     'rounded-2xl'
   );
 
   // Implement password change functionality for button.EventListener('click', changePassword)
 
   const logoutButton = document.createElement('button');
-  logoutButton.textContent = 'Kirjaudu ulos';
+  logoutButton.textContent = translations[language].buttons.logout;
   logoutButton.classList.add(
     'text-base',
     'font-bold',
@@ -128,7 +253,7 @@ const createProfileView = (pageData: UserProfilePageData) => {
     'bg-red',
     'hover:bg-dark-red',
     'py-2',
-    'px-6',
+    'px-4',
     'rounded-2xl'
   );
 
@@ -139,7 +264,7 @@ const createProfileView = (pageData: UserProfilePageData) => {
     router();
   });
 
-  buttonContainer.append(changePasswordButton, logoutButton);
+  buttonContainer.append(changeInfoButton, logoutButton);
 
   // Append all the elements to the profile info container
   profileInfoContainer.append(
@@ -172,7 +297,7 @@ const createProfileView = (pageData: UserProfilePageData) => {
   );
 
   const reservationInfoHeading = document.createElement('h3');
-  reservationInfoHeading.textContent = 'VARAUKSET';
+  reservationInfoHeading.textContent = translations[language].reservationInfo.header;
   reservationInfoHeading.classList.add('text-h3', 'font-bold', 'mb-5', 'text-secondary');
 
   // Container for reservation day selection
@@ -191,12 +316,14 @@ const createProfileView = (pageData: UserProfilePageData) => {
 
   const reservationDaySelect = document.createElement('select');
   reservationDaySelect.classList.add(
+    'daySelector',
     'text-h5',
     'text-secondary',
     'rounded-2xl',
-    'px-4',
+    'px-3',
     'py-0.5',
-    'w-1/2'
+    'w-1/2',
+    'min-w-56'
   );
 
   // Reservation day selection logic starts here
@@ -205,7 +332,7 @@ const createProfileView = (pageData: UserProfilePageData) => {
   let firstSelection = null;
 
   const reservationDayOption = document.createElement('option');
-  reservationDayOption.textContent = 'Valitse päivä';
+  reservationDayOption.textContent = translations[language].reservationInfo.selectDay;
   reservationDayOption.value = '0';
   reservationDaySelect.appendChild(reservationDayOption);
   firstSelection = reservationDayOption;
@@ -215,13 +342,16 @@ const createProfileView = (pageData: UserProfilePageData) => {
     reservations.forEach((reservation) => {
       const reservationDayOption = document.createElement('option');
       reservationDayOption.textContent =
-        reservation.reservation_date + ' Varaus: ' + reservation.id;
+        reservation.reservation_date +
+        ` ${translations[language].reservationInfo.reservationText}: ` +
+        reservation.id;
       reservationDayOption.value = reservation.id.toString();
       reservationDaySelect.appendChild(reservationDayOption);
     });
   } else {
     const reservationDayOption = document.createElement('option');
-    reservationDayOption.textContent = 'Ei varauksia';
+    reservationDayOption.textContent =
+      translations[language].reservationInfo.noReservations;
     reservationDayOption.value = '0';
     reservationDayOption.disabled = true;
     reservationDaySelect.appendChild(reservationDayOption);
@@ -251,7 +381,7 @@ const createProfileView = (pageData: UserProfilePageData) => {
   );
 
   const reservationDataInitial = document.createElement('p');
-  reservationDataInitial.textContent = 'Valitse varaus nähdäksesi tietoja';
+  reservationDataInitial.textContent = translations[language].reservationInfo.initialText;
   reservationDataInitial.classList.add(
     'text-h5',
     'text-primary',
@@ -280,22 +410,25 @@ const createProfileView = (pageData: UserProfilePageData) => {
     );
 
     if (!selectedReservation) {
-      reservationDataContainer.textContent = 'Valitulle varaukselle ei löytynyt tietoja';
+      reservationDataContainer.textContent =
+        language === 'FI'
+          ? 'Valitulle varaukselle ei löytynyt tietoja'
+          : 'No information found for the selected reservation';
     }
 
-    // Make this meaby as select element (For now just show the user's current reservation time)
+    // Container for reservation time, restaurant and table number
     const reservationTimeContainer = document.createElement('div');
     reservationTimeContainer.classList.add('flex', 'gap-3', 'mt-5', 'sm:mt-0', 'sm:mb-0');
 
     const reservationTimeLabel = document.createElement('label');
-    reservationTimeLabel.textContent = 'Kellonaika:';
+    reservationTimeLabel.textContent = translations[language].reservationInfo.time;
     reservationTimeLabel.classList.add('text-h5', 'font-bold', 'text-secondary');
 
     const reservationTimeElement = document.createElement('p');
     // Change this to come from backend when user is authenticated
     reservationTimeElement.textContent =
       selectedReservation?.start_time + ' - ' + selectedReservation?.end_time ||
-      'Ei kellonaikaa saatavilla';
+      translations[language].reservationInfo.timeError;
     reservationTimeElement.classList.add('text-h5', 'text-primary');
 
     reservationTimeContainer.append(reservationTimeLabel, reservationTimeElement);
@@ -310,13 +443,15 @@ const createProfileView = (pageData: UserProfilePageData) => {
     );
 
     const reservationRestaurantLabel = document.createElement('label');
-    reservationRestaurantLabel.textContent = 'Ravintola:';
+    reservationRestaurantLabel.textContent =
+      translations[language].reservationInfo.restaurant;
     reservationRestaurantLabel.classList.add('text-h5', 'font-bold', 'text-secondary');
 
     const reservationRestaurantElement = document.createElement('p');
     // Change this to come from backend when user is authenticated
     reservationRestaurantElement.textContent =
-      selectedReservation?.restaurant_name || 'Ei ravintolaa saatavilla';
+      selectedReservation?.restaurant_name ||
+      translations[language].reservationInfo.restaurantError;
     reservationRestaurantElement.classList.add('text-h5', 'text-primary');
 
     reservationRestaurantContainer.append(
@@ -335,13 +470,14 @@ const createProfileView = (pageData: UserProfilePageData) => {
     );
 
     const reservationTableLabel = document.createElement('label');
-    reservationTableLabel.textContent = 'Pöydän numero:';
+    reservationTableLabel.textContent =
+      translations[language].reservationInfo.tableNumber;
     reservationTableLabel.classList.add('text-h5', 'font-bold', 'text-secondary');
 
     const reservationTableElement = document.createElement('p');
-    // Hehe 69 nice number for a table reservation ;)
+    // Hehe 69 nice number for a table reservation ;) Used if table_id is not available
     reservationTableElement.textContent =
-      selectedReservation?.table_id.toString() || '69 :D';
+      selectedReservation?.table_id.toString() || '69? :D';
     reservationTableElement.classList.add('text-h5', 'text-primary');
 
     reservationTableContainer.append(reservationTableLabel, reservationTableElement);
@@ -377,7 +513,8 @@ const createProfileView = (pageData: UserProfilePageData) => {
   );
 
   const restaurantContactHeading = document.createElement('h5');
-  restaurantContactHeading.textContent = 'RAVINTOLAN YHTEYSTIEDOT';
+  restaurantContactHeading.textContent =
+    translations[language].restaurantContactInfo.header;
   restaurantContactHeading.classList.add(
     'text-h5',
     'font-bold',
@@ -394,7 +531,8 @@ const createProfileView = (pageData: UserProfilePageData) => {
   restaurantPhoneContainer.classList.add('flex', 'gap-3');
 
   const restaurantPhoneLabel = document.createElement('label');
-  restaurantPhoneLabel.textContent = 'Asiakaspalvelu:';
+  restaurantPhoneLabel.textContent =
+    translations[language].restaurantContactInfo.customerservice;
   restaurantPhoneLabel.classList.add('text-h6', 'font-bold', 'text-secondary');
 
   const restaurantPhone = document.createElement('p');
@@ -409,7 +547,7 @@ const createProfileView = (pageData: UserProfilePageData) => {
   restaurantEmailContainer.classList.add('flex', 'gap-3');
 
   const restaurantEmailLabel = document.createElement('label');
-  restaurantEmailLabel.textContent = 'Sähköposti:';
+  restaurantEmailLabel.textContent = translations[language].restaurantContactInfo.email;
   restaurantEmailLabel.classList.add('text-h6', 'font-bold', 'text-secondary');
 
   const restaurantEmail = document.createElement('p');
@@ -427,6 +565,6 @@ const createProfileView = (pageData: UserProfilePageData) => {
   rightSideContainer.append(reservationInfoContainer, restaurantContactContainer);
   profileViewContainer.append(profileInfoContainer, rightSideContainer);
 
-  return profileViewContainer;
+  profileContainer.appendChild(profileViewContainer);
 };
 export {createProfileView};

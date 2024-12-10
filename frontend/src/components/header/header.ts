@@ -2,6 +2,34 @@ import { handleLanguageChange } from '../../utils/handleLanguageChange';
 import {navigation} from '../navigation/navigation';
 import {router} from '../navigation/router';
 
+const translations: {[key: string]: {[key: string]: string}} = {
+  FI: {
+    main: 'Etusivu',
+    menu: 'Menu',
+    reservation: 'Varaa Pöytä',
+    restaurants: 'Ravintolat',
+    gallery: 'Galleria',
+    business: 'Yrityksille',
+  },
+  EN: {
+    main: 'Home',
+    menu: 'Menu',
+    reservation: 'Book a Table',
+    restaurants: 'Restaurants',
+    gallery: 'Gallery',
+    business: 'Business reservations',
+  },
+};
+
+const pages: {[key: string]: string} = {
+  main: '/',
+  menu: '/menu',
+  reservation: '/reservation',
+  restaurants: '/restaurants',
+  gallery: '/gallery',
+  business: '/business',
+};
+
 const logos = [
   {
     logoName: 'Facebook',
@@ -20,7 +48,7 @@ const logos = [
   },
 ];
 
-let headerLoginElement = null as HTMLAnchorElement | null;
+// let headerLoginElement = null as HTMLAnchorElement | null;
 
 const header = () => {
   const body = document.querySelector('body') as HTMLBodyElement;
@@ -68,7 +96,7 @@ const header = () => {
 
   // Still need to add the logo to the hamburger menu
   // And implement the functionality for the links
-  const hamburgerMenuLoginLogo = document.createElement('div');
+  // const hamburgerMenuLoginLogo = document.createElement('div');
 
   const hamburgerMenuContent = document.createElement('ul');
   hamburgerMenuContent.classList.add(

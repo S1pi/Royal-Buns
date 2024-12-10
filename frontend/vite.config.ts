@@ -3,7 +3,7 @@ import {defineConfig} from 'vite';
 // Vite-konfiguraatio
 export default defineConfig({
   // Peruspolku projektin buildille (esim. jos deployaat alihakemistoon)
-  base: './', // Voit muuttaa tämän tarvittaessa
+  base: '/', // Voit muuttaa tämän tarvittaessa
 
   // Palvelimen asetukset kehitystä varten
   server: {
