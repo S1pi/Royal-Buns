@@ -6,8 +6,24 @@ import {postUser, userLogin} from '../controllers/auth-controller';
 
 const authRouter = express.Router();
 
-// Käyttäjän luonti
-// Parempi olla rekisteröinti /api/auth/register
+/**
+ * @api {post} /users Create a new user
+ * @apiName PostUser
+ * @apiGroup Authentication
+ * @apiVersion 1.0.0
+ * @apiDescription Create a new user in the database.
+ *
+ * @apiParam {String} username Username of the user.
+ * @apiParam {String} password Password of the user.
+ * @apiParam {String} [email] Email of the user.
+ * @apiParam {String} [phonenumber] Phone number of the user.
+ *
+ * @apiSuccess {String} message Success message.
+ * @apiSuccess {Number} code Status code.
+ *
+ * @apiError 400 Bad Request Parameters are undefined or missing.
+ * @apiError 503 Service Unavailable Error in user creation.
+ */
 authRouter.route('/register').post(
   body('username')
     .trim()
@@ -33,7 +49,29 @@ authRouter.route('/register').post(
   postUser
 );
 
-// login test
+/**
+ * @api {post} /users/login Authenticate user
+ * @apiName UserLogin
+ * @apiGroup Authentication
+ * @apiVersion 1.0.0
+ * @apiDescription Authenticate a user with username and password.
+ *
+ * @apiParam {String} username Username of the user.
+ * @apiParam {String} password Password of the user.
+ *
+ * @apiSuccess {Object} user User information.
+ * @apiSuccess {Number} user.id User ID.
+ * @apiSuccess {String} user.username Username.
+ * @apiSuccess {String} user.email User email.
+ * @apiSuccess {String} user.phonenumber User phone number.
+ * @apiSuccess {String} user.user_type User type.
+ * @apiSuccess {Number} user.favourite_bgr_id Favourite burger ID.
+ * @apiSuccess {String} token JWT token.
+ *
+ * @apiError 400 Bad Request Parameters are undefined or missing.
+ * @apiError 401 Unauthorized Invalid credentials.
+ * @apiError 500 Internal Server Error Error fetching user from the database.
+ */
 authRouter
   .route('/login')
   .post(
