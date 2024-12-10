@@ -35,63 +35,6 @@ header {
   opacity: 1;
 }
 
-.scene {
-  perspective: 1000px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-}
-
-.card {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transition-duration: 2s;
-  transform-style: preserve-3d;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.fs {
-  position: absolute;
-  color: white;
-  width: 90%;
-  height: 90%;
-}
-
-.l-u-front {
-  backface-visibility: hidden;
-}
-
-.l-u-back {
-  backface-visibility: hidden;
-  transform: rotateY(180deg);
-}
-
-.r-front {
-  backface-visibility: hidden;
-}
-
-.r-back {
-  backface-visibility: hidden;
-  transform: rotateY(180deg);
-}
-
-.l-l-front {
-  backface-visibility: hidden;
-}
-
-.l-l-back {
-  backface-visibility: hidden;
-  transform: rotateY(180deg);
-}
-
-.card.flip {
-  transform: rotateY(-180deg);
-}
-
 input {
   border: 2px solid black;
 }
@@ -205,8 +148,13 @@ input {
   }
 }
 
-/*Tabletti*/
+/*RESPONSIIVINEN SUUNNITTELU:*/
+
+/*Tässä header, footer responsive
+
+/*TABLETTI*/
 @media (max-width: 1024px) {
+  /*HEADER*/
   .hamburgerMenu {
     display: flex;
   }
@@ -222,72 +170,40 @@ input {
   .vitunSepari {
     display: none;
   }
-  .carouselArrowContainer {
-    height: calc(100vh - 80px);
+
+  /*BG*/
+  .bg {
+    padding: 0;
   }
-  /* Pidä logIn painike näkyvissä */
-  .loginButton {
-    display: flex !important;
+  /*contentContainer*/
+  .contentContainer {
+    padding: 5px;
+  }
+  /*headingContainer*/
+  .headingContainer {
+    padding: 30px;
+  }
+  .headingTitle {
+    font-size: 50px;
   }
 }
-/*Puhelin*/
+
+/*PUHELIN*/
 @media (max-width: 768px) {
-  /* MAIN PAGE */
-
-  .mainView {
-    height: calc(50vh - 80px) !important;
-    min-height: calc(500px - 80px);
-  }
-  .videoBg {
-    height: 50vh;
-    min-height: 500px;
-  }
-  .carouselArrowContainer {
-    height: calc(50vh - 80px);
-  }
-  .restInfoContainer {
-    padding: 0px;
-    height: 50vh;
-    min-height: 500px;
-  }
-  .infoTextElement {
-    width: 80%;
-    font-size: 16px;
-    padding-bottom: 0;
-  }
-  .infoBtnContainer {
-    margin-bottom: 40px;
-  }
-  .tableTextElement {
-    width: 80%;
-    font-size: 16px;
-    padding-bottom: 0;
-  }
-
   /*FOOTER*/
   .footerTextContainer {
     flex-direction: column;
     justify-content: start;
+    padding: 0;
+  }
+  .headingTitle {
+    font-size: 40px;
   }
 }
 
-@media (max-width: 450px) {
-  .infoHeading {
-    font-size: 2rem;
-  }
-  .restInfoContainer {
-    height: auto;
-  }
-  .tabelResContainer {
-    height: auto;
-  }
-}
-
-@media (max-width: 450px) {
-  .carouselContainer {
-    display: none;
-  }
-  .carouselArrowContainer {
-    display: none;
+/*PIENI PUHELIN*/
+@media (max-width: 400px) {
+  .headingTitle {
+    font-size: 30px;
   }
 }

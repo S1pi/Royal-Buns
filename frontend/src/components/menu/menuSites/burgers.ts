@@ -1,7 +1,4 @@
-const burgers = (
-  menuDataContainer: HTMLDivElement,
-  burgersButton: HTMLButtonElement
-) => {
+const burgers = (menuDataContainer: HTMLDivElement, burgersButton: HTMLButtonElement) => {
   // TODO: SISÄLLYTÄ TÄMÄ https://www.youtube.com/watch?v=4qRZmFYdozY
   // const daySpecial = document.createElement('div');
   // daySpecial.classList.add(
@@ -21,7 +18,7 @@ const burgers = (
   // );
   // daySpecial.textContent = "Today's Special: Classic Chicken Burger for €13.99";
 
-  burgersButton.classList.toggle('border-b-primary');
+  // burgersButton.classList.add('bg-hover-green');
 
   // Mockdata for grid items
   const menuItems = [
@@ -50,8 +47,7 @@ const burgers = (
       diets: 'L',
       price: '12.90',
       name: 'Crispy Chicken Classic',
-      description:
-        'Crispy chicken fillet, lettuce, tomato, and a creamy garlic mayo.',
+      description: 'Crispy chicken fillet, lettuce, tomato, and a creamy garlic mayo.',
       photo: 'img/crispyChicken.jpeg',
       day: 'Everyday',
     },
@@ -159,7 +155,13 @@ const burgers = (
 
   // Menu grid container creation
   const menuGridContainer = document.createElement('div');
-  menuGridContainer.classList.add('grid', 'grid-cols-2', 'gap-6', 'w-full');
+  menuGridContainer.classList.add(
+    'grid',
+    'grid-cols-3',
+    'gap-6',
+    'w-full',
+    'menuGridContainer'
+  );
 
   // FOR EACH jokaselle burgerille datasta
 
@@ -173,7 +175,8 @@ const burgers = (
         'bg-white',
         'p-4',
         'rounded-md',
-        'shadow-md'
+        'shadow-md',
+        'menuItemContainer'
       );
 
       const headingContainer = document.createElement('div');
@@ -192,40 +195,50 @@ const burgers = (
       headingContainer.appendChild(itemTitle);
 
       const contentContainer = document.createElement('div');
-      contentContainer.classList.add('w-full', 'h-auto', 'flex', 'flex-1');
+      contentContainer.classList.add(
+        'w-full',
+        'h-auto',
+        'flex',
+        'flex-1',
+        'menuContentContainer'
+      );
 
       const itemPhotoContainer = document.createElement('div');
       itemPhotoContainer.classList.add(
         'flex-1',
-        // 'border-2',
-        // 'border-pink-400',
         'flex',
         'justify-center',
-        'items-center'
+        'items-center',
+        'menuPhotoContainer'
       );
 
       const itemPhoto = document.createElement('img');
       itemPhoto.src = item.photo;
       itemPhoto.alt = `Photo for ${item.name}`;
-      itemPhoto.classList.add('w-4/5', 'h-4/5', 'object-contain');
+      itemPhoto.classList.add('w-4/5', 'h-4/5', 'object-contain', 'menuPhoto');
 
       itemPhotoContainer.append(itemPhoto);
 
       const itemContentContainer = document.createElement('div');
-      itemContentContainer.classList.add('flex-1', 'flex', 'flex-col', 'p-6');
+      itemContentContainer.classList.add(
+        'flex-1',
+        'flex',
+        'flex-col',
+        'p-6',
+        'menuItemContentContainer'
+      );
 
       const itemDescription = document.createElement('p');
       itemDescription.classList.add(
         'flex-1',
         'flex',
         'p-2',
-        'text-lg',
+        'text-sm',
         'text-gray-600',
         'items-center',
         'justify-center',
-        'text-center'
-        // 'border-2',
-        // 'border-red'
+        'text-center',
+        'menuItemText'
       );
 
       const itemDescriptionText = document.createElement('div');
@@ -240,9 +253,8 @@ const burgers = (
         'text-lg',
         'text-center',
         'text-red',
-        'font-semibold'
-        // 'border-yellow',
-        // 'border-2'
+        'font-semibold',
+        'menuItemPrice'
       );
 
       itemContentContainer.append(headingContainer, itemDescription, itemPrice);

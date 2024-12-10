@@ -9,16 +9,18 @@ const menuNavigation = (
 ) => {
   // Create the menu selection container and style it
   const menuSelectionContainer = document.createElement('div');
-  // menuSelectionContainer.id = 'menuButtonSelection';
   menuSelectionContainer.classList.add(
     'flex',
-    'justify-between',
+    'justify-center',
     'items-center',
-    'bg-primary',
-    'w-2/4', // Set width to match the main menu container
-    'text-center'
+    'w-full', // Set width to match the main menu container
+    'text-center',
+    'm-10',
+    'menuSelectionContainer'
   );
+
   contentWrapper.appendChild(menuSelectionContainer);
+
   // Create the selection buttons for menus
   const menuButtons = ['BURGERS', 'SLIDERS', 'SIDES', 'DRINKS'];
   const menuButtonsElements: HTMLButtonElement[] = [];
@@ -30,33 +32,22 @@ const menuNavigation = (
     textSpan.textContent = text;
     menuSelectionButton.appendChild(textSpan);
     menuSelectionButton.classList.add(
-      'p-2', // Padding for spacing inside
+      'px-6',
+      'py-2',
       'flex-1',
-      'text-h5', // Use custom size from Tailwind config
-      'font-bold', // Bold text
-      'text-center', // Center text
-      'text-red', // Custom red color from config
-      'border-solid',
-      'border-black',
-      'border-y-2'
+      'text-h5',
+      'font-bold',
+      'text-center',
+      'text-white',
+      'rounded-xl',
+      'bg-olive-green',
+      'bg-opacity-65',
+      'my-0',
+      'mx-6',
+      'shadow-lg',
+      'hover:text-yellow',
+      'menuSelection'
     );
-
-    menuButtonsElements.forEach((element) => {
-      switch (element.id) {
-        case 'sliders':
-          element.classList.add('border-x-2');
-          break;
-        case 'burgers':
-          element.classList.add('border-l-2');
-          break;
-        case 'sides':
-          element.classList.add('border-r-2');
-          break;
-        case 'drinks':
-          element.classList.add('border-r-2');
-          break;
-      }
-    });
 
     menuSelectionContainer.appendChild(menuSelectionButton);
 
@@ -64,36 +55,37 @@ const menuNavigation = (
     menuSelectionButton.addEventListener('click', () => {
       // Clear the existing content
       menuDataContainer.innerHTML = '';
+
+      // Remove active class from all buttons
+      menuButtonsElements.forEach((button) => {
+        button.classList.remove('bg-hover-green');
+      });
+
+      // Add active class to the clicked button
+      menuSelectionButton.classList.add('bg-hover-green');
+
       // Load the appropriate content based on the button clicked
       switch (text) {
         case 'BURGERS':
-          menuButtonsElements.forEach((button) => {
-            button.classList.remove('border-b-primary');
-          });
           burgers(menuDataContainer, menuSelectionButton);
           break;
         case 'SLIDERS':
-          menuButtonsElements.forEach((button) => {
-            button.classList.remove('border-b-primary');
-          });
           sliders(menuDataContainer, menuSelectionButton);
           break;
         case 'SIDES':
-          menuButtonsElements.forEach((button) => {
-            button.classList.remove('border-b-primary');
-          });
           sides(menuDataContainer, menuSelectionButton);
           break;
         case 'DRINKS':
-          menuButtonsElements.forEach((button) => {
-            button.classList.remove('border-b-primary');
-          });
           drinks(menuDataContainer, menuSelectionButton);
           break;
       }
     });
+
     // Add burger menu to show first
-    if (text == 'BURGERS') burgers(menuDataContainer, menuSelectionButton);
+    if (text == 'BURGERS') {
+      burgers(menuDataContainer, menuSelectionButton);
+      menuSelectionButton.classList.add('bg-hover-green'); // Set default active button
+    }
   });
 };
 

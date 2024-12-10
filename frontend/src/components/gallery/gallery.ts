@@ -13,19 +13,49 @@ const gallery = () => {
     'h-screen',
     'flex',
     'justify-center',
-    'items-center'
+    'items-center',
+    'p-10',
+    'bg',
+    'galleryBg'
   );
 
   // Colored container for content
 
   const coloredContainer = document.createElement('div');
-  coloredContainer.classList.add('bg-primary', 'h-5/6', 'w-5/6', 'flex');
+  coloredContainer.classList.add(
+    'bg-primary',
+    'h-5/6',
+    'w-full',
+    'flex',
+    'contentContainer',
+    'py-10'
+  );
 
   //Heading
+
+  const headingContainer = document.createElement('div');
+  headingContainer.classList.add(
+    'text-red',
+    'font-bold',
+    'h-1/6',
+    'w-full',
+    'flex',
+    'justify-center',
+    'items-center',
+    'p-10',
+    'galleryHeadingContainer'
+  );
+
+  const heading = document.createElement('h1');
+  heading.classList.add('text-6xl', 'headingTitle');
+  heading.textContent = 'GALLERIA';
+
+  headingContainer.appendChild(heading);
 
   // Vasen puoli
   const leftHeadingContainer = document.createElement('div');
   leftHeadingContainer.classList.add(
+    'galleryLeftHeading',
     'w-1/12',
     'h-full',
     'text-red',
@@ -36,9 +66,11 @@ const gallery = () => {
 
   const leftHeading = document.createElement('div');
   leftHeading.classList.add(
+    'galleryLeftHeading',
     'flex',
     'flex-col',
-    'h-5/6',
+    'h-full',
+    'py-10',
     'justify-center',
     'text-center',
     'text-[3vw]',
@@ -63,20 +95,23 @@ const gallery = () => {
     'text-red',
     'flex',
     'justify-center',
-    'items-center'
+    'items-center',
+    'galleryRightHeadingContainer'
   );
 
   const rightHeading = document.createElement('div');
   rightHeading.classList.add(
     'flex',
     'flex-col',
-    'h-5/6',
+    'h-full',
+    'py-10',
     'justify-center',
     'text-center',
     'text-[3vw]',
     'font-bold',
     'transform',
-    'rotate-180'
+    'rotate-180',
+    'galleryRightHeadingContainer'
   );
 
   const rightLetters = 'GALLERIA';
@@ -90,13 +125,20 @@ const gallery = () => {
   rightHeadingContainer.appendChild(rightHeading);
 
   const contentContainer = document.createElement('div');
-  contentContainer.classList.add('w-10/12', 'h-full', 'flex');
+  contentContainer.classList.add('w-10/12', 'h-full', 'flex', 'galleryContentContainer');
 
   const leftContentContainer = document.createElement('div');
-  leftContentContainer.classList.add('w-2/3', 'h-full', 'relative', 'p-12');
+  leftContentContainer.classList.add(
+    'galleryLeftContentContainer',
+    'w-2/3',
+    'h-full',
+    'relative',
+    'p-12'
+  );
 
   const leftUpperScene = document.createElement('div');
   leftUpperScene.classList.add(
+    'leftUpperScene',
     'scene',
     'absolute',
     'left-10',
@@ -136,13 +178,13 @@ const gallery = () => {
 
   const leftLowerScene = document.createElement('div');
   leftLowerScene.classList.add(
+    'leftLowerScene',
     'scene',
     'absolute',
     'bottom-10',
     '-right-10',
     'w-3/5',
     'h-3/5',
-    // 'border-white',
     'border-2'
   );
 
@@ -174,6 +216,7 @@ const gallery = () => {
 
   const rightContentContainer = document.createElement('div');
   rightContentContainer.classList.add(
+    'galleryRightContentContainer',
     // 'bg-white',
     'w-1/3',
     'h-full',
@@ -184,6 +227,7 @@ const gallery = () => {
 
   const rightScene = document.createElement('div');
   rightScene.classList.add(
+    'rightScene',
     'scene',
     'w-full',
     'h-3/4',
@@ -258,6 +302,7 @@ const gallery = () => {
   contentContainer.append(leftContentContainer, rightContentContainer);
 
   coloredContainer.append(
+    headingContainer,
     leftHeadingContainer,
     contentContainer,
     rightHeadingContainer

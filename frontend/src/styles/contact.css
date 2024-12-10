@@ -1,0 +1,62 @@
+/*Tabletti*/
+@media (max-width: 1024px) {
+  .businessTextContainer {
+    width: 80%;
+  }
+  .businessFormContainer {
+    width: 80%;
+  }
+  .businessForm {
+    padding: 40px;
+  }
+}
+
+/*Puhelin*/
+@media (max-width: 768px) {
+  .businessTextContainer {
+    width: 100%;
+  }
+  .businessFormContainer {
+    width: 100%;
+  }
+  .businessForm {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 550px) {
+  .contactHeadingContainer {
+    padding: 20px;
+  }
+  .contactHeading {
+    font-size: 42px;
+    line-height: 1;
+  }
+}
+
+/*Pieni puhelin*/
+@media (max-width: 400px) {
+  .businessTextContainer {
+    width: 100%;
+    padding: 10px;
+  }
+  .businessFormContainer {
+    width: 100%;
+    padding: 20px;
+  }
+  .businessForm {
+    padding: 20px;
+  }
+
+  .contactHeading {
+    font-size: 32px;
+    line-height: 1;
+  }
+}
+
+@media (max-width: 300px) {
+  .contactHeading {
+    font-size: 25px;
+    line-height: 1;
+  }
+}

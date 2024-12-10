@@ -1,0 +1,63 @@
+/*Tabletti*/
+@media (max-width: 1024px) {
+  .carouselArrowContainer {
+    height: calc(100vh - 80px);
+  }
+}
+/*Puhelin*/
+@media (max-width: 768px) {
+  .mainView {
+    height: calc(50vh - 80px) !important;
+    min-height: calc(500px - 80px);
+  }
+  .videoBg {
+    height: 50vh;
+    min-height: 500px;
+  }
+  .carouselArrowContainer {
+    height: calc(50vh - 80px);
+  }
+  .restInfoContainer {
+    padding: 0px;
+    height: 50vh;
+    min-height: 500px;
+  }
+  .infoTextElement {
+    width: 80%;
+    font-size: 16px;
+    padding-bottom: 0;
+  }
+  .infoBtnContainer {
+    margin-bottom: 40px;
+  }
+  .tableTextElement {
+    width: 80%;
+    font-size: 16px;
+    padding-bottom: 0;
+  }
+}
+
+/*pieni puhelin*/
+@media (max-width: 400px) {
+  .infoHeading {
+    font-size: 2rem;
+  }
+  .restInfoContainer {
+    height: auto;
+  }
+  .tabelResContainer {
+    height: auto;
+  }
+  .carouselArrowContainer {
+    width: 30px;
+    padding: 5px;
+  }
+  .carouselTitle {
+    font-size: 20px;
+    line-height: 30px;
+  }
+  .carouselDesc {
+    font-size: 15px;
+    line-height: 20px;
+  }
+}

@@ -17,7 +17,8 @@ const authenticationComponent = async () => {
     'flex',
     'justify-center',
     'items-center',
-    'flex-col'
+    'flex-col',
+    'bg'
   );
 
   // TODO: authentication check and redirect

@@ -1,96 +1,164 @@
 const infoPage = () => {
-  const appDiv = document.querySelector('#app') as HTMLElement;
+  const app = document.getElementById('app') as HTMLElement;
 
-  const bgContainer = document.createElement('div');
-  bgContainer.classList.add('bg-background-light', 'p-10');
-
-  const header = document.querySelector('header');
-  header?.classList.remove('bg-opacity-0');
-
-  const infoMainContainer = document.createElement('div');
-  infoMainContainer.classList.add(
-    'container',
-    'mx-auto',
-    'bg-primary', // Use the Tailwind CSS class for the custom background color
-    'p-5'
-  );
-
-  const infoContentWrapper = document.createElement('div');
-  infoContentWrapper.classList.add('flex', 'flex-col', 'md:flex-row', 'w-full');
-  infoMainContainer.appendChild(infoContentWrapper);
-
-  const infoLeftContent = document.createElement('div');
-  infoLeftContent.classList.add(
-    'flex',
-    'flex-col',
+  // Colored background
+  const bg = document.createElement('div');
+  bg.classList.add(
+    'bg-background-light',
     'w-full',
-    'md:w-1/2',
-    'p-2'
+    'h-auto',
+    'flex',
+    'justify-center',
+    'items-center',
+    'p-10',
+    'bg'
   );
-  infoContentWrapper.appendChild(infoLeftContent);
 
-  const infoLeftContentTitle = document.createElement('h1');
-  const leftTitleText =
-    'Welcome to Royal Buns – Where Every Bite is Fit for a King!';
-  infoLeftContentTitle.textContent = leftTitleText;
-  infoLeftContentTitle.classList.add(
-    'text-2xl',
+  const container = document.createElement('div');
+  container.classList.add(
+    'bg-primary',
+    'h-5/6',
+    'w-5/6',
+    'flex-col',
+    'p-10',
+    'contentContainer'
+  );
+
+  //Heading
+
+  const headingContainer = document.createElement('div');
+  headingContainer.classList.add(
+    'text-red',
     'font-bold',
-    'text-center',
-    'mb-4'
+    'h-1/6',
+    'w-full',
+    'flex',
+    'justify-center',
+    'items-center',
+    'p-10',
+    'headingContainer',
+    'infoHeadingContainer'
   );
-  infoLeftContent.appendChild(infoLeftContentTitle);
 
-  const infoLeftContentText = document.createElement('p');
-  const leftContentText =
-    'At Royal Buns, we believe in creating burgers that are nothing short of royalty. Our premium ingredients are sourced from the finest local farms, ensuring that each bite bursts with flavor. Whether you´re craving a classic cheeseburger or one of our signature creations, each burger is handcrafted to perfection.';
-  infoLeftContentText.textContent = leftContentText;
-  infoLeftContentText.classList.add(
-    'text-base',
-    'font-normal',
-    'text-center',
-    'mb-4'
+  const heading = document.createElement('h1');
+  heading.classList.add('text-5xl', 'infoHeading');
+  heading.textContent = 'MIKÄ ON ROYAL BUNS?';
+
+  headingContainer.appendChild(heading);
+
+  // Content Container includes text and form container
+
+  const contentContainer = document.createElement('div');
+  contentContainer.classList.add(
+    'flex',
+    'h-auto',
+    'min-h-1/2',
+    'items-center',
+    'infoContentContainer'
   );
-  infoLeftContent.appendChild(infoLeftContentText);
 
-  const infoLeftContentImage = document.createElement('img');
-  infoLeftContentImage.classList.add('w-full', 'mx-auto');
-  infoLeftContentImage.src = './src/components/infoPage/info-img/chef.webp';
-  infoLeftContentImage.alt = 'Burger cooker man';
-  infoLeftContent.appendChild(infoLeftContentImage);
-
-  const infoRightContent = document.createElement('div');
-  infoRightContent.classList.add(
+  const leftContentContainer = document.createElement('div');
+  leftContentContainer.classList.add(
+    'h-full',
+    'w-1/2',
     'flex',
     'flex-col',
+    'infoDataContainer',
+    'infoDataContainerLeft'
+  );
+
+  const rightContentContainer = document.createElement('div');
+  rightContentContainer.classList.add(
+    'h-full',
+    'w-1/2',
+    'flex',
+    'flex-col',
+    'infoDataContainer',
+    'infoDataContainerRight'
+  );
+
+  contentContainer.append(leftContentContainer, rightContentContainer);
+
+  const leftUpperContainer = document.createElement('div');
+  leftUpperContainer.classList.add(
+    'p-5',
+    'h-1/2',
     'w-full',
-    'md:w-1/2',
-    'p-2',
-    'bg-primary'
+    'flex',
+    'items-center',
+    'justify-center',
+    'infoPhotoTextContainer'
   );
-  infoContentWrapper.appendChild(infoRightContent);
 
-  const infoRightContentImage = document.createElement('img');
-  infoRightContentImage.classList.add('w-3/4', 'mx-auto', 'p-2');
-  infoRightContentImage.src =
-    './src/components/infoPage/info-img/burger-holding-tray.webp';
-  infoRightContentImage.alt = 'Chef holding a tray of burgers';
-  infoRightContent.appendChild(infoRightContentImage);
+  const leftUpperText = document.createElement('p');
+  leftUpperText.textContent =
+    'Royal Bunsilla uskomme burgereihin, jotka ovat kuin kuninkaallisia. Käytämme ensiluokkaisia raaka-aineita, jotka hankimme parhaimmilta paikallisilta tiloilta, jotta jokainen suupala olisi täynnä makua. Olipa mielessäsi perinteinen juustohampurilainen tai jokin ainutlaatuisista luomuksistamme, jokainen burger valmistetaan huolella täydellisyyttä tavoitellen.';
 
-  const infoRightContentText = document.createElement('p');
-  const rightContentText =
-    'Our brioche buns are baked fresh daily, while our patties are made from 100% organic beef, seasoned with our secret blend of herbs and spices. For those with a more adventurous palate, we offer a selection of gourmet toppings, from truffle aioli to caramelized onions and smoked cheddar. Vegetarian or vegan? No problem! We have a range of plant-based options that are equally regal. At Royal Buns, it’s not just about burgers; it’s about an experience. Our modern yet cozy atmosphere makes it the perfect spot for a quick lunch or a relaxed dinner with friends. Pair your burger with our handcrafted fries or indulge in our artisanal milkshakes – a treat worthy of royalty. Come by Royal Buns and taste the difference – because at Royal Buns, we believe every meal should be a royal feast!';
-  infoRightContentText.textContent = rightContentText;
-  infoRightContentText.classList.add(
-    'text-base',
-    'font-normal',
-    'text-center',
-    'mb-4'
+  leftUpperText.classList.add('w-5/6', 'p-4', 'text-center', 'infoPageTextContent');
+  leftUpperContainer.appendChild(leftUpperText);
+
+  const leftLowerContainer = document.createElement('div');
+  leftLowerContainer.classList.add(
+    'p-5',
+    'h-1/2',
+    'min-h-60',
+    'w-full',
+    'flex',
+    'items-center',
+    'justify-center',
+    'infoPhotoTextContainer'
   );
-  infoRightContent.appendChild(infoRightContentText);
 
-  bgContainer.appendChild(infoMainContainer); // Append the main container to the div with id "app"
-  appDiv.appendChild(bgContainer);
+  const leftImg = document.createElement('img');
+  leftImg.src = './src/components/infoPage/info-img/infoPagePhoto2.jpg';
+  leftImg.classList.add('h-full', 'w-full', 'max-w-xl');
+
+  leftLowerContainer.appendChild(leftImg);
+
+  const rightUpperContainer = document.createElement('div');
+  rightUpperContainer.classList.add(
+    'p-5',
+    'h-1/2',
+    'min-h-60',
+    'w-full',
+    'flex',
+    'items-center',
+    'justify-center',
+    'infoPhotoTextContainer'
+  );
+
+  const rightImg = document.createElement('img');
+  rightImg.src = './src/components/infoPage/info-img/infoPagePhoto1.jpeg';
+  rightImg.classList.add('h-full', 'w-full', 'max-w-xl');
+
+  rightUpperContainer.appendChild(rightImg);
+
+  const rightLowerContainer = document.createElement('div');
+  rightLowerContainer.classList.add(
+    'p-5',
+    'h-1/2',
+    'w-full',
+    'flex',
+    'items-center',
+    'justify-center',
+    'infoPhotoTextContainer'
+  );
+
+  const rightLowerText = document.createElement('p');
+  rightLowerText.textContent =
+    'Kuvassa näkyy Royal Bunsin pääkokki, Armando Christian Pérez, jonka intohimo ruokaan näkyy jokaisessa annoksessa. Andres on luonut ainutlaatuisia reseptejä, jotka yhdistävät perinteiset maut moderniin burgertaiteeseen. Hänen missionaan on tarjota asiakkaille elämyksiä, jotka ylittävät odotukset – joka kerta.';
+  rightLowerText.classList.add('w-5/6', 'p-4', 'text-center', 'infoPageTextContent');
+
+  rightLowerContainer.appendChild(rightLowerText);
+
+  leftContentContainer.append(leftUpperContainer, leftLowerContainer);
+  rightContentContainer.append(rightUpperContainer, rightLowerContainer);
+
+  //APPENDS
+
+  container.append(headingContainer, contentContainer);
+  bg.appendChild(container);
+  app.prepend(bg);
 };
 
 export {infoPage};
