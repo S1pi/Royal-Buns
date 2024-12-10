@@ -63,7 +63,7 @@ const header = () => {
   );
 
   const hamburgerMenuCloseIcon = document.createElement('i');
-  hamburgerMenuCloseIcon.classList.add('fa-solid', 'fa-x', 'text-4xl');
+  hamburgerMenuCloseIcon.classList.add('fa-solid', 'fa-x', 'text-4xl', 'cursor-pointer');
   hamburgerMenuDisplayCloseCont.appendChild(hamburgerMenuCloseIcon);
 
   // Still need to add the logo to the hamburger menu
@@ -100,26 +100,6 @@ const header = () => {
       } else {
         document.body.style.overflow = '';
       }
-    }
-  });
-
-  document.body.addEventListener('touchstart', (event) => {
-    touchStartX = event.touches[0].clientX; // Tallenna aloituskosketuksen X-koordinaatti
-  });
-
-  document.body.addEventListener('touchmove', (event) => {
-    touchEndX = event.touches[0].clientX; // Päivitä kosketuksen nykyinen sijainti
-  });
-
-  document.body.addEventListener('touchend', () => {
-    if (touchStartX - touchEndX > swipeThreshold) {
-      // Jos käyttäjä pyyhkäisee vasemmalle
-      hamburgerMenuDisplay.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    } else if (touchStartX - touchEndX < -swipeThreshold) {
-      // Jos käyttäjä pyyhkäisee oikealle
-      hamburgerMenuDisplay.classList.remove('show');
-      document.body.style.overflow = '';
     }
   });
 
@@ -224,7 +204,7 @@ const header = () => {
 
   hamburgerMenuContainer.append(hamburgerIcon);
 
-  hamburgerMenuContainer.addEventListener('click', () => {
+  hamburgerIcon.addEventListener('click', () => {
     const menuDisplay = document.querySelector('.hamburgerMenuDisplay') as HTMLDivElement;
 
     if (menuDisplay) {

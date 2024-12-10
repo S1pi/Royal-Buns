@@ -1,0 +1,102 @@
+/*Valtteri Wersterlund keskeytti minut klo 1:57:45*/
+@media (max-width: 1600px) {
+  .menuGridContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/*Tabletti*/
+@media (max-width: 1024px) {
+  .menuDataContainer {
+    margin-bottom: 20px;
+    padding: 30px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .menuContentContainer {
+    flex-direction: column;
+  }
+  .menuPhoto {
+    max-width: 200px;
+  }
+}
+
+/*Puhelin*/
+@media (max-width: 700px) {
+  .menuSelection {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 15px;
+  }
+  .menuDailyContainer {
+    margin: 10px;
+    padding: 20px;
+  }
+  .menuDailyHeading {
+    font-size: 15px;
+  }
+  .menuDailyItemPhoto {
+    padding: 10px;
+    max-width: 200px;
+  }
+  .menuDailyItemDesc {
+    font-size: 13px;
+  }
+  .menuDailyItemContentContainer {
+    padding: 15px;
+  }
+  .menuDailyWhiteContainer {
+    height: 80%;
+  }
+  .menuItemText {
+    font-size: 12px;
+  }
+  .menuItemContentContainer {
+    padding: 10px;
+  }
+}
+
+/*Pieni puhelin*/
+@media (max-width: 500px) {
+  .menuSelectionContainer {
+    flex-wrap: wrap;
+    margin: 20px;
+  }
+  .menuSelection {
+    display: inline-block;
+    min-width: 150px;
+    margin: 5px;
+  }
+  .menuGridContainer {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .menuItemPrice {
+    padding: 0;
+  }
+}
+
+/*Pieni puhelin*/
+@media (max-width: 400px) {
+  .menuDailyContentContainer {
+    flex-direction: column;
+    padding: 0;
+  }
+  .menuDailyItemContentContainer {
+    padding: 0px;
+  }
+  .dailyBurgerHeading {
+    font-size: 25px;
+  }
+  .menuDailyItemPrice {
+    padding: 0;
+  }
+  .menuDailyItemPhoto {
+    padding: 0px;
+    max-width: 130px;
+  }
+}

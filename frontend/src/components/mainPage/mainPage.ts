@@ -9,22 +9,21 @@ const carouselData = [
   {
     id: 1,
     heading: 'Päivän burgeri',
-    text: 'Tänään tällainen vitun mahtava burgeri',
-    link: 'joo tähä via tasus joksdni',
+    text: 'Joka päivä kaikissa toimipisteissämme on tarjolla päivän Burger! Katso päivittäin päivittyvä Daily Burger Menustamme.',
+    link: '/menu',
   },
   {
     id: 2,
     heading: 'Lounastarjous',
-    text: 'lounalla jotain ja jotain hintaan jotain €',
-    link: 'linkki tähän',
+    text: 'Kaikissa toimipisteissämme saat lounasaikaan (klo 10-14) hampurilaisen, lisukkeen ja juoman yhteishintaan 16,90€. Katso lähin toimipaikkamme ja tule lounaalle!',
+    link: '/restaurants',
   },
   {
     id: 3,
     heading: 'Vastuullisuus',
-    text: 'Tiesitkö että 94% raaka-aineistamme on kotimaisia',
-    link: 'linkki tähän',
+    text: 'Tiesitkö että 94% raaka-aineistamme on kotimaisia! Meille vastuullisuus on tärkeä asia - uskomme suomalaisiin raaka-aineisiin ja työvoimaan. Lue lisää vastuullisuudestamme!',
+    link: '/responsibility',
   },
-  // {},
 ];
 
 const mainPage = () => {
@@ -57,12 +56,7 @@ const mainPage = () => {
   // bg
 
   const mainScreenView = document.createElement('div');
-  mainScreenView.classList.add(
-    'flex',
-    'items-center',
-    'justify-center',
-    'mainView'
-  );
+  mainScreenView.classList.add('flex', 'items-center', 'justify-center', 'mainView');
   mainScreenView.style.height = 'calc(100vh - 80px)';
 
   // carousel container
@@ -159,7 +153,8 @@ const mainPage = () => {
       'font-bold',
       'text-white',
       'drop-shadow-lg',
-      'shadow-black'
+      'shadow-black',
+      'carouselTitle'
     );
     title.innerText = item.heading;
 
@@ -169,7 +164,8 @@ const mainPage = () => {
       'text-white',
       'mt-8',
       'drop-shadow-lg',
-      'shadow-black'
+      'shadow-black',
+      'carouselDesc'
     );
     description.innerText = item.text;
 
@@ -196,7 +192,8 @@ const mainPage = () => {
         'rounded-lg',
         'bg-yellow',
         'drop-shadow-xl',
-        'shadow-black'
+        'shadow-black',
+        'carouselLink'
       );
 
       const link = document.createElement('a');
@@ -230,12 +227,8 @@ const mainPage = () => {
 
   // EVENT LISTENER FOR CAROUSEL
 
-  leftArrowContainer.addEventListener('click', () =>
-    slideToIndex(currentIndex - 1)
-  );
-  rightArrowContainer.addEventListener('click', () =>
-    slideToIndex(currentIndex + 1)
-  );
+  leftArrowContainer.addEventListener('click', () => slideToIndex(currentIndex - 1));
+  rightArrowContainer.addEventListener('click', () => slideToIndex(currentIndex + 1));
 
   // other mainpage content to here
 

@@ -1,0 +1,37 @@
+@media (max-width: 1400px) {
+  .respPhotoTextContainer {
+    flex-direction: column-reverse;
+  }
+
+  .respImgContainer {
+    padding: 20px 50px;
+  }
+}
+
+/*Tabletti*/
+@media (max-width: 1024px) {
+  .respTextContainer {
+    padding: 40px;
+  }
+}
+
+/*Puhelin*/
+@media (max-width: 550px) {
+  .respHeading {
+    font-size: 40px;
+  }
+  .respText {
+    font-size: 14px;
+  }
+}
+
+/*Pieni puhelin*/
+@media (max-width: 400px) {
+  .respHeading {
+    font-size: 30px;
+  }
+
+  .respText {
+    font-size: 12px;
+  }
+}

@@ -12,13 +12,21 @@ const business = () => {
     'flex',
     'justify-center',
     'items-center',
-    'p-10'
+    'p-10',
+    'bg'
   );
 
   // Colored container for content
 
   const container = document.createElement('div');
-  container.classList.add('bg-primary', 'h-5/6', 'w-5/6', 'p-10', 'flex-col');
+  container.classList.add(
+    'bg-primary',
+    'h-5/6',
+    'w-5/6',
+    'flex-col',
+    'p-10',
+    'contentContainer'
+  );
 
   //Heading
 
@@ -27,10 +35,12 @@ const business = () => {
     'text-red',
     'font-bold',
     'h-1/6',
-    'w-1/1',
+    'w-full',
     'flex',
     'justify-center',
-    'p-10'
+    'items-center',
+    'p-10',
+    'headingContainer'
   );
 
   // Content Container includes text and form container
@@ -41,27 +51,25 @@ const business = () => {
   const textContainer = document.createElement('div');
   textContainer.classList.add(
     'flex',
-    'h-1/6',
     'items-end',
-    'p-15',
-    // 'bg-blue-500',
+    'p-10',
     'text-center',
-    'w-2/5'
+    'w-4/5',
+    'businessTextContainer'
   );
 
   const formContainer = document.createElement('div');
   formContainer.classList.add(
     'flex',
-    'h-5/6',
     'justify-center',
     'items-center',
     'p-10',
-    // 'bg-green',
-    'w-3/5'
+    'w-3/5',
+    'businessFormContainer'
   );
 
   const heading = document.createElement('h1');
-  heading.classList.add('text-6xl');
+  heading.classList.add('text-6xl', 'headingTitle');
   heading.textContent = 'YRITYKSILLE';
 
   const p = document.createElement('p');
@@ -86,7 +94,8 @@ Ole yhteydessä alla olevalla lomakkeella.`;
     'border-red',
     'p-14',
     'rounded-3xl',
-    'shadow-xl'
+    'shadow-xl',
+    'businessForm'
   );
 
   // Name input
@@ -176,14 +185,7 @@ Ole yhteydessä alla olevalla lomakkeella.`;
   });
 
   // Append everything
-  form.append(
-    nameField,
-    emailField,
-    subjectField,
-    messageField,
-    sendBtn,
-    successMessage
-  );
+  form.append(nameField, emailField, subjectField, messageField, sendBtn, successMessage);
   formContainer.append(form);
   contentContainer.append(textContainer, formContainer);
   headingContainer.append(heading);

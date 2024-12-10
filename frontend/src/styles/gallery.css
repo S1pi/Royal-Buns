@@ -1,0 +1,142 @@
+.scene {
+  perspective: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition-duration: 2s;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fs {
+  position: absolute;
+  color: white;
+  width: 90%;
+  height: 90%;
+}
+
+.l-u-front {
+  backface-visibility: hidden;
+}
+
+.l-u-back {
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.r-front {
+  backface-visibility: hidden;
+}
+
+.r-back {
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.l-l-front {
+  backface-visibility: hidden;
+}
+
+.l-l-back {
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.card.flip {
+  transform: rotateY(-180deg);
+}
+
+.galleryHeadingContainer {
+  display: none;
+}
+
+/*RESPONSIVE*/
+
+/*Tabletti*/
+@media (max-width: 1024px) {
+  .galleryBg {
+    height: calc(100vh - 100px);
+  }
+  .contentContainer {
+    height: 100%;
+    flex-direction: column;
+  }
+  .galleryLeftHeading {
+    font-size: 40px;
+  }
+  .galleryRightHeadingContainer {
+    display: none;
+  }
+  .galleryLeftHeading {
+    display: none;
+  }
+  .headingContainer {
+    display: flex;
+  }
+  .galleryContentContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .galleryLeftContentContainer {
+    width: 100%;
+    padding: 0;
+  }
+  .galleryRightContentContainer {
+    width: 100%;
+    overflow: hidden;
+  }
+  .galleryLeftHeading {
+    font-size: 30px;
+    padding-left: 20px;
+  }
+  .fs {
+    width: 80%;
+    height: 100%;
+  }
+  .leftUpperScene {
+    top: 10px;
+    left: 0;
+    width: 60%;
+    height: 60%;
+  }
+  .leftLowerScene {
+    bottom: -10px;
+    right: 0;
+    width: 60%;
+    height: 60%;
+  }
+  .rightScene {
+    width: 80%;
+    height: 80%;
+  }
+}
+
+/*Puhelin*/
+@media (max-width: 768px) {
+  .galleryBg {
+    height: calc(100vh - 100px);
+  }
+  .contentContainer {
+    height: 100%;
+  }
+}
+
+/*Pieni puhelin*/
+@media (max-width: 400px) {
+  .galleryBg {
+    height: 60vh;
+  }
+  .contentContainer {
+    height: 100%;
+  }
+}

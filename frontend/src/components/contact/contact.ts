@@ -9,16 +9,25 @@ const contact = () => {
   bg.classList.add(
     'bg-background-light',
     'w-full',
+    'h-auto',
     'flex',
     'justify-center',
     'items-center',
-    'p-10'
+    'p-10',
+    'bg'
   );
 
   // Colored container for content
 
   const container = document.createElement('div');
-  container.classList.add('bg-primary', 'h-5/6', 'w-5/6', 'p-10', 'flex-col');
+  container.classList.add(
+    'bg-primary',
+    'h-auto',
+    'w-full',
+    'flex-col',
+    'p-10',
+    'contentContainer'
+  );
 
   //Heading
 
@@ -27,40 +36,42 @@ const contact = () => {
     'text-red',
     'font-bold',
     'h-1/6',
-    'w-1/1',
+    'w-full',
     'flex',
     'justify-center',
-    'p-10'
+    'items-center',
+    'p-10',
+    'headingContainer',
+    'contactHeadingContainer'
   );
 
   // Content Container includes text and form container
 
   const contentContainer = document.createElement('div');
-  contentContainer.classList.add('flex', 'h-5/6', 'flex-col', 'items-center');
+  contentContainer.classList.add('flex', 'h-auto', 'flex-col', 'items-center');
 
   const textContainer = document.createElement('div');
   textContainer.classList.add(
-    'h-1/6',
+    'flex',
     'items-end',
-    'p-15',
-    // 'bg-blue-500',
+    'p-10',
     'text-center',
-    'w-2/5'
+    'w-4/5',
+    'businessTextContainer'
   );
 
   const formContainer = document.createElement('div');
   formContainer.classList.add(
     'flex',
-    'h-5/6',
     'justify-center',
     'items-center',
     'p-10',
-    // 'bg-green',
-    'w-3/5'
+    'w-3/5',
+    'businessFormContainer'
   );
 
   const heading = document.createElement('h1');
-  heading.classList.add('text-6xl');
+  heading.classList.add('text-6xl', 'contactHeading');
   heading.textContent = 'OTA YHTEYTTÄ';
 
   const p = document.createElement('p');
@@ -187,14 +198,7 @@ const contact = () => {
   });
 
   // Append everything
-  form.append(
-    nameField,
-    emailField,
-    subjectField,
-    messageField,
-    sendBtn,
-    successMessage
-  );
+  form.append(nameField, emailField, subjectField, messageField, sendBtn, successMessage);
   formContainer.append(form);
   contentContainer.append(textContainer, formContainer);
   headingContainer.append(heading);

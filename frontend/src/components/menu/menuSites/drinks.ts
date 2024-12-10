@@ -1,8 +1,5 @@
-const drinks = (
-  menuDataContainer: HTMLDivElement,
-  drinksButton: HTMLButtonElement
-) => {
-  drinksButton.classList.toggle('border-b-primary');
+const drinks = (menuDataContainer: HTMLDivElement, drinksButton: HTMLButtonElement) => {
+  // drinksButton.classList.toggle('border-b-primary');
 
   //Mock data for menu items TODO: Drinks mockdata
   //TODO: replace with actual data from the database
@@ -12,77 +9,85 @@ const drinks = (
       name: 'Classic Coke',
       diets: 'basic',
       description: 'The timeless taste of Coca-Cola, served chilled to perfection.',
-      image: 'path-to-image1.jpg',
-      price: '€3.99',
+      image: 'img/cola.jpeg',
+      price: '3.99',
     },
     {
       id: 2,
       name: 'Golden Citrus Elixir',
       diets: 'basic',
       description: 'Freshly squeezed orange juice, bursting with vibrant citrus flavors.',
-      image: 'path-to-image2.jpg',
-      price: '€4.49',
+      image: 'img/orangeJuice.jpeg',
+      price: '4.49',
     },
     {
       id: 3,
       name: 'Royal Lemonade',
       diets: 'basic',
       description: 'A refreshing blend of lemons and a hint of mint, fit for royalty.',
-      image: 'path-to-image3.jpg',
-      price: '€4.99',
+      image: 'img/lemonade.jpeg',
+      price: '4.99',
     },
     {
       id: 4,
       name: 'Imperial Iced Tea',
       diets: 'basic',
       description: 'Chilled iced tea with a touch of lemon, a drink of emperors.',
-      image: 'path-to-image4.jpg',
-      price: '€3.99',
+      image: 'img/iceTea.jpeg',
+      price: '3.99',
     },
     {
       id: 5,
       name: 'Sparkling Crystal Water',
       diets: 'basic',
       description: 'Pure carbonated water, as clear and refreshing as a mountain spring.',
-      image: 'path-to-image5.jpg',
-      price: '€2.99',
+      image: 'img/sparklingWater.jpeg',
+      price: '2.99',
     },
     {
       id: 6,
       name: 'Velvet Milkshake',
       diets: 'basic',
-      description: 'A creamy milkshake with your choice of gourmet flavors, a true indulgence.',
-      image: 'path-to-image6.jpg',
-      price: '€5.99',
+      description:
+        'A creamy milkshake with your choice of gourmet flavors, a true indulgence.',
+      image: 'img/milkShake.jpeg',
+      price: '5.99',
     },
     {
       id: 7,
       name: 'Royal Red Wine',
       diets: 'alcoholic',
       description: 'A glass of exquisite red wine, aged to perfection.',
-      image: 'path-to-image7.jpg',
-      price: '€19.99',
+      image: 'img/redWine.jpeg',
+      price: '19.99',
     },
     {
       id: 8,
       name: 'Golden Ale',
       diets: 'alcoholic',
       description: 'A premium golden ale with a rich, smooth taste.',
-      image: 'path-to-image8.jpg',
-      price: '€8.99',
+      image: 'img/ale.jpeg',
+      price: '8.99',
     },
     {
       id: 9,
       name: 'Dom Pérignon Vintage',
       diets: 'alcoholic',
-      description: 'The epitome of luxury, this vintage champagne offers an unparalleled taste experience.',
-      image: 'path-to-image9.jpg',
-      price: '€299.99',
+      description:
+        'The epitome of luxury, this vintage champagne offers an unparalleled taste experience.',
+      image: 'img/champagne.jpeg',
+      price: '29.99',
     },
   ];
   // Menu grid container creation
   const menuGridContainer = document.createElement('div');
-  menuGridContainer.classList.add('grid', 'grid-cols-3', 'gap-4', 'w-full');
+  menuGridContainer.classList.add(
+    'grid',
+    'grid-cols-3',
+    'gap-6',
+    'w-full',
+    'menuGridContainer'
+  );
 
   menuItems.forEach((item) => {
     const menuItem = document.createElement('div');
@@ -93,26 +98,98 @@ const drinks = (
       'bg-white',
       'p-4',
       'rounded-md',
-      'shadow-md'
+      'shadow-md',
+      'menuItemContainer'
     );
+
+    const headingContainer = document.createElement('div');
+    headingContainer.classList.add(
+      'w-full',
+      'h-auto',
+      'flex',
+      'items-center',
+      'justify-center'
+    );
+
     const itemTitle = document.createElement('h3');
     itemTitle.textContent = item.name;
-    itemTitle.classList.add('font-bold', 'text-lg', 'text-center');
+    itemTitle.classList.add('font-bold', 'text-xl', 'text-center', 'pt-2');
+
+    headingContainer.appendChild(itemTitle);
+
+    const contentContainer = document.createElement('div');
+    contentContainer.classList.add(
+      'w-full',
+      'h-auto',
+      'flex',
+      'flex-1',
+      'menuContentContainer'
+    );
+
+    const itemPhotoContainer = document.createElement('div');
+    itemPhotoContainer.classList.add(
+      'flex-1',
+      'flex',
+      'justify-center',
+      'items-center',
+      'menuPhotoContainer'
+    );
+
+    const itemPhoto = document.createElement('img');
+    itemPhoto.src = item.image;
+    itemPhoto.alt = `Photo for ${item.name}`;
+    itemPhoto.classList.add('w-4/5', 'h-4/5', 'object-contain', 'menuPhoto');
+
+    itemPhotoContainer.append(itemPhoto);
+
+    const itemContentContainer = document.createElement('div');
+    itemContentContainer.classList.add(
+      'flex-1',
+      'flex',
+      'flex-col',
+      'p-6',
+      'menuItemContentContainer'
+    );
 
     const itemDescription = document.createElement('p');
-    itemDescription.textContent = item.description;
-    itemDescription.classList.add('text-sm', 'text-gray-600', 'text-center');
+    itemDescription.classList.add(
+      'flex-1',
+      'flex',
+      'p-2',
+      'text-lg',
+      'text-gray-600',
+      'items-center',
+      'justify-center',
+      'text-center',
+      'menuItemText'
+    );
+
+    const itemDescriptionText = document.createElement('div');
+    itemDescriptionText.textContent = item.description;
+
+    itemDescription.appendChild(itemDescriptionText);
 
     const itemPrice = document.createElement('p');
-    itemPrice.textContent = item.price;
-    itemPrice.classList.add('text-lg', 'text-red-500', 'font-semibold');
+    itemPrice.textContent = item.price + ' €';
+    itemPrice.classList.add(
+      'p-2',
+      'text-lg',
+      'text-center',
+      'text-red',
+      'font-semibold',
+      'menuItemPrice'
+    );
 
-    menuItem.append(itemTitle, itemDescription, itemPrice);
+    itemContentContainer.append(headingContainer, itemDescription, itemPrice);
+    contentContainer.append(itemPhotoContainer, itemContentContainer);
+
+    menuItem.append(contentContainer);
 
     menuGridContainer.appendChild(menuItem);
 
     // Append grid to datacontainer
     menuDataContainer.appendChild(menuGridContainer);
+    // menuDataContainer.prepend(daySpecial);
   });
 };
 
