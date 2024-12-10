@@ -94,7 +94,7 @@ const burgers = async (
   //     name: 'Rustic Rye Burger',
   //     description:
   //       'A hearty rye burger with a beef patty, caramelized onions, pickled cucumber, and mustard mayo.',
-  //     photo: '',
+  //     photo: 'img/rustic.jpeg',
   //     day: 'Monday',
   //   },
   //   {
@@ -104,7 +104,7 @@ const burgers = async (
   //     name: 'Crispy Fish Delight',
   //     description:
   //       'Golden-battered fish fillet with lettuce, tartar sauce, and fresh dill on a brioche bun.',
-  //     photo: '',
+  //     photo: 'img/fish.jpeg',
   //     day: 'Tuesday',
   //   },
   //   {
@@ -114,7 +114,7 @@ const burgers = async (
   //     name: 'Double Bacon Smash',
   //     description:
   //       'Two crispy-edged smash patties, double cheddar, crispy bacon, and smoky BBQ mayo.',
-  //     photo: '',
+  //     photo: 'img/bacon.jpeg',
   //     day: 'Wednesday',
   //   },
   //   {
@@ -124,7 +124,7 @@ const burgers = async (
   //     name: 'Chicken Avocado Bliss',
   //     description:
   //       'Grilled chicken breast, creamy avocado slices, lettuce, tomato, and garlic aioli.',
-  //     photo: '',
+  //     photo: 'img/chickenAvocado.jpeg',
   //     day: 'Thursday',
   //   },
   //   {
@@ -134,7 +134,7 @@ const burgers = async (
   //     name: 'Japanese Panko Chicken',
   //     description:
   //       'Crispy panko-breaded chicken, Chinese cabbage, sweet chili sauce, and sesame mayo.',
-  //     photo: '',
+  //     photo: 'img/panko.jpeg',
   //     day: 'Friday',
   //   },
   //   {
@@ -144,7 +144,7 @@ const burgers = async (
   //     name: 'Smokey BBQ Burger',
   //     description:
   //       'Beef patty with marinated red onions, smoky BBQ sauce, and melted gouda cheese.',
-  //     photo: '',
+  //     photo: 'img/BBQ.jpeg',
   //     day: 'Saturday',
   //   },
   //   {
@@ -154,7 +154,7 @@ const burgers = async (
   //     name: 'Sunday Roast Burger',
   //     description:
   //       'Slow-roasted beef brisket, horseradish mayo, caramelized onions, and arugula on a toasted brioche bun.',
-  //     photo: '',
+  //     photo: 'img/sunday.jpeg',
   //     day: 'Sunday',
   //   },
   // ];
