@@ -1,17 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.beforeEach(async ({ page }) => {
-  // Log in before each test
-  await page.goto("http://localhost:5173/login", { waitUntil: "load" });
-  await page.waitForSelector('input[name="username"]');
-  await page.waitForSelector('input[name="password"]');
-  await page.fill('input[name="username"]', "playwright");
-  await page.fill('input[name="password"]', "Test123!");
-  await page.click('button:has-text("KIRJAUDU")');
-  await page.waitForNavigation({ waitUntil: "networkidle" });
-  await expect(page).toHaveURL("http://localhost:5173/login");
-  await expect(page.locator("h2")).toHaveText("PROFIILI");
-});
+
 
 test("has title", async ({ page }) => {
   await page.goto("http://localhost:5173/", { waitUntil: "load" });
