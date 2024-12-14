@@ -7,6 +7,37 @@ import {LoginError, User, UserProfilePageData} from '../../types/user';
 import fetchData from '../../utils/fetchData';
 import {router} from '../navigation/router';
 
+const translations = {
+  FI: {
+    register: {
+      success: 'Rekisteröinti onnistui! Voit nyt kirjautua sisään.',
+      fail: 'Rekisteröinti epäonnistui: ',
+    },
+    logIn: {
+      success: 'Kirjautuminen onnistui! Tervetuloa!',
+      fail: 'Kirjautuminen epäonnistui: ',
+    },
+  },
+  EN: {
+    register: {
+      success: 'Registration successful! You can now log in.',
+      fail: 'Registration failed: ',
+    },
+    logIn: {
+      success: 'Login successful! Welcome!',
+      fail: 'Login failed: ',
+    },
+  },
+};
+
+type Language = 'FI' | 'EN';
+
+const language: Language = (localStorage.getItem('language') as Language) || 'FI';
+if (language !== 'EN' && language !== 'FI') {
+  localStorage.setItem('language', 'FI');
+  router();
+}
+
 const sendRegisterationData = async (data: Record<string, string>) => {
   try {
     const options: RequestInit = {
@@ -21,10 +52,10 @@ const sendRegisterationData = async (data: Record<string, string>) => {
     const response: RegisterResponse = await fetchData('/auth/register', options);
     console.log(response);
     if (response.code === 201) {
-      alert('Rekisteröinti onnistui! Voit nyt kirjautua sisään.');
+      alert(translations[language].register.success);
       router();
     } else {
-      alert('Rekisteröinti epäonnistui: ' + response.message);
+      alert(translations[language].register.fail + response.message);
     }
   } catch (err: unknown) {
     if (err instanceof Error) {
@@ -60,12 +91,16 @@ const sendLoginData = async (data: Record<string, string>) => {
       // Sets token to localStorage
       localStorage.setItem('user-token', response.token!);
 
+      // Just for incase if we need to inform user about successful login
+      // alert(translations[language].logIn.success);
+
       // After login pushes user to mainpage
       history.replaceState({}, '', '/login');
       router();
     } else {
       // Simple unauthorized
       alert(`${response.status}: ${response.errorText} --> ${response.message}`);
+      alert(translations[language].logIn.fail + response.message);
     }
   } catch (err: unknown) {
     if (err instanceof Error) {

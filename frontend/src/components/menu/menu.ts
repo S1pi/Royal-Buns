@@ -1,19 +1,61 @@
+import {getBurgersByDay} from '../../utils/getMenuItems';
 import {menuNavigation} from './menuNavigation';
 
-const dailyBurger = [
-  {
-    id: 11,
-    diets: 'L',
-    price: '14.50',
-    name: 'Japanese Panko Chicken',
-    description:
-      'Crispy panko-breaded chicken, Chinese cabbage, sweet chili sauce, and sesame mayo.',
-    photo: 'img/crispyChicken.jpeg',
-    day: 'Friday',
-  },
-];
+const getCurrentWeekday = (): string => {
+  const days = [
+    'sunday',
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+  ];
+  const currentDayIndex = new Date().getDay();
+  return days[currentDayIndex];
+};
+
+const getDailyBurger = async () => {
+  const currentDay = getCurrentWeekday();
+  const dailyBurger = await getBurgersByDay(currentDay);
+
+  const dailyburgerReturnWithCurrentLanguage = dailyBurger.map((burger) => {
+    const currentLanguage = localStorage.getItem('language') || 'EN';
+    if (currentLanguage === 'EN') {
+      return {
+        ...burger,
+        description: burger.description.EN,
+      };
+    } else {
+      return {
+        ...burger,
+        description: burger.description.FI,
+      };
+    }
+  });
+
+  return dailyburgerReturnWithCurrentLanguage;
+  // return dailyBurger;
+};
+
+// Mock data for the daily burger
+// const dailyBurger = [
+//   {
+//     id: 11,
+//     diets: 'L',
+//     price: '14.50',
+//     name: 'Japanese Panko Chicken',
+//     description:
+//       'Crispy panko-breaded chicken, Chinese cabbage, sweet chili sauce, and sesame mayo.',
+//     photo: 'img/crispyChicken.jpeg',
+//     day: 'Friday',
+//   },
+// ];
+
 //the main menu rendering logic
-const menu = () => {
+const menu = async () => {
+  const dailyBurger = await getDailyBurger();
+
   // Select the #app div
   const appDiv = document.querySelector('#app') as HTMLElement;
   const header = document.querySelector('header');

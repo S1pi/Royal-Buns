@@ -1,30 +1,5 @@
 import {router} from './router';
 
-type translations = {
-  [language: string]: {
-    [key: string]: string;
-  };
-};
-
-const translations = {
-  FI: {
-    main: 'Etusivu',
-    menu: 'Menu',
-    reservation: 'Varaa Pöytä',
-    restaurants: 'Ravintolat',
-    gallery: 'Galleria',
-    business: 'Yrityksille',
-  },
-  EN: {
-    main: 'Home',
-    menu: 'Menu',
-    reservation: 'Book a Table',
-    restaurants: 'Restaurants',
-    gallery: 'Gallery',
-    business: 'Business reservations',
-  },
-};
-
 const navigation = () => {
   const headerLinks = document.createElement('ul');
   headerLinks.classList.add(
@@ -43,7 +18,6 @@ const navigation = () => {
     localStorage.setItem('language', 'FI');
     router();
   }
-
 
   const hamburgerMenuContent = document.querySelector('.hamMenuContent');
   const finLinks = [
@@ -65,7 +39,7 @@ const navigation = () => {
   ];
   console.log(language);
   let links = [];
-  if (language  === 'FI') {
+  if (language === 'FI') {
     links = finLinks;
     console.log(language);
   } else {

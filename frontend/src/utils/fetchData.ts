@@ -1,4 +1,5 @@
-const backendUrl = 'http://127.0.0.1:3000/api';
+ const backendUrl = 'http://127.0.0.1:3000/api'; // Development backend url
+// const backendUrl = '/api'; // Deployment backend url needs this cuz runs on same server
 
 const fetchData = async <T>(url: string, options: RequestInit): Promise<T> => {
   console.log('Checking fetch...');
@@ -9,19 +10,25 @@ const fetchData = async <T>(url: string, options: RequestInit): Promise<T> => {
         return {
           status: response.status,
           errorText: response.statusText,
-          message: 'Kirjautuminen epäonnistui: Väärä salasana tai käyttäjätunnus',
+          message: 'Login failed: Username or password is incorrect',
         } as T;
       } else if (response.statusText === 'Forbidden') {
         return {
           status: response.status,
           errorText: response.statusText,
-          message: 'Kirjautuminen epäonnistui: Ei oikeuksia',
+          message: 'Login failed: User is not authorized',
         } as T;
       } else if (response.statusText === 'Not Found') {
         return {
           status: response.status,
           errorText: response.statusText,
-          message: 'Resurssia ei löytynyt',
+          message: 'Resource not found',
+        } as T;
+      } else if (response.status === 409) {
+        return {
+          status: response.status,
+          errorText: response.statusText,
+          message: 'Username is already in use',
         } as T;
       }
       console.error('Jokin meni vikaan backend fetchissä: ', response, typeof response);

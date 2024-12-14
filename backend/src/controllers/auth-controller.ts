@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import {NewUser} from '../types/user';
-import {createUser, selectUserByCreds} from '../models/user-model';
+import {createUser, DuplicateEntryError, selectUserByCreds} from '../models/user-model';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 import bcrypt from 'bcrypt';
@@ -41,7 +41,10 @@ const postUser = async (req: Request, res: Response): Promise<void> => {
     }
     res.status(201).json({ message: `User: ${username} created successfully`, code: 201 });
   } catch (err: unknown) {
-    if (err instanceof Error) {
+    if (err instanceof DuplicateEntryError) {
+      console.error('postUser', err.message);
+      res.status(409).json({code: 409, message: err.message});
+    } else if (err instanceof Error) {
       console.error('postUser', err.message);
       res.status(503).json({ code: 503, message: err.message });
     }

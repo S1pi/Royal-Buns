@@ -62,7 +62,7 @@ const reservation = async () => {
     'mx-auto',
     'm-10',
     'bg-primary',
-    'h-3/4',
+    'h-full',
     'w-3/4',
     'flex',
     'flex-col',

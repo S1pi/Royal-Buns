@@ -1,7 +1,6 @@
-import { error } from 'console';
 import {ReservationInfo} from '../../types/reservation';
 import {Table} from '../../types/restaurant';
-import { router } from '../navigation/router';
+import {router} from '../navigation/router';
 import {fetchTableMap, handleReservation} from './reservationService';
 
 const translations = {
@@ -23,8 +22,10 @@ const translations = {
     reservationInfoInProfile: 'Voit tarkastella varaustasi profiilissasi.',
     successDescription: 'Kiitos varauksestasi! <br/> Tervetuloa ravintolaamme!',
     errorMessage: 'Varaus epäonnistui!',
-    errorDescription: 'Pöydän varaaminen epäonnistui. <br/> Palaa takaisin ja yritä uudelleen.',
-    confirmationDescription: 'Haluatko varmasti varata tämän pöydän? <br/> <br/> <b>Varaus on sitova.</b>',
+    errorDescription:
+      'Pöydän varaaminen epäonnistui. <br/> Palaa takaisin ja yritä uudelleen.',
+    confirmationDescription:
+      'Haluatko varmasti varata tämän pöydän? <br/> <br/> <b>Varaus on sitova.</b>',
     confirmationButton: 'Vahvista',
     cancelButton: 'Peruuta',
     reservationInfoTitle: 'Varauksen tiedot:',
@@ -45,10 +46,12 @@ const translations = {
     reservationTable: 'Table number: ',
     submitButton: 'BOOK THIS TABLE',
     reservationInfoInProfile: 'You can view your reservation in your profile.',
-    successDescription: 'Thank you for your reservation! <br/> Welcome to our restaurant!',
+    successDescription:
+      'Thank you for your reservation! <br/> Welcome to our restaurant!',
     errorMessage: 'Reservation failed!',
     errorDescription: 'Table reservation failed. <br/> Please return and try again.',
-    confirmationDescription: 'Are you sure you want to book this table? <br/> <br/> <b>The reservation is binding</b>',
+    confirmationDescription:
+      'Are you sure you want to book this table? <br/> <br/> <b>The reservation is binding</b>',
     confirmationButton: 'Confirm',
     cancelButton: 'Cancel',
     reservationInfoTitle: 'Reservation information:',
@@ -58,7 +61,7 @@ const translations = {
 // Reservation modal
 const reservationModal = async () => {
   // Check if the reservation was successful and clear the session
-  if (sessionStorage.getItem('reservationResultModalOpened') === 'true') {
+  if (sessionStorage.getItem('reservationResultModalOpened') === 'true') {  
     sessionStorage.clear();
     window.location.href = '/'; // Ohjaa käyttäjä pois, jolloin modaalit eivät tule uudelleen näkyviin
   }
@@ -92,7 +95,7 @@ const reservationModal = async () => {
     'mx-auto', // Center the container horizontally
     'm-10', // Margin top for spacing
     'bg-primary',
-    'h-3/4',
+    'h-full', // Full height of the container
     'w-3/4', // Minimum height of the container
     'flex',
     'flex-col',
@@ -101,7 +104,8 @@ const reservationModal = async () => {
 
   // Creates the page title text and styles it
   const reservationModalTitleContainer = document.createElement('h1');
-  reservationModalTitleContainer.textContent = translations[language].reservationModalTitleContainer;
+  reservationModalTitleContainer.textContent =
+    translations[language].reservationModalTitleContainer;
   reservationModalTitleContainer.classList.add(
     'flex',
     'text-h1', // Use custom h1 size from tailwind config
@@ -317,7 +321,8 @@ const reservationModal = async () => {
     modalContent.appendChild(reservationInfoContainer);
 
     const reservationInfoInProfile = document.createElement('p');
-    reservationInfoInProfile.textContent = translations[language].reservationInfoInProfile;
+    reservationInfoInProfile.textContent =
+      translations[language].reservationInfoInProfile;
     reservationInfoInProfile.classList.add(
       'text-sm',
       'italic',
@@ -328,8 +333,7 @@ const reservationModal = async () => {
     modalContent.appendChild(reservationInfoInProfile);
 
     const successDescription = document.createElement('p');
-    successDescription.innerHTML =
-      translations[language].successDescription;
+    successDescription.innerHTML = translations[language].successDescription;
     successDescription.classList.add('text-lg', 'mb-4', 'text-warmer-brown');
     modalContent.appendChild(successDescription);
 
@@ -344,6 +348,7 @@ const reservationModal = async () => {
       'pop-out-animation',
       'cursor-pointer'
     );
+    closeButton.id = 'closeButton';
     closeButton.addEventListener('click', () => {
       window.location.href = '/';
       sessionStorage.clear();
@@ -388,8 +393,7 @@ const reservationModal = async () => {
     errorMessage.classList.add('text-h3', 'font-semibold', 'mb-4', 'text-red-600');
     modalContent.appendChild(errorMessage);
     const errorDescription = document.createElement('p');
-    errorDescription.innerHTML =
-      translations[language].errorDescription;
+    errorDescription.innerHTML = translations[language].errorDescription;
     errorDescription.classList.add('text-base', 'mb-4');
     modalContent.appendChild(errorDescription);
     const closeButton = document.createElement('button');
@@ -461,8 +465,7 @@ const reservationModal = async () => {
     const confirmationDescription = document.createElement('p');
 
     // Improvement idea: Make reservation cancellation possible and change the description text accordingly
-    confirmationDescription.innerHTML =
-      translations[language].confirmationDescription;
+    confirmationDescription.innerHTML = translations[language].confirmationDescription;
     confirmationDescription.classList.add('text-base', 'mb-4');
     modalContent.appendChild(confirmationDescription);
 
@@ -479,6 +482,7 @@ const reservationModal = async () => {
       'pop-out-animation',
       'cursor-pointer'
     );
+    confirmButton.id = 'confirmButton';
 
     // Add event listener to the confirm button to handle the reservation
     confirmButton.addEventListener('click', async () => {
@@ -581,6 +585,7 @@ const reservationModal = async () => {
     'border-red',
     'pop-out-animation'
   );
+  submitButton.id = 'submitButton';
 
   reservationContainer.appendChild(submitButton);
   submitButton.addEventListener('click', async () => {
@@ -608,15 +613,9 @@ const reservationModal = async () => {
     reservationConfirmationModal.classList.remove('hidden');
   });
 
-
-
   // Translation functionality for the page.
-  
 
-
- 
   let tableElements: HTMLButtonElement[] = [];
-
 
   // Create table mock data
   //TODO: Replace with actual data from the database

@@ -1,4 +1,7 @@
-const burgers = (menuDataContainer: HTMLDivElement, burgersButton: HTMLButtonElement) => {
+import {getAllBurgers} from '../../../utils/getMenuItems';
+import {router} from '../../navigation/router';
+
+const burgers = async (menuDataContainer: HTMLDivElement) => {
   // TODO: SISÄLLYTÄ TÄMÄ https://www.youtube.com/watch?v=4qRZmFYdozY
   // const daySpecial = document.createElement('div');
   // daySpecial.classList.add(
@@ -21,137 +24,147 @@ const burgers = (menuDataContainer: HTMLDivElement, burgersButton: HTMLButtonEle
   // burgersButton.classList.add('bg-hover-green');
 
   // Mockdata for grid items
-  const menuItems = [
-    {
-      id: 1,
-      diets: 'G,L',
-      price: '14.50',
-      name: 'Royal Smash',
-      description:
-        'Smash-style burger with crispy edges, double beef patties, melted cheddar, and house-made tangy sauce.',
-      photo: 'img/royalSmash.jpeg',
-      day: 'Everyday',
-    },
-    {
-      id: 2,
-      diets: 'G',
-      price: '13.90',
-      name: 'Bacon BBQ Delight',
-      description:
-        'Juicy beef patty, smoky BBQ sauce, crispy bacon, and crunchy onion rings.',
-      photo: 'img/BBQ.jpeg',
-      day: 'Everyday',
-    },
-    {
-      id: 3,
-      diets: 'L',
-      price: '12.90',
-      name: 'Crispy Chicken Classic',
-      description: 'Crispy chicken fillet, lettuce, tomato, and a creamy garlic mayo.',
-      photo: 'img/crispyChicken.jpeg',
-      day: 'Everyday',
-    },
-    {
-      id: 4,
-      diets: 'G',
-      price: '14.90',
-      name: 'Blue Cheese BBQ Chicken',
-      description:
-        'Grilled chicken fillet topped with tangy blue cheese, BBQ sauce, and fresh arugula.',
-      photo: 'img/blueCheese.jpeg',
-      day: 'Everyday',
-    },
-    {
-      id: 5,
-      diets: 'V',
-      price: '12.50',
-      name: 'Veggie Garden Delight',
-      description:
-        'A hearty vegetarian burger with a grilled veggie patty, fresh greens, and basil aioli.',
-      photo: 'img/vege.jpeg',
-      day: 'Everyday',
-    },
-    {
-      id: 6,
-      diets: 'V,G',
-      price: '13.90',
-      name: 'Grilled Halloumi Burger',
-      description:
-        'Grilled halloumi cheese, sun-dried tomatoes, avocado, and a balsamic glaze.',
-      photo: 'img/halloumi.jpeg',
-      day: 'Everyday',
-    },
-    {
-      id: 7,
-      diets: 'G,L',
-      price: '13.50',
-      name: 'Rustic Rye Burger',
-      description:
-        'A hearty rye burger with a beef patty, caramelized onions, pickled cucumber, and mustard mayo.',
-      photo: '',
-      day: 'Monday',
-    },
-    {
-      id: 8,
-      diets: 'G,L',
-      price: '14.90',
-      name: 'Crispy Fish Delight',
-      description:
-        'Golden-battered fish fillet with lettuce, tartar sauce, and fresh dill on a brioche bun.',
-      photo: '',
-      day: 'Tuesday',
-    },
-    {
-      id: 9,
-      diets: 'G,L',
-      price: '15.90',
-      name: 'Double Bacon Smash',
-      description:
-        'Two crispy-edged smash patties, double cheddar, crispy bacon, and smoky BBQ mayo.',
-      photo: '',
-      day: 'Wednesday',
-    },
-    {
-      id: 10,
-      diets: 'G,L',
-      price: '13.90',
-      name: 'Chicken Avocado Bliss',
-      description:
-        'Grilled chicken breast, creamy avocado slices, lettuce, tomato, and garlic aioli.',
-      photo: '',
-      day: 'Thursday',
-    },
-    {
-      id: 11,
-      diets: 'L',
-      price: '14.50',
-      name: 'Japanese Panko Chicken',
-      description:
-        'Crispy panko-breaded chicken, Chinese cabbage, sweet chili sauce, and sesame mayo.',
-      photo: '',
-      day: 'Friday',
-    },
-    {
-      id: 12,
-      diets: 'G',
-      price: '14.90',
-      name: 'Smokey BBQ Burger',
-      description:
-        'Beef patty with marinated red onions, smoky BBQ sauce, and melted gouda cheese.',
-      photo: '',
-      day: 'Saturday',
-    },
-    {
-      id: 13,
-      diets: 'G,L',
-      price: '13.90',
-      name: 'Sunday Roast Burger',
-      description:
-        'Slow-roasted beef brisket, horseradish mayo, caramelized onions, and arugula on a toasted brioche bun.',
-      photo: '',
-      day: 'Sunday',
-    },
-  ];
+  // const menuItems = [
+  //   {
+  //     id: 1,
+  //     diets: 'G,L',
+  //     price: '14.50',
+  //     name: 'Royal Smash',
+  //     description:
+  //       'Smash-style burger with crispy edges, double beef patties, melted cheddar, and house-made tangy sauce.',
+  //     photo: 'img/royalSmash.jpeg',
+  //     day: 'Everyday',
+  //   },
+  //   {
+  //     id: 2,
+  //     diets: 'G',
+  //     price: '13.90',
+  //     name: 'Bacon BBQ Delight',
+  //     description:
+  //       'Juicy beef patty, smoky BBQ sauce, crispy bacon, and crunchy onion rings.',
+  //     photo: 'img/BBQ.jpeg',
+  //     day: 'Everyday',
+  //   },
+  //   {
+  //     id: 3,
+  //     diets: 'L',
+  //     price: '12.90',
+  //     name: 'Crispy Chicken Classic',
+  //     description: 'Crispy chicken fillet, lettuce, tomato, and a creamy garlic mayo.',
+  //     photo: 'img/crispyChicken.jpeg',
+  //     day: 'Everyday',
+  //   },
+  //   {
+  //     id: 4,
+  //     diets: 'G',
+  //     price: '14.90',
+  //     name: 'Blue Cheese BBQ Chicken',
+  //     description:
+  //       'Grilled chicken fillet topped with tangy blue cheese, BBQ sauce, and fresh arugula.',
+  //     photo: 'img/blueCheese.jpeg',
+  //     day: 'Everyday',
+  //   },
+  //   {
+  //     id: 5,
+  //     diets: 'V',
+  //     price: '12.50',
+  //     name: 'Veggie Garden Delight',
+  //     description:
+  //       'A hearty vegetarian burger with a grilled veggie patty, fresh greens, and basil aioli.',
+  //     photo: 'img/vege.jpeg',
+  //     day: 'Everyday',
+  //   },
+  //   {
+  //     id: 6,
+  //     diets: 'V,G',
+  //     price: '13.90',
+  //     name: 'Grilled Halloumi Burger',
+  //     description:
+  //       'Grilled halloumi cheese, sun-dried tomatoes, avocado, and a balsamic glaze.',
+  //     photo: 'img/halloumi.jpeg',
+  //     day: 'Everyday',
+  //   },
+  //   {
+  //     id: 7,
+  //     diets: 'G,L',
+  //     price: '13.50',
+  //     name: 'Rustic Rye Burger',
+  //     description:
+  //       'A hearty rye burger with a beef patty, caramelized onions, pickled cucumber, and mustard mayo.',
+  //     photo: 'img/rustic.jpeg',
+  //     day: 'Monday',
+  //   },
+  //   {
+  //     id: 8,
+  //     diets: 'G,L',
+  //     price: '14.90',
+  //     name: 'Crispy Fish Delight',
+  //     description:
+  //       'Golden-battered fish fillet with lettuce, tartar sauce, and fresh dill on a brioche bun.',
+  //     photo: 'img/fish.jpeg',
+  //     day: 'Tuesday',
+  //   },
+  //   {
+  //     id: 9,
+  //     diets: 'G,L',
+  //     price: '15.90',
+  //     name: 'Double Bacon Smash',
+  //     description:
+  //       'Two crispy-edged smash patties, double cheddar, crispy bacon, and smoky BBQ mayo.',
+  //     photo: 'img/bacon.jpeg',
+  //     day: 'Wednesday',
+  //   },
+  //   {
+  //     id: 10,
+  //     diets: 'G,L',
+  //     price: '13.90',
+  //     name: 'Chicken Avocado Bliss',
+  //     description:
+  //       'Grilled chicken breast, creamy avocado slices, lettuce, tomato, and garlic aioli.',
+  //     photo: 'img/chickenAvocado.jpeg',
+  //     day: 'Thursday',
+  //   },
+  //   {
+  //     id: 11,
+  //     diets: 'L',
+  //     price: '14.50',
+  //     name: 'Japanese Panko Chicken',
+  //     description:
+  //       'Crispy panko-breaded chicken, Chinese cabbage, sweet chili sauce, and sesame mayo.',
+  //     photo: 'img/panko.jpeg',
+  //     day: 'Friday',
+  //   },
+  //   {
+  //     id: 12,
+  //     diets: 'G',
+  //     price: '14.90',
+  //     name: 'Smokey BBQ Burger',
+  //     description:
+  //       'Beef patty with marinated red onions, smoky BBQ sauce, and melted gouda cheese.',
+  //     photo: 'img/BBQ.jpeg',
+  //     day: 'Saturday',
+  //   },
+  //   {
+  //     id: 13,
+  //     diets: 'G,L',
+  //     price: '13.90',
+  //     name: 'Sunday Roast Burger',
+  //     description:
+  //       'Slow-roasted beef brisket, horseradish mayo, caramelized onions, and arugula on a toasted brioche bun.',
+  //     photo: 'img/sunday.jpeg',
+  //     day: 'Sunday',
+  //   },
+  // ];
+
+  const language = localStorage.getItem('language') as 'EN' | 'FI';
+  if (language !== 'EN' && language !== 'FI') {
+    localStorage.setItem('language', 'FI');
+    router();
+  }
+
+  const menuItems = await getAllBurgers();
+
+  console.log('Menu items from burgers: ', menuItems);
 
   // Menu grid container creation
   const menuGridContainer = document.createElement('div');
@@ -166,7 +179,7 @@ const burgers = (menuDataContainer: HTMLDivElement, burgersButton: HTMLButtonEle
   // FOR EACH jokaselle burgerille datasta
 
   menuItems.forEach((item) => {
-    if (item.day == 'Everyday') {
+    if (item.day == 'everyday') {
       const menuItem = document.createElement('div');
       menuItem.classList.add(
         'flex',
@@ -242,7 +255,9 @@ const burgers = (menuDataContainer: HTMLDivElement, burgersButton: HTMLButtonEle
       );
 
       const itemDescriptionText = document.createElement('div');
-      itemDescriptionText.textContent = item.description;
+
+      console.log('LAng: ', item.description[language]);
+      itemDescriptionText.textContent = item.description[language];
 
       itemDescription.appendChild(itemDescriptionText);
 

@@ -1,4 +1,4 @@
-import { handleLanguageChange } from '../../utils/handleLanguageChange';
+import {handleLanguageChange} from '../../utils/handleLanguageChange';
 import {navigation} from '../navigation/navigation';
 import {router} from '../navigation/router';
 
@@ -20,7 +20,7 @@ const logos = [
   },
 ];
 
-let headerLoginElement = null as HTMLAnchorElement | null;
+// let headerLoginElement = null as HTMLAnchorElement | null;
 
 const header = () => {
   const body = document.querySelector('body') as HTMLBodyElement;
@@ -38,10 +38,6 @@ const header = () => {
   const nav = document.createElement('nav');
   nav.id = 'navBar';
   nav.classList.add('flex', 'mr-10');
-
-  let touchStartX = 0; // Kosketuksen aloituspaikka
-  let touchEndX = 0; // Kosketuksen lopetuspaikka
-  const swipeThreshold = 50;
 
   // Hamburger menu creation:
   const hamburgerMenuDisplay = document.createElement('div');
@@ -68,7 +64,7 @@ const header = () => {
 
   // Still need to add the logo to the hamburger menu
   // And implement the functionality for the links
-  const hamburgerMenuLoginLogo = document.createElement('div');
+  // const hamburgerMenuLoginLogo = document.createElement('div');
 
   const hamburgerMenuContent = document.createElement('ul');
   hamburgerMenuContent.classList.add(
@@ -188,7 +184,7 @@ const header = () => {
   en.textContent = 'EN';
 
   fin.addEventListener('click', () => {
-   handleLanguageChange('FI');
+    handleLanguageChange('FI');
   });
 
   en.addEventListener('click', () => {

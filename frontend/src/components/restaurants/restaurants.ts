@@ -164,6 +164,13 @@ const restaurants = async () => {
       'rounded-lg'
     );
 
+    // Delete later
+    console.log(
+      'Restaurant Coords: ',
+      res.coordinates.latitude,
+      res.coordinates.longitude
+    );
+
     const marker = L.marker([res.coordinates.latitude, res.coordinates.longitude], {
       icon: customIcon,
     }).addTo(map);
