@@ -7,6 +7,9 @@ import {
   getAllSliders,
   getBurgersByDay,
   postBurger,
+  postDrink,
+  postSide,
+  postSlider,
 } from '../controllers/menu-controller';
 import {validationErrorHandler} from '../middlewares/error-handler';
 import {tokenAuth} from '../middlewares/authentication';
@@ -42,8 +45,17 @@ menuRouter
     getBurgersByDay
   );
 
-menuRouter.route('/drinks').get(getAllDrinks);
-menuRouter.route('/sliders').get(getAllSliders);
-menuRouter.route('/sides').get(getAllSides);
+menuRouter
+  .route('/drinks')
+  .get(getAllDrinks)
+  .post(tokenAuth, validationErrorHandler, postDrink);
+menuRouter
+  .route('/sliders')
+  .get(getAllSliders)
+  .post(tokenAuth, validationErrorHandler, postSlider);
+menuRouter
+  .route('/sides')
+  .get(getAllSides)
+  .post(tokenAuth, validationErrorHandler, postSide);
 
 export default menuRouter;

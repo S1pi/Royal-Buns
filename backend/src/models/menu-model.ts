@@ -1,20 +1,9 @@
 import {ResultSetHeader, RowDataPacket} from 'mysql2';
 import promisePool from '../utils/database';
+import { Burger, OtherMenuItem } from '../types/menu';
 
-type Description = {
-  FI: string;
-  EN: string;
-};
 
-type Burger = {
-  id: number;
-  diets: string;
-  price: number;
-  name: string;
-  description: Description;
-  photo: string;
-  day: string;
-};
+
 
 const fetchAllBurgers = async (): Promise<Burger[]> => {
   // const sql = 'SELECT * FROM burgers'; // Vanha sql kysely ilman mariadb:n longtext kenttää
@@ -80,6 +69,69 @@ const changeBurgerData = async (burger: Burger) => {
     throw err;
   }
 };
+
+const changeDrinkData = async (drink: OtherMenuItem) => {
+  const sql =
+    'UPDATE drinks SET diets = ?, price = ?, name = ?, description = ?, photo = ? WHERE id = ?';
+  const params = [
+    drink.diets,
+    drink.price,
+    drink.name,
+    JSON.stringify(drink.description),
+    drink.photo,
+    drink.id,
+  ];
+  try {
+    const result = await promisePool.execute<ResultSetHeader>(sql, params);
+
+    return result[0].affectedRows;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}
+
+const changeSliderData = async (slider: OtherMenuItem) => {
+  const sql =
+    'UPDATE sliders SET diets = ?, price = ?, name = ?, description = ?, photo = ? WHERE id = ?';
+  const params = [
+    slider.diets,
+    slider.price,
+    slider.name,
+    JSON.stringify(slider.description),
+    slider.photo,
+    slider.id,
+  ];
+  try {
+    const result = await promisePool.execute<ResultSetHeader>(sql, params);
+
+    return result[0].affectedRows;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}
+
+const changeSideData = async (side: OtherMenuItem) => {
+  const sql =
+    'UPDATE sides SET diets = ?, price = ?, name = ?, description = ?, photo = ? WHERE id = ?';
+  const params = [
+    side.diets,
+    side.price,
+    side.name,
+    JSON.stringify(side.description),
+    side.photo,
+    side.id,
+  ];
+  try {
+    const result = await promisePool.execute<ResultSetHeader>(sql, params);
+
+    return result[0].affectedRows;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}
 
 // const burgers: Burger[] = result.map((row: any) => ({
 //   id: row.id,
@@ -161,4 +213,7 @@ export {
   fetchAllDrinks,
   fetchAllSliders,
   fetchAllSides,
+  changeDrinkData,
+  changeSliderData,
+  changeSideData,
 };

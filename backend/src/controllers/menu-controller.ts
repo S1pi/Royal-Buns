@@ -1,6 +1,9 @@
 import {Request, Response} from 'express';
 import {
   changeBurgerData,
+  changeDrinkData,
+  changeSideData,
+  changeSliderData,
   fetchAllBurgers,
   fetchAllDrinks,
   fetchAllSides,
@@ -127,6 +130,76 @@ const getAllSides = async (req: Request, res: Response) => {
   }
 };
 
+const postDrink = async (req: Request, res: Response) => {
+  try { 
+    const {id, diets, price, name, description} = req.body;
+    const photo = '';
+    const affectedRows = await changeDrinkData({ id, diets, price, name, description, photo });
+    if (affectedRows > 0) {
+      res.status(200).json({message: 'Drink updated successfully'});
+    } else {
+      res.status(400).json({message: 'Failed to update drink'});
+    }
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error('Database connection error: ', err);
+      res
+        .status(503)
+        .json({message: 'Service unavailable: database error', status: 503, error: err});
+    } else {
+      console.error('Unknown error: ', err);
+      res.status(500).json({message: 'Unknown error', status: 500, error: err});
+    }
+  }
+
+};
+
+const postSlider = async (req: Request, res: Response) => {
+  try {
+    const {id, diets, price, name, description} = req.body;
+    const photo = '';
+    const affectedRows = await changeSliderData({ id, diets, price, name, description, photo });
+    if (affectedRows > 0) {
+      res.status(200).json({message: 'Slider updated successfully'});
+    } else {
+      res.status(400).json({message: 'Failed to update slider'});
+    }
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error('Database connection error: ', err);
+      res
+        .status(503)
+        .json({message: 'Service unavailable: database error', status: 503, error: err});
+    } else {
+      console.error('Unknown error: ', err);
+      res.status(500).json({message: 'Unknown error', status: 500, error: err});
+    }
+  }
+}
+
+const postSide = async (req: Request, res: Response) => {
+  try {
+    const {id, diets, price, name, description} = req.body;
+    const photo = '';
+    const affectedRows = await changeSideData({ id, diets, price, name, description, photo });
+    if (affectedRows > 0) {
+      res.status(200).json({message: 'Side updated successfully'});
+    } else {
+      res.status(400).json({message: 'Failed to update side'});
+    }
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error('Database connection error: ', err);
+      res
+        .status(503)
+        .json({message: 'Service unavailable: database error', status: 503, error: err});
+    } else {
+      console.error('Unknown error: ', err);
+      res.status(500).json({message: 'Unknown error', status: 500, error: err});
+    }
+  }
+}
+
 export {
   getAllBurgers,
   getBurgersByDay,
@@ -134,4 +207,7 @@ export {
   getAllDrinks,
   getAllSliders,
   getAllSides,
+  postDrink,
+  postSlider,
+  postSide,
 };

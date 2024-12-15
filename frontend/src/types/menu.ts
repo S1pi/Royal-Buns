@@ -26,6 +26,10 @@ type SuccesfullBurgerPost = {
   message: string;
 };
 
+type SuccesfullOtherPostMessage = {
+  message: string;
+};
+
 type AllBurgersResponse = Burger[];
 
 type OtherMenuItemsResponse = OtherMenuItems[];
@@ -37,4 +41,5 @@ export type {
   OtherMenuItems,
   SuccesfullBurgerPost,
   OtherMenuItemsResponse,
+  SuccesfullOtherPostMessage,
 };

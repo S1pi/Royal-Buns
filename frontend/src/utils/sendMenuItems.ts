@@ -1,4 +1,4 @@
-import {Description, SuccesfullBurgerPost} from '../types/menu';
+import {Description, OtherMenuItemsResponse, SuccesfullBurgerPost, SuccesfullOtherPostMessage} from '../types/menu';
 import fetchData from './fetchData';
 
 const sendBurgerMenuItem = async (
@@ -44,12 +44,14 @@ const sendOtherMenuItem = async (
     body: JSON.stringify({id, diets, price, name, description}),
   };
 
-  const response: Response = await fetchData('/menu/other', options);
+  const response: SuccesfullOtherPostMessage = await fetchData('/menu/other', options);
 
   console.log('Other: ', response);
 
-  if (!response.ok) {
-    throw new Error('Failed to send other menu item');
+  if (!response) {
+    throw new Error('Failed to send burger menu item');
+  } else {
+    return response.message;
   }
 };
 
