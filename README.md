@@ -40,3 +40,5 @@ Click the "Lähetä" button to save all changes.
 Additional Notes:
 For Burgers, the availability days field will be visible but cannot be modified.
 Ensure you select the correct category to see all relevant options.
+
+ADDITIONAL DOCUMENTATION OF THE BACKEND CAN BE FOUND THROUGH THIS LINK:   https://users.metropolia.fi/~walttewe/royalbunsDocs/apidoc/
