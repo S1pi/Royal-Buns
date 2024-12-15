@@ -1,6 +1,12 @@
 import {Burger, OtherMenuItems} from '../../../types/menu';
-import {getAllBurgers} from '../../../utils/getMenuItems';
-import {sendBurgerMenuItem} from '../../../utils/sendMenuItems';
+import {
+  getAllBurgers,
+  getAllDrinks,
+  getAllSides,
+  getAllSliders,
+} from '../../../utils/getMenuItems';
+import {sendBurgerMenuItem, sendOtherMenuItem} from '../../../utils/sendMenuItems';
+import {menu} from '../../menu/menu';
 import {router} from '../../navigation/router';
 import {getProfilePageData} from '../AuthenticationService';
 import {createProfileView} from './Profile';
@@ -222,16 +228,16 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
         categoryItems = burgers;
         break;
       case 'Sliders':
-        // Get all sliders from backend
-        // CODE HERE @S1pi
+        const sliders = await getAllSliders();
+        categoryItems = sliders;
         break;
       case 'Sides':
-        // Get all sides from backend
-        // CODE HERE @S1pi
+        const sides = await getAllSides();
+        categoryItems = sides;
         break;
       case 'Drinks':
-        // Get all drinks from backend
-        // CODE HERE @S1pi
+        const drinks = await getAllDrinks();
+        categoryItems = drinks;
         break;
       default:
         break;
@@ -297,6 +303,91 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
       }
     }
 
+    if (menuCategorySelection.value === 'Drinks') {
+      // Change diets to be either basic or alcoholic
+      const dietsContainer = document.querySelector('.dietsContainer');
+
+      if (dietsContainer) {
+        dietsContainer.remove();
+      }
+
+      const alcoholicContainer = document.createElement('div');
+      alcoholicContainer.classList.add(
+        'alcoholicContainer',
+        'flex',
+        'w-2/3',
+        'p-2',
+        'mb-2'
+      );
+      const alcoholicLabel = document.createElement('label');
+      alcoholicLabel.textContent = 'Alkoholic: ';
+      alcoholicLabel.classList.add('text-label', 'font-semibold', 'self-center', 'mr-2');
+      const alcoholicInput = document.createElement('input');
+      alcoholicInput.classList.add('alcoholicInput');
+      alcoholicInput.type = 'checkbox';
+
+      // alcoholicInput.checked = ;
+
+      alcoholicContainer.append(alcoholicLabel, alcoholicInput);
+      dietsAndPriceContainer.prepend(alcoholicContainer);
+    } else {
+      const alcoholicContainer = document.querySelector('.alcoholicContainer');
+      if (alcoholicContainer) {
+        alcoholicContainer.remove();
+      }
+
+      if (!document.querySelector('.dietsContainer')) {
+        const dietsContainer = document.createElement('div');
+        dietsContainer.classList.add(
+          'dietsContainer',
+          'flex',
+          'w-2/3',
+          'p-2',
+          'rounded-md',
+          'border',
+          'border-secondary',
+          'gap-2',
+          'items-center'
+        );
+        // const dietsLabel = document.createElement('label');
+        // dietsLabel.textContent = translations[language].menuChange.dietsLabel;
+        // dietsLabel.classList.add('text-label', 'font-semibold', 'self-center', 'mr-2');
+        // // All checkboxes for diets
+        // // const glutenCheckbox = document.createElement('input');
+        // // glutenCheckbox.type = 'checkbox';
+        // const glutenLabel = document.createElement('label');
+        // glutenLabel.textContent = 'G';
+        // const lactoseCheckbox = document.createElement('input');
+        // lactoseCheckbox.type = 'checkbox';
+        // const lactoseLabel = document.createElement('label');
+        // lactoseLabel.textContent = 'L';
+        // const veganCheckbox = document.createElement('input');
+        // veganCheckbox.type = 'checkbox';
+        // const veganLabel = document.createElement('label');
+        // veganLabel.textContent = 'V';
+        // dietsContainer.append(
+        //   dietsLabel,
+        //   glutenLabel,
+        //   glutenCheckbox
+        //   lactoseLabel,
+        //   lactoseCheckbox,
+        //   veganLabel,
+        //   veganCheckbox
+        // );
+        dietsContainer.append(
+          dietsLabel,
+          glutenLabel,
+          glutenCheckbox,
+          lactoseLabel,
+          lactoseCheckbox,
+          veganLabel,
+          veganCheckbox
+        );
+
+        dietsAndPriceContainer.prepend(dietsContainer);
+      }
+    }
+
     categoryItems.forEach((item) => {
       const option = document.createElement('option');
       option.value = item.id.toString();
@@ -355,6 +446,15 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
       // Daily burger input
       if ('day' in menuItemData) {
         dailyBurgerInput.value = menuItemData.day;
+      }
+    }
+
+    const alcoholicInput = document.querySelector('.alcoholicInput') as HTMLInputElement;
+
+    if (alcoholicInput) {
+      alcoholicInput.checked = false;
+      if (menuItemData.diets === 'alcoholic') {
+        alcoholicInput.checked = true;
       }
     }
 
@@ -460,6 +560,7 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
   );
   const dietsContainer = document.createElement('div');
   dietsContainer.classList.add(
+    'dietsContainer',
     'flex',
     'w-2/3',
     'p-2',
@@ -573,7 +674,6 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
         veganCheckbox.checked ? 'V' : '',
       ].filter(Boolean);
       const diets = dietsArray.join(',');
-
       const dailyBurgerInput = document.querySelector(
         '.dailyBurgerInput'
       ) as HTMLInputElement;
@@ -594,6 +694,50 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
         alert(burgerChangeMessage);
       } else {
         alert('Failed to update burger');
+      }
+    } else {
+      // Check if item is a slider, side or drink
+      const name = nameInput.value;
+      const description = {
+        FI: descriptionInput.value,
+        EN: descriptionInput.value,
+      };
+      const price = priceInput.value;
+      let diets = '';
+      const dietsContainer = document.querySelector('.dietsContainer');
+
+      if (dietsContainer) {
+        const dietsArray = [
+          glutenCheckbox.checked ? 'G' : '',
+          lactoseCheckbox.checked ? 'L' : '',
+          veganCheckbox.checked ? 'V' : '',
+        ].filter(Boolean);
+        diets = dietsArray.join(',');
+      } else {
+        const alcoholicInput = document.querySelector(
+          '.alcoholicInput'
+        ) as HTMLInputElement;
+        diets = alcoholicInput.checked ? 'alcoholic' : 'basic';
+      }
+      const id = menuItemData.id;
+      const category = menuCategorySelection.value.toLowerCase();
+      // console.log('Other item data: ', {diets, price, name, description});
+      // Send the form data to backend
+
+      console.log('Other item data: ', {id, diets, price, name, description, category});
+
+      const otherItemChangeMessage = await sendOtherMenuItem(
+        id,
+        diets,
+        price,
+        name,
+        description,
+        menuCategorySelection.value.toLowerCase()
+      );
+      if (otherItemChangeMessage) {
+        alert(otherItemChangeMessage);
+      } else {
+        alert('Failed to update item');
       }
     }
 

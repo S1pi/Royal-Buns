@@ -1,4 +1,8 @@
-import {Description, OtherMenuItemsResponse, SuccesfullBurgerPost, SuccesfullOtherPostMessage} from '../types/menu';
+import {
+  Description,
+  SuccesfullBurgerPost,
+  SuccesfullOtherPostMessage,
+} from '../types/menu';
 import fetchData from './fetchData';
 
 const sendBurgerMenuItem = async (
@@ -34,24 +38,49 @@ const sendOtherMenuItem = async (
   diets: string,
   price: string,
   name: string,
-  description: Description
+  description: Description,
+  category: string
 ) => {
+  const token = localStorage.getItem('user-token');
   const options: RequestInit = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({id, diets, price, name, description}),
   };
 
-  const response: SuccesfullOtherPostMessage = await fetchData('/menu/other', options);
+  // Add the correct path for the fetch request based on the category
+  let response: SuccesfullOtherPostMessage;
 
-  console.log('Other: ', response);
+  console.log('Category: ', category);
 
-  if (!response) {
-    throw new Error('Failed to send burger menu item');
-  } else {
-    return response.message;
+  switch (category) {
+    case 'sliders':
+      console.log('Sending sliders');
+      response = await fetchData('/menu/sliders', options);
+      if (!response) {
+        throw new Error('Failed to send slider menu item');
+      } else {
+        return response.message;
+      }
+    case 'sides':
+      response = await fetchData('/menu/sides', options);
+      if (!response) {
+        throw new Error('Failed to send side menu item');
+      } else {
+        return response.message;
+      }
+    case 'drinks':
+      response = await fetchData('/menu/drinks', options);
+      if (!response) {
+        throw new Error('Failed to send drink menu item');
+      } else {
+        return response.message;
+      }
+    default:
+      throw new Error('Invalid category');
   }
 };
 

@@ -199,13 +199,13 @@ INSERT INTO drinks (id, diets, price, name, description, photo) VALUES
 (8, 'alcoholic', '8.99', 'Golden Ale', '{"FI": "Laadukas kultainen ale, jossa on täyteläinen ja pehmeä maku.", "EN": "A premium golden ale with a rich, smooth taste."}', 'img/ale.jpeg'),
 (9, 'alcoholic', '29.99', 'Dom Pérignon Vintage', '{"FI": "Ylellisyyden huipentuma, tämä vintage-samppanja tarjoaa vertaansa vailla olevan makuelämyksen.", "EN": "The epitome of luxury, this vintage champagne offers an unparalleled taste experience."}', 'img/champagne.jpeg');
 
-INSERT INTO sliders (id, name, description, photo, price) VALUES
-(1, 'Mini Classic Slider', '{"FI": "Mehevä naudanpihvi cheddarjuustolla, salaatilla ja tomaatilla.", "EN": "Juicy beef patty with cheddar cheese, lettuce, and tomato."}', 'img/classicSlider.jpeg', '5.99'),
-(2, 'Spicy Mini Fiesta', '{"FI": "Maukas slider jalapeñoilla, tulisella kastikkeella ja pepper jack -juustolla.", "EN": "A zesty slider with jalapeños, spicy sauce, and pepper jack cheese."}', 'img/spicySlider.jpeg', '6.49'),
-(3, 'BBQ Mini Bliss', '{"FI": "BBQ-naudanpihvi savujuustolla ja karamellisoiduilla sipuleilla.", "EN": "BBQ beef patty with smoked cheese and caramelized onions."}', 'img/bbqSlider.jpeg', '6.99'),
-(4, 'Veggie Delight Slider', '{"FI": "Terveellinen kasvispihvi tuoreella salaatilla ja tomaatilla.", "EN": "A healthy veggie patty with fresh lettuce and tomato."}', 'img/veggieSlider.jpeg', '5.49'),
-(5, 'Chicken Little Slider', '{"FI": "Rapea kanapihvi majoneesilla ja maustekurkuilla.", "EN": "Crispy chicken patty with mayo and pickles."}', 'img/chickenSlider.jpeg', '6.49'),
-(6, 'Cheese Lover Slider', '{"FI": "Slider, jossa tuplajuustoa ja mehevä naudanpihvi.", "EN": "A slider with double cheese and a juicy beef patty."}', 'img/cheeseSlider.jpeg', '6.99');
+INSERT INTO sliders (id, name, diets, description, photo, price) VALUES
+(1, 'Mini Classic Slider', 'G,L', '{"FI": "Mehevä naudanpihvi cheddarjuustolla, salaatilla ja tomaatilla.", "EN": "Juicy beef patty with cheddar cheese, lettuce, and tomato."}', 'img/classicSlider.jpeg', '5.99'),
+(2, 'Spicy Mini Fiesta', 'G,L', '{"FI": "Maukas slider jalapeñoilla, tulisella kastikkeella ja pepper jack -juustolla.", "EN": "A zesty slider with jalapeños, spicy sauce, and pepper jack cheese."}', 'img/spicySlider.jpeg', '6.49'),
+(3, 'BBQ Mini Bliss', 'G,L', '{"FI": "BBQ-naudanpihvi savujuustolla ja karamellisoiduilla sipuleilla.", "EN": "BBQ beef patty with smoked cheese and caramelized onions."}', 'img/bbqSlider.jpeg', '6.99'),
+(4, 'Veggie Delight Slider', 'V,L', '{"FI": "Terveellinen kasvispihvi tuoreella salaatilla ja tomaatilla.", "EN": "A healthy veggie patty with fresh lettuce and tomato."}', 'img/veggieSlider.jpeg', '5.49'),
+(5, 'Chicken Little Slider', 'G,L', '{"FI": "Rapea kanapihvi majoneesilla ja maustekurkuilla.", "EN": "Crispy chicken patty with mayo and pickles."}', 'img/chickenSlider.jpeg', '6.49'),
+(6, 'Cheese Lover Slider', 'G,L', '{"FI": "Slider, jossa tuplajuustoa ja mehevä naudanpihvi.", "EN": "A slider with double cheese and a juicy beef patty."}', 'img/cheeseSlider.jpeg', '6.99');
 
 INSERT INTO sides (id, name, diets, description, photo, price) VALUES
 (1, 'Classic Fries', 'basic', '{"FI": "Rapeat kultaiset ranskalaiset ripauksella suolaa.", "EN": "Crispy golden fries with a touch of salt."}', 'img/classicFries.jpeg', '3.99'),
