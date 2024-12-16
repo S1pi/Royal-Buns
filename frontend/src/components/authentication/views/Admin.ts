@@ -32,6 +32,9 @@ const translations = {
     buttons: {
       back: 'Takaisin',
     },
+    adminPanelInfoHeader:  'Näin muutat menua' ,
+    adminPanelInfoMainContent:  'Tässä näkymässä voit muuttaa menua. Valitse ensin kategoria ja sen jälkeen annos, jonka haluat muuttaa. Täytä annoksen tiedot ja lähetä muutokset.' ,
+
   },
   EN: {
     menuChange: {
@@ -53,6 +56,8 @@ const translations = {
     buttons: {
       back: 'Back',
     },
+    adminPanelInfoHeader:  'This is how you change the menu' ,
+    adminPanelInfoMainContent:  'In this view you can change the menu. First select the category and then the item you want to change. Fill in the details of the item and submit the changes' ,
   },
 };
 
@@ -763,7 +768,34 @@ const createAdminView = async (profileContainer: HTMLDivElement) => {
   );
 
   // TODO: Create right admin panel content
-  // CODE HERE @S1pi
+  const adminPanelInfoContainer = document.createElement('div');
+  adminPanelInfoContainer.classList.add(
+    'flex',
+    'flex-col',
+    'items-center',
+    'w-full',
+    'h-full',
+    'border',
+    'border-secondary',
+    'rounded-md',
+    'p-2'
+  );
+  const adminPanelInfoHeader = document.createElement('h3');
+  adminPanelInfoHeader.textContent = translations[language].adminPanelInfoHeader;
+  adminPanelInfoHeader.classList.add(
+    'text-h3',
+    'font-bold',
+    'text-center',
+    'text-black',
+    'mb-4'
+  );
+  adminPanelInfoContainer.appendChild(adminPanelInfoHeader);
+  const adminPanelInfoMainContent = document.createElement('p');
+  adminPanelInfoMainContent.textContent = translations[language].adminPanelInfoMainContent;
+  adminPanelInfoMainContent.classList.add('text-paragraph', 'text-center', 'text-black', 'mb-4');
+  adminPanelInfoContainer.appendChild(adminPanelInfoMainContent);
+  rightAdminPanel.appendChild(adminPanelInfoContainer);
+
 
   // Append left and right admin panels to panelContainer
   panelContainer.append(leftAdminPanel, rightAdminPanel);

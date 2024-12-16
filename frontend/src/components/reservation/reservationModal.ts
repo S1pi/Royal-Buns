@@ -636,8 +636,10 @@ const reservationModal = async () => {
 
   // loop through the tables and create table elements
   tables.forEach((table) => {
+
     // Filter tables by reservation size
     const tableButton = document.createElement('button');
+    tableButton.id = `table-${table.table_id}`;
     console.log(table.is_free);
     table.is_free
       ? tableButton.classList.add('bg-green') // Gives green color if tables is available
