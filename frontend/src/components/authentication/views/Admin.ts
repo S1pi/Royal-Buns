@@ -6,7 +6,6 @@ import {
   getAllSliders,
 } from '../../../utils/getMenuItems';
 import {sendBurgerMenuItem, sendOtherMenuItem} from '../../../utils/sendMenuItems';
-import {menu} from '../../menu/menu';
 import {router} from '../../navigation/router';
 import {getProfilePageData} from '../AuthenticationService';
 import {createProfileView} from './Profile';

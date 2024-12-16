@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchAllSides = exports.fetchAllSliders = exports.fetchAllDrinks = exports.changeBurgerData = exports.fetchBurgersByDay = exports.fetchAllBurgers = void 0;
+exports.changeSideData = exports.changeSliderData = exports.changeDrinkData = exports.fetchAllSides = exports.fetchAllSliders = exports.fetchAllDrinks = exports.changeBurgerData = exports.fetchBurgersByDay = exports.fetchAllBurgers = void 0;
 const database_1 = __importDefault(require("../utils/database"));
 const fetchAllBurgers = () => __awaiter(void 0, void 0, void 0, function* () {
     // const sql = 'SELECT * FROM burgers'; // Vanha sql kysely ilman mariadb:n longtext kenttää
@@ -72,6 +72,66 @@ const changeBurgerData = (burger) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.changeBurgerData = changeBurgerData;
+const changeDrinkData = (drink) => __awaiter(void 0, void 0, void 0, function* () {
+    const sql = 'UPDATE drinks SET diets = ?, price = ?, name = ?, description = ?, photo = ? WHERE id = ?';
+    const params = [
+        drink.diets,
+        drink.price,
+        drink.name,
+        JSON.stringify(drink.description),
+        drink.photo,
+        drink.id,
+    ];
+    try {
+        const result = yield database_1.default.execute(sql, params);
+        return result[0].affectedRows;
+    }
+    catch (err) {
+        console.error(err);
+        throw err;
+    }
+});
+exports.changeDrinkData = changeDrinkData;
+const changeSliderData = (slider) => __awaiter(void 0, void 0, void 0, function* () {
+    const sql = 'UPDATE sliders SET diets = ?, price = ?, name = ?, description = ?, photo = ? WHERE id = ?';
+    const params = [
+        slider.diets,
+        slider.price,
+        slider.name,
+        JSON.stringify(slider.description),
+        slider.photo,
+        slider.id,
+    ];
+    try {
+        const result = yield database_1.default.execute(sql, params);
+        return result[0].affectedRows;
+    }
+    catch (err) {
+        console.error(err);
+        throw err;
+    }
+});
+exports.changeSliderData = changeSliderData;
+const changeSideData = (side) => __awaiter(void 0, void 0, void 0, function* () {
+    const sql = 'UPDATE sides SET diets = ?, price = ?, name = ?, description = ?, photo = ? WHERE id = ?';
+    const params = [
+        side.diets,
+        side.price,
+        side.name,
+        JSON.stringify(side.description),
+        side.photo,
+        side.id,
+    ];
+    try {
+        const result = yield database_1.default.execute(sql, params);
+        return result[0].affectedRows;
+    }
+    catch (err) {
+        console.error(err);
+        throw err;
+    }
+});
+exports.changeSideData = changeSideData;
 // const burgers: Burger[] = result.map((row: any) => ({
 //   id: row.id,
 //   diets: row.diets,
