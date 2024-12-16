@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllSides = exports.getAllSliders = exports.getAllDrinks = exports.postBurger = exports.getBurgersByDay = exports.getAllBurgers = void 0;
+exports.postSide = exports.postSlider = exports.postDrink = exports.getAllSides = exports.getAllSliders = exports.getAllDrinks = exports.postBurger = exports.getBurgersByDay = exports.getAllBurgers = void 0;
 const menu_model_1 = require("../models/menu-model");
 const getAllBurgers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -142,3 +142,81 @@ const getAllSides = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.getAllSides = getAllSides;
+const postDrink = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id, diets, price, name, description } = req.body;
+        const photo = '';
+        const affectedRows = yield (0, menu_model_1.changeDrinkData)({ id, diets, price, name, description, photo });
+        if (affectedRows > 0) {
+            res.status(200).json({ message: 'Drink updated successfully' });
+        }
+        else {
+            res.status(400).json({ message: 'Failed to update drink' });
+        }
+    }
+    catch (err) {
+        if (err instanceof Error) {
+            console.error('Database connection error: ', err);
+            res
+                .status(503)
+                .json({ message: 'Service unavailable: database error', status: 503, error: err });
+        }
+        else {
+            console.error('Unknown error: ', err);
+            res.status(500).json({ message: 'Unknown error', status: 500, error: err });
+        }
+    }
+});
+exports.postDrink = postDrink;
+const postSlider = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id, diets, price, name, description } = req.body;
+        const photo = '';
+        const affectedRows = yield (0, menu_model_1.changeSliderData)({ id, diets, price, name, description, photo });
+        if (affectedRows > 0) {
+            res.status(200).json({ message: 'Slider updated successfully' });
+        }
+        else {
+            res.status(400).json({ message: 'Failed to update slider' });
+        }
+    }
+    catch (err) {
+        if (err instanceof Error) {
+            console.error('Database connection error: ', err);
+            res
+                .status(503)
+                .json({ message: 'Service unavailable: database error', status: 503, error: err });
+        }
+        else {
+            console.error('Unknown error: ', err);
+            res.status(500).json({ message: 'Unknown error', status: 500, error: err });
+        }
+    }
+});
+exports.postSlider = postSlider;
+const postSide = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id, diets, price, name, description } = req.body;
+        const photo = '';
+        const affectedRows = yield (0, menu_model_1.changeSideData)({ id, diets, price, name, description, photo });
+        if (affectedRows > 0) {
+            res.status(200).json({ message: 'Side updated successfully' });
+        }
+        else {
+            res.status(400).json({ message: 'Failed to update side' });
+        }
+    }
+    catch (err) {
+        if (err instanceof Error) {
+            console.error('Database connection error: ', err);
+            res
+                .status(503)
+                .json({ message: 'Service unavailable: database error', status: 503, error: err });
+        }
+        else {
+            console.error('Unknown error: ', err);
+            res.status(500).json({ message: 'Unknown error', status: 500, error: err });
+        }
+    }
+});
+exports.postSide = postSide;

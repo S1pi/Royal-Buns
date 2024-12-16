@@ -29,7 +29,16 @@ const validDays = [
 menuRouter
     .route('/burgers/:day')
     .get((0, express_validator_1.param)('day').isString().isIn(validDays).withMessage('Invalid day parameter'), error_handler_1.validationErrorHandler, menu_controller_1.getBurgersByDay);
-menuRouter.route('/drinks').get(menu_controller_1.getAllDrinks);
-menuRouter.route('/sliders').get(menu_controller_1.getAllSliders);
-menuRouter.route('/sides').get(menu_controller_1.getAllSides);
+menuRouter
+    .route('/drinks')
+    .get(menu_controller_1.getAllDrinks)
+    .post(authentication_1.tokenAuth, error_handler_1.validationErrorHandler, menu_controller_1.postDrink);
+menuRouter
+    .route('/sliders')
+    .get(menu_controller_1.getAllSliders)
+    .post(authentication_1.tokenAuth, error_handler_1.validationErrorHandler, menu_controller_1.postSlider);
+menuRouter
+    .route('/sides')
+    .get(menu_controller_1.getAllSides)
+    .post(authentication_1.tokenAuth, error_handler_1.validationErrorHandler, menu_controller_1.postSide);
 exports.default = menuRouter;

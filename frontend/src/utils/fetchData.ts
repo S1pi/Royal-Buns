@@ -1,5 +1,5 @@
- const backendUrl = 'http://127.0.0.1:3000/api'; // Development backend url
-// const backendUrl = '/api'; // Deployment backend url needs this cuz runs on same server
+//  const backendUrl = 'http://127.0.0.1:3000/api'; // Development backend url
+const backendUrl = '/api'; // Deployment backend url needs this cuz runs on same server
 
 const fetchData = async <T>(url: string, options: RequestInit): Promise<T> => {
   console.log('Checking fetch...');
